@@ -178,6 +178,22 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
 .lgforms label{width:100%;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .lgforms input{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:5px;padding:7px 10px}
 .lgmsg{padding:0 16px 12px;font-size:13px;color:var(--muted);margin:0}
+.budget{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.budget .cr{font-family:var(--mono);font-variant-numeric:tabular-nums;line-height:1.1}
+.budget .cr b{font-size:20px;display:block;color:var(--ink)}
+.budget .cr small{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+.budget .cr.over b{color:var(--loss)}
+.slots{display:flex;gap:3px}
+.slots i{width:8px;height:18px;border-radius:2px;background:var(--line)}
+.slots i.f{background:var(--court)}
+.meter{margin:0 16px 12px;display:grid;gap:4px}
+.meter .track{height:10px;border-radius:5px;background:var(--surface-2);border:1px solid var(--line);overflow:hidden;display:flex}
+.meter .track i{display:block;height:100%;background:var(--court);border-right:1px solid var(--surface)}
+.meter .track i.over{background:var(--loss)}
+.meter .lbl{display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;flex-wrap:wrap}
+.meter .lbl b{color:var(--ink)}
+.barright{display:flex;gap:12px;align-items:center}
+@media (max-width:540px){.bar .wrap{flex-wrap:wrap;row-gap:4px;column-gap:12px;padding-block:10px}.barright{display:contents}#saveBtn{order:2;margin-left:auto}.budget{order:1}.bar .msg{font-size:12px;order:3;flex:1 1 0}#revertBtn{order:4;font-size:12px}.budget .cr b{font-size:17px}.play{padding:10px 14px;font-size:18px}}
 .link{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:13px;padding:0}
 </style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2214%22 fill=%22%23c9e23c%22/%3E%3Cpath d=%22M6 8c6 4 6 12 0 16M26 8c-6 4-6 12 0 16%22 stroke=%22%23fff%22 stroke-width=%222%22 fill=%22none%22/%3E%3C/svg%3E">
@@ -260,6 +276,7 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
       <div class="ph"><h2>Your team</h2><p id="teamHint"></p></div>
       <div class="banner" id="statusBanner" hidden></div>
       <div class="teamname"><label for="teamName">Team name</label><input id="teamName" maxlength="32" placeholder="e.g. Liestal Aces"></div>
+      <div class="meter" id="meter"></div>
       <div id="team"></div>
       <div class="note" id="teamNote" hidden></div>
     </section>
@@ -335,8 +352,9 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
 </main>
 
 <div class="bar" id="bar" hidden><div class="wrap">
+  <div class="budget" id="budgetBox"><div class="cr" id="crLeft"><b>100</b><small>cr left</small></div><div class="slots" id="slotPips" aria-hidden="true"></div></div>
   <div class="msg" id="barMsg"></div>
-  <div style="display:flex;gap:12px;align-items:center">
+  <div class="barright">
     <button class="link" id="revertBtn" hidden>Discard changes</button>
     <button class="play" id="saveBtn" disabled>Save team</button>
   </div>
@@ -693,6 +711,15 @@ function renderTourney(T){
     $("league").querySelectorAll("tbody tr").forEach((tr,i)=>tr.children[1].textContent=teamLabel(st[i].id));
   }
 
+  const left=budget(d), n=d.draft.p.length, open=5-n, has=T.players.length&&r>=0;
+  $("budgetBox").hidden=!has;
+  $("crLeft").className="cr"+(left<0?" over":"");
+  $("crLeft").innerHTML=`<b>${left}</b><small>cr left${open>0&&left>=0?` · ~${Math.floor(left/open)}/pick`:""}</small>`;
+  $("slotPips").innerHTML=Array.from({length:5},(_,i)=>`<i class="${i<n?"f":""}"></i>`).join("");
+  const sorted=d.draft.p.slice().sort((a,b)=>b.paid-a.paid);
+  $("meter").hidden=!has;
+  $("meter").innerHTML=`<div class="track" role="img" aria-label="${spent(d)} of ${BUDGET} credits spent">${sorted.map(x=>`<i class="${left<0?"over":""}" style="width:${Math.min(100,x.paid/BUDGET*100)}%" title="${esc(P(T,x.id).name)}: ${x.paid} cr"></i>`).join("")}</div>
+    <div class="lbl"><span><b>${spent(d)}</b> of ${BUDGET} cr spent · ${n}/5 players</span><span>${left<0?`<b class="neg">${-left} cr over budget</b>`:open?`<b>${left} cr</b> left for ${open} player${open>1?"s":""}`:`<b>${left} cr</b> unspent`}</span></div>`;
   const v=validity(T,d);
   $("barMsg").innerHTML=saveErr?`<b>${esc(saveErr)}</b>`:saving?"Saving…":v.msg;
   $("saveBtn").disabled=(!v.ok&&!v.needLogin)||saving; $("saveBtn").textContent=v.saved?"Saved":v.needLogin?"Log in":"Save team";
