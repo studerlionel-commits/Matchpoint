@@ -1,0 +1,67 @@
+{
+ "id": "paris-2026",
+ "name": "Rolex Paris Masters",
+ "city": "Paris",
+ "category": "Masters 1000",
+ "vp": 1,
+ "surface": "Indoor hard",
+ "start": "2026-11-02",
+ "end": "2026-11-08",
+ "dates": "2 – 8 Nov 2026",
+ "status": "upcoming",
+ "note": "Field and prices get added a few days before the start. Top seeds usually get a first-round bye.",
+ "rounds": [
+  {
+   "key": "R64",
+   "label": "Round of 64",
+   "lock": "2026-11-02T10:00:00Z",
+   "win": 11
+  },
+  {
+   "key": "R32",
+   "label": "Round of 32",
+   "lock": "2026-11-04T10:00:00Z",
+   "win": 15
+  },
+  {
+   "key": "R16",
+   "label": "Round of 16",
+   "lock": "2026-11-05T10:00:00Z",
+   "win": 21
+  },
+  {
+   "key": "QF",
+   "label": "Quarterfinals",
+   "lock": "2026-11-06T10:00:00Z",
+   "win": 28
+  },
+  {
+   "key": "SF",
+   "label": "Semifinals",
+   "lock": "2026-11-07T13:00:00Z",
+   "win": 38
+  },
+  {
+   "key": "F",
+   "label": "Final",
+   "lock": "2026-11-08T14:00:00Z",
+   "win": 55
+  }
+ ],
+ "players": [],
+ "bestOf": 3,
+ "tracksUE": false,
+ "format": "knockout",
+ "matches": [],
+ "sources": [
+  {
+   "label": "ATP Tour",
+   "url": "https://www.atptour.com/en/scores/current"
+  },
+  {
+   "label": "Polymarket (official ATP prediction market)",
+   "url": "https://polymarket.com/sports/tennis"
+  }
+ ],
+ "updatedAt": "2026-10-21T11:45:00Z"
+}

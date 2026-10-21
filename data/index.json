@@ -1,0 +1,27 @@
+{
+ "season": {
+  "id": "current",
+  "name": "Season 2026/27",
+  "start": "2026-10-26",
+  "end": "2027-11-21",
+  "endLabel": "after the 2027 ATP Finals",
+  "rules": {
+   "slamVP": 2,
+   "otherVP": 1,
+   "mostPointsVP": 1
+  },
+  "categories": [
+   "Grand Slam",
+   "Masters 1000",
+   "ATP 500",
+   "ATP Finals"
+  ],
+  "updatedAt": "2026-10-21T11:45:00Z"
+ },
+ "tourneys": [
+  "atp-finals-2026",
+  "basel-2026",
+  "paris-2026",
+  "vienna-2026"
+ ]
+}

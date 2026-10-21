@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Matchpoint Fantasy</title>
+<meta name="description" content="Season-long tennis fantasy league: pick 5 players per tournament, prices from Polymarket odds.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+/* Layout: court-blue scoreboard band; home = tournament cards + season table; tournament = team, points, matches, players, league; sticky save bar */
+:root{
+  --bg:#edf1f6; --surface:#ffffff; --surface-2:#f5f7fb; --ink:#0f1d33; --muted:#5a6a82; --line:#d6dde8;
+  --court:#1d4f91; --court-ink:#ffffff; --band:#173f78; --ball:#c9e23c; --ball-ink:#1b2a07;
+  --win:#1a7a49; --loss:#b23a30; --live:#d0402f; --slam:#7a4fb8;
+  --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
+  --body:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0a1322; --surface:#111d33; --surface-2:#0e182b; --ink:#e6ecf5; --muted:#8e9cb4; --line:#223152;
+  --court:#4d8be0; --court-ink:#ffffff; --band:#0f2648; --ball:#d6ef4a; --ball-ink:#1b2a07;
+  --win:#4fc487; --loss:#f07a6f; --live:#ff6b5b; --slam:#b48cf0; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0a1322; --surface:#111d33; --surface-2:#0e182b; --ink:#e6ecf5; --muted:#8e9cb4; --line:#223152;
+  --court:#4d8be0; --court-ink:#ffffff; --band:#0f2648; --ball:#d6ef4a; --ball-ink:#1b2a07;
+  --win:#4fc487; --loss:#f07a6f; --live:#ff6b5b; --slam:#b48cf0; color-scheme:dark}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{padding-top:env(safe-area-inset-top,0px)}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;margin:0}
+button,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
+.wrap{max-width:880px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.02em;margin:0;text-wrap:balance}
+
+.band{background:var(--band);color:var(--court-ink);position:relative;overflow:hidden}
+.band::after{content:"";position:absolute;left:0;right:0;bottom:14px;height:2px;background:rgba(255,255,255,.55)}
+.band::before{content:"";position:absolute;top:0;bottom:14px;left:50%;width:2px;background:rgba(255,255,255,.16)}
+.band .wrap{padding-block:18px 30px;position:relative;z-index:1}
+.back{background:none;border:0;color:var(--court-ink);opacity:.85;padding:0;font-size:13px;text-decoration:underline;margin-bottom:8px}
+.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;opacity:.85}
+.band h1{font-size:clamp(32px,8vw,50px);line-height:.95;font-weight:800;margin-top:4px}
+.band h1 span{color:var(--ball)}
+.lockline{margin-top:10px;font-size:14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.lockline b{font-family:var(--mono);font-weight:600;background:var(--ball);color:var(--ball-ink);padding:1px 7px;border-radius:3px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:14px}
+.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:6px;padding:8px 10px;min-width:0}
+.stat b{display:block;font-family:var(--mono);font-size:20px;font-variant-numeric:tabular-nums;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stat small{font-size:11px;text-transform:uppercase;letter-spacing:.08em;opacity:.8}
+.rounds{display:flex;gap:4px;margin-top:12px;flex-wrap:wrap}
+.rnd{font-family:var(--mono);font-size:12px;padding:3px 8px;border-radius:3px;border:1px solid rgba(255,255,255,.25);opacity:.6}
+.rnd.done{opacity:.9;background:rgba(255,255,255,.1)}
+.rnd.now{opacity:1;background:var(--ball);color:var(--ball-ink);border-color:var(--ball);font-weight:600}
+@media (max-width:540px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+main .wrap{display:grid;gap:20px;padding-block:20px 130px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.ph{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 16px 10px;flex-wrap:wrap}
+.ph h2{font-size:24px}
+.ph p{margin:0;color:var(--muted);font-size:13px;max-width:60ch}
+.banner{margin:0 16px 12px;padding:10px 12px;border-radius:6px;background:var(--surface-2);border:1px dashed var(--line);font-size:13px;color:var(--muted)}
+
+/* Home cards */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;padding:0 16px 16px}
+.card{all:unset;box-sizing:border-box;cursor:pointer;display:grid;gap:8px;padding:14px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);min-width:0}
+.card:hover{border-color:var(--court)}
+.card:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
+.card.past{opacity:.75}
+.card h3{font-size:22px;line-height:1}
+.cat{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted)}
+.vp{font-family:var(--mono);font-size:11px;font-weight:600;padding:1px 6px;border-radius:3px;background:var(--court);color:var(--court-ink)}
+.vp.slam{background:var(--slam)}
+.cline{font-size:13px;color:var(--muted)}
+.cline b{color:var(--ink)}
+.cstate{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px dashed var(--line);padding-top:8px;font-size:13px;flex-wrap:wrap}
+
+.teamname{display:flex;gap:8px;align-items:center;padding:0 16px 12px;flex-wrap:wrap}
+.teamname label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.teamname input{flex:1;min-width:0;max-width:320px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:5px;padding:6px 10px}
+.slot{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 16px;border-top:1px solid var(--line)}
+.slot.empty{color:var(--muted);font-style:italic}
+.seed{font-family:var(--mono);font-size:12px;color:var(--muted);min-width:30px;text-align:center;font-variant-numeric:tabular-nums}
+.pname{font-weight:600;min-width:0}
+.pname small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.acts{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.btn{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:5px;padding:6px 10px;font-size:13px;font-weight:600}
+.btn:hover:not(:disabled){border-color:var(--court)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.x2{font-family:var(--mono)}
+.btn.x2.on{background:var(--ball);color:var(--ball-ink);border-color:var(--ball)}
+.btn.buy{background:var(--court);color:var(--court-ink);border-color:var(--court)}
+.btn.sell{color:var(--loss)}
+.tag{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 6px;border-radius:3px;white-space:nowrap}
+.tag.out{background:color-mix(in srgb,var(--loss) 15%,transparent);color:var(--loss)}
+.tag.in{background:color-mix(in srgb,var(--win) 15%,transparent);color:var(--win)}
+.tag.cap{background:var(--ball);color:var(--ball-ink)}
+.tag.soft{background:var(--surface);color:var(--muted);border:1px solid var(--line)}
+.tag.live{background:var(--live);color:#fff}
+.price{font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pts{font-family:var(--mono);font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.note{padding:10px 16px;border-top:1px solid var(--line);background:var(--surface-2);font-size:13px;color:var(--muted)}
+
+.tabs{display:flex;gap:6px;padding:0 16px 10px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:transparent;color:var(--muted);border-radius:999px;padding:4px 12px;font-size:13px}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.matches{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;padding:4px 16px 16px}
+.match{border:1px solid var(--line);border-radius:6px;overflow:hidden;font-size:13px;min-width:0}
+.match.mine{border-color:var(--court);box-shadow:0 0 0 1px var(--court)}
+.mhead{display:flex;justify-content:space-between;gap:8px;padding:4px 10px;font-size:11px;color:var(--muted);background:var(--surface-2);text-transform:uppercase;letter-spacing:.06em}
+.mrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:6px 10px;align-items:center;border-top:1px solid var(--line)}
+.mrow.w{font-weight:700}
+.mrow.w .nm::after{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ball);margin-left:6px;vertical-align:middle;box-shadow:0 0 0 1px var(--ball-ink)}
+.nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sets{display:flex;gap:2px;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.sets span{min-width:22px;text-align:center;background:var(--surface-2);border-radius:2px;padding:0 2px}
+.muted{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.oddsbar{height:4px;display:flex;background:var(--line)}
+.oddsbar i{display:block;background:var(--court)}
+.empty-state{padding:4px 16px 18px;color:var(--muted);font-size:14px;margin:0}
+
+.mk{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto auto;gap:10px;align-items:center;padding:8px 16px;border-top:1px solid var(--line)}
+.mk.dead{opacity:.5}
+.mk.owned{background:color-mix(in srgb,var(--court) 7%,transparent)}
+@media (max-width:540px){.mk{grid-template-columns:auto minmax(0,1fr) auto auto}.mk .muted{display:none}}
+
+.bd{border-top:1px solid var(--line);padding:10px 16px}
+.bd-top{display:flex;justify-content:space-between;gap:8px;font-weight:600;flex-wrap:wrap}
+.bd ul{margin:6px 0 0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:4px 12px;font-size:12px;color:var(--muted)}
+.bd ul li b{color:var(--ink);font-family:var(--mono)}
+.neg{color:var(--loss)!important}
+
+.lb{width:100%;border-collapse:collapse;font-size:14px}
+.lb th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);text-align:right;padding:6px 8px;font-weight:600;white-space:nowrap}
+.lb th:nth-child(-n+2){text-align:left}
+.lb td{padding:8px;border-top:1px solid var(--line);text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.lb td:nth-child(2){text-align:left;font-family:var(--body);font-weight:600;white-space:normal}
+.lb td:first-child{text-align:left;color:var(--muted);width:32px}
+.lb tr.me td{background:color-mix(in srgb,var(--ball) 18%,transparent)}
+.lbwrap{overflow-x:auto;padding:0 8px 8px}
+
+.rules{padding:0 16px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.rules h3{font-size:17px;color:var(--court);margin-bottom:4px}
+.rules table{width:100%;border-collapse:collapse;font-size:13px}
+.rules td{padding:5px 0;border-bottom:1px dashed var(--line);vertical-align:top}
+.rules td:last-child{text-align:right;font-family:var(--mono);font-weight:600;white-space:nowrap;padding-left:10px}
+.rules td small{display:block;color:var(--muted);font-size:12px}
+.howto{padding:0 16px 8px 34px;margin:0;color:var(--muted);font-size:14px;max-width:72ch}
+.howto li{margin-bottom:4px}
+.src{padding:0 16px 16px;font-size:12px;color:var(--muted);margin:0}
+.src a{color:var(--court)}
+
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);z-index:20;padding-bottom:env(safe-area-inset-bottom,0px)}
+.bar .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;padding-block:12px}
+.bar .msg{font-size:13px;color:var(--muted);min-width:0}
+.bar .msg b{color:var(--ink)}
+.play{background:var(--ball);color:var(--ball-ink);border:0;border-radius:6px;padding:12px 18px;font-family:var(--display);font-size:20px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.play:disabled{background:var(--line);color:var(--muted);cursor:not-allowed}
+.toprow{display:flex;justify-content:space-between;align-items:center;gap:12px;min-height:22px;margin-bottom:6px}
+.toprow .back{margin:0}
+.acct{margin-left:auto;display:flex;gap:10px;align-items:center;font-size:13px;min-width:0}
+.acct span{opacity:.85;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:180px}
+.acct button{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.3);color:var(--court-ink);border-radius:5px;padding:4px 10px;font-size:13px;font-weight:600}
+.authform{display:grid;gap:6px;padding:0 16px 16px;max-width:380px}
+.authform label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.authform input{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:5px;padding:9px 10px}
+.autherr{color:var(--loss);font-size:13px;min-height:1em;margin:4px 0}
+.authacts{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.link{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:13px;padding:0}
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2214%22 fill=%22%23c9e23c%22/%3E%3Cpath d=%22M6 8c6 4 6 12 0 16M26 8c-6 4-6 12 0 16%22 stroke=%22%23fff%22 stroke-width=%222%22 fill=%22none%22/%3E%3C/svg%3E">
+</head>
+<body>
+<header class="band">
+  <div class="wrap">
+    <div class="toprow"><button class="back" id="backBtn" hidden>← All tournaments</button><div class="acct" id="acct"></div></div>
+    <div class="eyebrow" id="eyebrow"></div>
+    <h1>Match<span>point</span> Fantasy</h1>
+    <div class="lockline" id="lockLine"></div>
+    <div class="stats" id="stats"></div>
+    <div class="rounds" id="rounds"></div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap" id="authWrap" hidden>
+    <section class="panel" id="authPanel">
+      <div class="ph"><h2 id="authTitle">Log in</h2><button class="link" id="authClose">Close</button></div>
+      <form id="authForm" class="authform" novalidate>
+        <label for="authEmail">Email</label>
+        <input id="authEmail" type="email" autocomplete="email" required>
+        <label for="authPass">Password</label>
+        <input id="authPass" type="password" autocomplete="current-password" minlength="6" required>
+        <p class="autherr" id="authErr" role="alert"></p>
+        <div class="authacts"><button class="play" type="submit" id="authSubmit">Log in</button>
+        <button class="link" type="button" id="authSwitch">No account yet? Sign up</button></div>
+      </form>
+    </section>
+  </div>
+
+  <!-- HOME -->
+  <div class="wrap" id="homeView">
+    <section class="panel">
+      <div class="ph"><h2>Tournaments</h2><p>Every Grand Slam, Masters 1000, ATP 500 and the ATP Finals. Each one has its own team and its own 100 credits.</p></div>
+      <div class="cards" id="cards"></div>
+    </section>
+    <section class="panel">
+      <div class="ph"><h2>Season standings</h2><p id="seasonSub"></p></div>
+      <div class="lbwrap" id="seasonTable"></div>
+    </section>
+    <section class="panel">
+      <div class="ph"><h2>How the season works</h2></div>
+      <div class="rules">
+        <div>
+          <h3>Victory points (VP)</h3>
+          <table>
+            <tr><td>Win a Grand Slam league<small>Most fantasy points in that tournament</small></td><td>2 VP</td></tr>
+            <tr><td>Win any other league<small>Masters 1000, ATP 500, ATP Finals</small></td><td>1 VP</td></tr>
+            <tr><td>Most fantasy points in the season<small>Awarded when the season ends</small></td><td>1 VP</td></tr>
+            <tr><td>Ties<small>Everyone tied for first gets the VP</small></td><td>–</td></tr>
+          </table>
+        </div>
+        <div>
+          <h3>Who wins the season</h3>
+          <table>
+            <tr><td>Most VP at the end of the season</td><td>🏆</td></tr>
+            <tr><td>Tied on VP<small>More total fantasy points wins</small></td><td>–</td></tr>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- TOURNAMENT -->
+  <div class="wrap" id="tourneyView" hidden>
+    <section class="panel">
+      <div class="ph"><h2>Your team</h2><p id="teamHint"></p></div>
+      <div class="banner" id="statusBanner" hidden></div>
+      <div class="teamname"><label for="teamName">Team name</label><input id="teamName" maxlength="32" placeholder="e.g. Liestal Aces"></div>
+      <div id="team"></div>
+      <div class="note" id="teamNote" hidden></div>
+    </section>
+    <section class="panel">
+      <div class="ph"><h2>Your points</h2><p>Per round and player, with the ×2 already applied.</p></div>
+      <div id="breakdown"></div>
+    </section>
+    <section class="panel">
+      <div class="ph"><h2>Matches</h2><p>Bars show the prediction-market win chance before the match.</p></div>
+      <div class="tabs" id="roundTabs"></div>
+      <div id="matches" class="matches"></div>
+    </section>
+    <section class="panel">
+      <div class="ph"><h2>Players</h2><p>Prices are relative to this field: the favourite costs 30, the biggest long shot 6. They follow Polymarket odds once markets open, ATP rankings before that.</p></div>
+      <div class="tabs" id="filters">
+        <button class="chip on" data-f="all">All</button>
+        <button class="chip" data-f="alive">Still in</button>
+        <button class="chip" data-f="afford">Affordable</button>
+      </div>
+      <div id="market"></div>
+    </section>
+    <section class="panel">
+      <div class="ph"><h2>League</h2><p id="leagueSub"></p></div>
+      <div class="lbwrap" id="league"></div>
+    </section>
+  </div>
+
+  <div class="wrap" style="padding-top:0">
+    <section class="panel">
+      <div class="ph"><h2>Scoring</h2><p>The same in every tournament.</p></div>
+      <ol class="howto">
+        <li>Pick 5 players with 100 credits and give one of them the <b>×2</b>. It doubles his points and can move before every round.</li>
+        <li>Before each later round you get <b>one transfer</b>: sell a player (full price back) and buy one who is still in.</li>
+        <li>Each round locks when its first match starts. Players you own keep the price you paid.</li>
+      </ol>
+      <div class="rules">
+        <div>
+          <h3>Winning a match</h3>
+          <table>
+            <tr><td>Round of 128</td><td>+8</td></tr>
+            <tr><td>Round of 64</td><td>+11</td></tr>
+            <tr><td>Round of 32</td><td>+15</td></tr>
+            <tr><td>Round of 16</td><td>+21</td></tr>
+            <tr><td>Quarterfinal</td><td>+28</td></tr>
+            <tr><td>Semifinal</td><td>+38</td></tr>
+            <tr><td>Final<small>Each round is worth about 1.4× the one before</small></td><td>+55</td></tr>
+            <tr><td>ATP Finals group match</td><td>+20</td></tr>
+          </table>
+        </div>
+        <div>
+          <h3>Every match, win or lose</h3>
+          <table>
+            <tr><td>Set won<small>So losers who fight still score</small></td><td>+4</td></tr>
+            <tr><td>Ace</td><td>+1</td></tr>
+            <tr><td>Double fault</td><td class="neg">−1</td></tr>
+            <tr><td>Unforced error<small>Only where it's published: the Grand Slams</small></td><td class="neg">−0.25</td></tr>
+            <tr><td>Blowout win<small>Straight sets, opponent won ≤5 games (≤9 in best of 5)</small></td><td>+6</td></tr>
+          </table>
+        </div>
+        <div>
+          <h3>Special cases</h3>
+          <table>
+            <tr><td>Walkover win<small>Opponent didn't play</small></td><td>win only</td></tr>
+            <tr><td>Opponent retired<small>Stats up to the retirement count, no blowout</small></td><td>win + stats</td></tr>
+            <tr><td>First-round bye<small>Top seeds at big events</small></td><td>0</td></tr>
+          </table>
+        </div>
+      </div>
+      <p class="src" id="sources"></p>
+    </section>
+  </div>
+</main>
+
+<div class="bar" id="bar" hidden><div class="wrap">
+  <div class="msg" id="barMsg"></div>
+  <div style="display:flex;gap:12px;align-items:center">
+    <button class="link" id="revertBtn" hidden>Discard changes</button>
+    <button class="play" id="saveBtn" disabled>Save team</button>
+  </div>
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script>
+const CFG=window.MATCHPOINT_CONFIG||{};
+let SEASON={name:"Season",end:"2099-01-01",rules:{}}, TOURNEYS={}, ENTRIES={}, ME=null, MY_EMAIL="", sb=null, dbState="loading", dataState="loading";
+let view=null; const DRAFTS={};
+let filter="all", matchTab=null, saving=false, saveErr="", authMode="login";
+const BUDGET=100;
+
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const clone=o=>JSON.parse(JSON.stringify(o));
+const now=()=>Date.now();
+const fmt=n=>Number.isInteger(n)?String(n):n.toFixed(2).replace(/0$/,"");
+const vpOf=T=>T.category==="Grand Slam"?(SEASON.rules?.slamVP??2):(SEASON.rules?.otherVP??1);
+
+/* ---------- Tournament helpers ---------- */
+const P=(T,id)=>T.players.find(p=>p.id===id)||{id,name:id,price:0,status:"tbd"};
+const openRound=T=>T.rounds.findIndex(r=>new Date(r.lock).getTime()>now());
+const buyable=p=>p.status==="entered"||p.status==="in";
+const isOut=p=>p.status==="out"||p.status==="withdrawn";
+const lineupsOf=(T,uid)=>ENTRIES[uid]?.leagues?.[T.id]?.lineups||{};
+// A lineup only counts for round k if the server says it was saved before round k locked.
+function effective(T,lineups,r){
+  for(let k=r;k>=0;k--){const lu=lineups[k];if(lu&&(!lu.savedAt||new Date(lu.savedAt)<=new Date(T.rounds[k].lock)))return lu}
+  return null;
+}
+function phase(T){
+  if(T.status==="finished")return "finished";
+  if(!T.players.length)return "upcoming";
+  const r=openRound(T); if(r===0)return "draft"; if(r<0)return "final-day"; return "live";
+}
+
+/* ---------- Scoring ---------- */
+const matchFor=(T,pid,r)=>T.matches.find(m=>m.round===r&&(m.a===pid||m.b===pid));
+function scoreMatch(T,m,pid){
+  const isA=m.a===pid, won=m.winner===pid, items=[], R=T.rounds[m.round];
+  const add=(label,n,each)=>{if(n)items.push({label,n,pts:n*each})};
+  if(won)add(R.key.startsWith("RR")?"Group win":`${R.key} win`,1,R.win);
+  if(!m.wo){
+    const sets=m.sets||[], my=s=>isA?s[0]:s[1], th=s=>isA?s[1]:s[0];
+    const sw=sets.filter(s=>my(s)>th(s)).length, sl=sets.filter(s=>my(s)<th(s)).length;
+    add("Sets won",sw,4);
+    const oppGames=sets.reduce((t,s)=>t+th(s),0);
+    if(won&&!m.ret&&sl===0&&oppGames<=((T.bestOf||3)===5?9:5))add("Blowout",1,6);
+    const st=m.stats?.[isA?"a":"b"];
+    if(st){add("Aces",st.aces|0,1);add("Double faults",st.df|0,-1);if(T.tracksUE&&st.ue!=null)add("Unforced errors",st.ue|0,-0.25)}
+  }
+  return{total:items.reduce((t,i)=>t+i.pts,0),items};
+}
+function roundScore(T,lineups,r){
+  const lu=effective(T,lineups,r); if(!lu)return{total:0,rows:[],none:true};
+  let total=0;const rows=[];
+  for(const x of lu.p){
+    const m=matchFor(T,x.id,r), mult=lu.cap===x.id?2:1;
+    if(!m){rows.push({id:x.id,mult,pts:0,state:isOut(P(T,x.id))?"out":"none",items:[]});continue}
+    if(m.status!=="done"){rows.push({id:x.id,mult,pts:0,state:m.status,items:[]});continue}
+    const sc=scoreMatch(T,m,x.id);total+=sc.total*mult;
+    rows.push({id:x.id,mult,pts:sc.total*mult,state:m.winner===x.id?"won":"lost",items:sc.items});
+  }
+  return{total,rows};
+}
+function entryTotal(T,lineups){let t=0;const per=T.rounds.map((_,r)=>{const s=roundScore(T,lineups,r).total;t+=s;return s});return{t,per}}
+function playerPoints(T,pid){let t=0;T.matches.forEach(m=>{if(m.status==="done"&&(m.a===pid||m.b===pid))t+=scoreMatch(T,m,pid).total});return t}
+function tourneyStandings(T){
+  return Object.entries(ENTRIES).filter(([,e])=>e.leagues?.[T.id]).map(([id,e])=>({id,e,...entryTotal(T,e.leagues[T.id].lineups||{})})).sort((a,b)=>b.t-a.t);
+}
+function leagueWinners(T){
+  if(T.status!=="finished")return [];
+  const st=tourneyStandings(T); if(!st.length||st[0].t<=0)return [];
+  return st.filter(x=>x.t===st[0].t).map(x=>x.id);
+}
+function seasonStandings(){
+  const rows={};
+  const row=id=>rows[id]||(rows[id]={id,e:ENTRIES[id],vp:0,wins:0,pts:0,played:0});
+  Object.values(TOURNEYS).forEach(T=>{
+    tourneyStandings(T).forEach(x=>{const r=row(x.id);r.pts+=x.t;r.played++});
+    leagueWinners(T).forEach(id=>{const r=row(id);r.vp+=vpOf(T);r.wins++});
+  });
+  const list=Object.values(rows);
+  const maxPts=Math.max(0,...list.map(r=>r.pts));
+  const ended=now()>new Date(SEASON.end+"T23:59:59Z").getTime();
+  list.forEach(r=>{r.ptsLeader=maxPts>0&&r.pts===maxPts;if(ended&&r.ptsLeader)r.vp+=(SEASON.rules?.mostPointsVP??1)});
+  return {list:list.sort((a,b)=>b.vp-a.vp||b.pts-a.pts),ended};
+}
+
+/* ---------- Drafting ---------- */
+function D(T){
+  const r=openRound(T); let d=DRAFTS[T.id];
+  if(!d||d.round!==r||!d.dirty){
+    const lu=r>=0?effective(T,lineupsOf(T,ME),r):null;
+    d=DRAFTS[T.id]={draft:lu?{p:clone(lu.p||[]),cap:lu.cap||null}:{p:[],cap:null},round:r,dirty:false};
+  }
+  return d;
+}
+function resetDraft(T){delete DRAFTS[T.id];return D(T)}
+const spent=d=>d.draft.p.reduce((t,x)=>t+x.paid,0);
+const budget=d=>BUDGET-spent(d);
+const inDraft=(d,id)=>d.draft.p.some(x=>x.id===id);
+function transferInfo(T,d){
+  const r=openRound(T); const base=r>0?effective(T,lineupsOf(T,ME),r-1):null;
+  if(!base||!base.p.length)return{free:true,out:[],in:[]};
+  const b=new Set(base.p.map(x=>x.id)),c=new Set(d.draft.p.map(x=>x.id));
+  return{free:false,out:base.p.filter(x=>!c.has(x.id)),in:d.draft.p.filter(x=>!b.has(x.id))};
+}
+function canBuy(T,d,id){
+  if(openRound(T)<0||inDraft(d,id)||d.draft.p.length>=5)return false;
+  const ti=transferInfo(T,d);
+  if(!ti.free){if(ti.out.find(x=>x.id===id))return true;if(ti.in.length>=1||ti.out.length===0)return false}
+  const p=P(T,id); return buyable(p)&&p.price<=budget(d);
+}
+function canSell(T,d,id){
+  if(openRound(T)<0||!inDraft(d,id))return false;
+  const ti=transferInfo(T,d); if(ti.free)return true;
+  return ti.in.some(x=>x.id===id)||ti.out.length===0;
+}
+function validity(T,d){
+  const r=openRound(T);
+  if(!T.players.length)return{ok:false,msg:"The field isn't out yet."};
+  if(r<0)return{ok:false,msg:"This tournament is over."};
+  if(dbState==="unconfigured")return{ok:false,msg:"Saving isn't set up yet."};
+  if(!ME)return{ok:false,needLogin:true,msg:"Log in to save your team. It works on any device."};
+  if(d.draft.p.length<5)return{ok:false,msg:`Pick ${5-d.draft.p.length} more player${d.draft.p.length===4?"":"s"}.`};
+  if(budget(d)<0)return{ok:false,msg:"Over budget."};
+  if(!d.draft.cap)return{ok:false,msg:"Give one player the ×2."};
+  if(!($("teamName").value||"").trim())return{ok:false,msg:"Give your team a name."};
+  if(!d.dirty&&!nameDirty())return{ok:false,saved:true,msg:`Saved for the <b>${esc(T.rounds[r].label)}</b>.`};
+  return{ok:true,msg:`Ready to save for the <b>${esc(T.rounds[r].label)}</b>.`};
+}
+const myTeamName=()=>ENTRIES[ME]?.team||"";
+const nameDirty=()=>($("teamName").value||"").trim()!==myTeamName();
+async function save(){
+  const T=TOURNEYS[view], d=D(T), v=validity(T,d);
+  if(v.needLogin){openAuth("login");return}
+  if(!v.ok||saving)return;
+  saving=true;saveErr="";render();
+  const r=openRound(T), cur=ENTRIES[ME]||{};
+  const leagues=clone(cur.leagues||{}); leagues[T.id]=leagues[T.id]||{lineups:{}};
+  leagues[T.id].lineups=leagues[T.id].lineups||{};
+  leagues[T.id].lineups[r]={p:clone(d.draft.p),cap:d.draft.cap};
+  const body={user_id:ME,team:$("teamName").value.trim().slice(0,32),leagues};
+  const {data,error}=await sb.from("entries").upsert(body).select().single();
+  if(error)saveErr="Couldn't save: "+(error.message||"check your connection and try again.");
+  else{ENTRIES[ME]=data;d.dirty=false;$("teamName").dataset.touched=""}
+  saving=false;render();
+}
+
+/* ---------- Data loading ---------- */
+async function loadData(){
+  try{
+    const bust="?v="+Math.floor(now()/60000);
+    const idx=await (await fetch("data/index.json"+bust,{cache:"no-store"})).json();
+    SEASON=idx.season;
+    const docs=await Promise.all(idx.tourneys.map(id=>fetch(`data/tourneys/${id}.json${bust}`,{cache:"no-store"}).then(r=>r.ok?r.json():null).catch(()=>null)));
+    const next={}; docs.filter(Boolean).forEach(t=>next[t.id]=t); TOURNEYS=next; dataState="ready";
+  }catch(e){if(dataState!=="ready")dataState="error"}
+  if(view&&!TOURNEYS[view])view=null;
+  render();
+}
+async function loadEntries(){
+  if(!sb)return;
+  const {data,error}=await sb.from("entries").select("user_id,team,leagues");
+  if(!error){const next={};data.forEach(e=>next[e.user_id]=e);ENTRIES=next;dbState="ready";render()}
+}
+
+/* ---------- Auth ---------- */
+function openAuth(mode){authMode=mode;$("authWrap").hidden=false;$("authErr").textContent="";syncAuthForm();window.scrollTo(0,0);$("authEmail").focus()}
+function syncAuthForm(){
+  const su=authMode==="signup";
+  $("authTitle").textContent=su?"Create account":"Log in";
+  $("authSubmit").textContent=su?"Sign up":"Log in";
+  $("authSwitch").textContent=su?"Already have an account? Log in":"No account yet? Sign up";
+  $("authPass").autocomplete=su?"new-password":"current-password";
+}
+async function submitAuth(e){
+  e.preventDefault(); if(!sb)return;
+  const email=$("authEmail").value.trim(), password=$("authPass").value;
+  if(!email||password.length<6){$("authErr").textContent="Enter your email and a password of at least 6 characters.";return}
+  $("authSubmit").disabled=true;$("authErr").textContent="";
+  const fn=authMode==="signup"?sb.auth.signUp({email,password}):sb.auth.signInWithPassword({email,password});
+  const {data,error}=await fn;
+  $("authSubmit").disabled=false;
+  if(error){$("authErr").textContent=error.message==="Invalid login credentials"?"Wrong email or password.":error.message;return}
+  if(authMode==="signup"&&!data.session){$("authErr").textContent="Check your inbox to confirm your email, then log in.";return}
+  $("authWrap").hidden=true;$("authPass").value="";
+}
+function renderAcct(){
+  const a=$("acct");
+  if(dbState==="unconfigured"){a.innerHTML="";return}
+  a.innerHTML=ME?`<span></span><button id="logoutBtn">Log out</button>`:`<button id="loginBtn">Log in</button><button id="signupBtn">Sign up</button>`;
+  if(ME)a.querySelector("span").textContent=myTeamName()||MY_EMAIL;
+}
+
+/* ---------- Render ---------- */
+const fmtDT=iso=>new Date(iso).toLocaleString(undefined,{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
+function countdown(iso){const s=Math.max(0,(new Date(iso)-now())/1000),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);return d?`${d}d ${h}h`:h?`${h}h ${m}m`:`${m}m`}
+const stat=(label,val)=>`<div class="stat"><small>${label}</small><b>${esc(val)}</b></div>`;
+function statusTag(p){
+  if(p.status==="out")return `<span class="tag out">Out</span>`;
+  if(p.status==="withdrawn")return `<span class="tag out">Withdrew</span>`;
+  if(p.status==="tbd")return `<span class="tag soft">TBA</span>`;
+  return "";
+}
+const badge=p=>p.seed?`<span class="seed">[${p.seed}]</span>`:`<span class="seed">${esc(p.tag||"–")}</span>`;
+const sub=p=>[p.cc,p.rank?`#${p.rank}`:"",p.winProb!=null?`${Math.round(p.winProb*100)}% title`:""].filter(Boolean).join(" · ");
+const teamLabel=id=>ENTRIES[id]?.team||"Unnamed team";
+
+function render(){
+  $("homeView").hidden=!!view; $("tourneyView").hidden=!view; $("bar").hidden=!view; $("backBtn").hidden=!view;
+  renderAcct();
+  const T=view&&TOURNEYS[view];
+  $("sources").innerHTML=`Data: <a href="https://www.atptour.com/en/scores/current" target="_blank" rel="noopener">ATP Tour</a> · <a href="https://polymarket.com/sports/tennis" target="_blank" rel="noopener">Polymarket (official ATP prediction market)</a>${T?` · last update ${esc(fmtDT(T.updatedAt))}`:""}.`;
+  return view?renderTourney(T):renderHome();
+}
+
+function renderHome(){
+  document.title="Matchpoint Fantasy";
+  $("eyebrow").textContent=`${SEASON.name} · ends ${SEASON.endLabel||SEASON.end}`;
+  const ss=seasonStandings(), me=ss.list.find(r=>r.id===ME), pos=ss.list.findIndex(r=>r.id===ME);
+  const live=Object.values(TOURNEYS).filter(t=>["draft","live","final-day"].includes(phase(t)));
+  $("lockLine").innerHTML=live.length?`<span>${live.length} tournament${live.length>1?"s":""} open now</span>`:"";
+  $("stats").innerHTML=stat("Victory points",me?me.vp:0)+stat("Season rank",pos>=0?`${pos+1}/${ss.list.length}`:"–")+stat("Season points",me?fmt(me.pts):0)+stat("Leagues won",me?me.wins:0);
+  $("rounds").innerHTML="";
+  const order={draft:0,live:0,"final-day":0,upcoming:1,finished:2};
+  const list=Object.values(TOURNEYS).sort((a,b)=>order[phase(a)]-order[phase(b)]||(phase(a)==="finished"?b.start.localeCompare(a.start):a.start.localeCompare(b.start)));
+  $("cards").innerHTML=dataState==="error"&&!list.length?`<p class="empty-state">Couldn't load the tournaments. Check your connection and reload.</p>`:!list.length?`<p class="empty-state">Loading tournaments…</p>`:list.map(T=>{
+    const ph=phase(T), r=openRound(T), st=tourneyStandings(T), myPos=st.findIndex(x=>x.id===ME);
+    let state="";
+    if(ph==="upcoming")state=`<span class="tag soft">Field TBA</span><span class="cline">Starts ${esc(new Date(T.start+"T12:00:00Z").toLocaleDateString(undefined,{day:"numeric",month:"short"}))}</span>`;
+    else if(ph==="draft")state=`<span class="tag in">Draft open</span><span class="cline">Locks in <b>${countdown(T.rounds[0].lock)}</b></span>`;
+    else if(ph==="finished"){const w=leagueWinners(T);state=`<span class="tag soft">Finished</span><span class="cline">${w.length?"Won by <b>"+esc(w.map(teamLabel).join(", "))+"</b>":"No winner"}</span>`}
+    else state=`<span class="tag live">Live</span><span class="cline">${r>=0?esc(T.rounds[Math.max(0,r-1)].label):"Final"}</span>`;
+    const mine=myPos>=0?`Your team: <b>${fmt(st[myPos].t)} pts</b> · ${myPos+1} of ${st.length}`:(ph==="finished"?"You didn't play":"You haven't joined yet");
+    return `<button class="card ${ph==="finished"?"past":""}" data-open="${esc(T.id)}">
+      <div class="cat"><span class="vp ${T.category==="Grand Slam"?"slam":""}">${vpOf(T)} VP</span>${esc(T.category)} · ${esc(T.surface)}</div>
+      <h3>${esc(T.name)}</h3>
+      <div class="cline">${esc(T.city)} · ${esc(T.dates)}</div>
+      <div class="cline">${mine}</div>
+      <div class="cstate">${state}</div></button>`;
+  }).join("");
+  $("seasonSub").textContent=ss.ended?"Final standings.":"Tournament winners get VP as soon as a tournament ends. The most-points VP is added at the end of the season.";
+  if(!ss.list.length)$("seasonTable").innerHTML=`<p class="empty-state">Nobody has a team yet. Sign up, open a tournament and save a team, then send the link to your friends.</p>`;
+  else{
+    $("seasonTable").innerHTML=`<table class="lb"><thead><tr><th>#</th><th>Team</th><th>VP</th><th>Wins</th><th>Played</th><th>Points</th></tr></thead><tbody>${ss.list.map((r,i)=>`<tr class="${r.id===ME?"me":""}"><td>${i+1}</td><td></td><td><b>${r.vp}</b></td><td>${r.wins}</td><td>${r.played}</td><td>${fmt(r.pts)}${r.ptsLeader&&!ss.ended?' <span class="tag cap" title="On track for the most-points VP">+1</span>':""}</td></tr>`).join("")}</tbody></table>`;
+    $("seasonTable").querySelectorAll("tbody tr").forEach((tr,i)=>tr.children[1].textContent=teamLabel(ss.list[i].id));
+  }
+}
+
+function renderTourney(T){
+  document.title=`${T.city} · Matchpoint Fantasy`;
+  const d=D(T), r=openRound(T), ti=transferInfo(T,d), myLu=lineupsOf(T,ME), mine=entryTotal(T,myLu);
+  const st=tourneyStandings(T), myPos=st.findIndex(x=>x.id===ME);
+  $("eyebrow").textContent=`${T.name} · ${T.category} · ${T.dates} · ${vpOf(T)} VP`;
+  $("lockLine").innerHTML=!T.players.length?`<span>Field gets added a few days before the start</span>`:r>=0?`<span>${esc(T.rounds[r].label)} locks ${esc(fmtDT(T.rounds[r].lock))}</span><b>${countdown(T.rounds[r].lock)}</b>`:`<span>All rounds locked</span>`;
+  $("stats").innerHTML=stat("Budget left",r>=0?budget(d):"–")+stat("Your points",fmt(mine.t))+stat("League rank",myPos>=0?`${myPos+1}/${st.length}`:"–")+stat("Transfer",r<0?"–":ti.free?(r===0?"Draft":"Free pick"):ti.in.length?"Used":ti.out.length?"Pending":"1 free");
+  $("rounds").innerHTML=T.rounds.map((x,i)=>`<span class="rnd ${r<0||i<r?"done":i===r?"now":""}">${x.key}${(r<0||i<r)?" · "+fmt(mine.per[i]):""}</span>`).join("");
+
+  const ban=$("statusBanner"); ban.hidden=!T.note; ban.textContent=T.note||"";
+  $("teamHint").textContent=!T.players.length?"":r<0?"Final team":r===0?"Draft: change anything until the first match.":ti.free?"Pick your 5 for this round.":`Before the ${T.rounds[r].label}: one transfer, ×2 can move.`;
+  const ni=$("teamName"); if(document.activeElement!==ni&&!ni.dataset.touched)ni.value=myTeamName();
+
+  let h="";
+  d.draft.p.slice().sort((a,b)=>P(T,b.id).price-P(T,a.id).price).forEach(x=>{
+    const p=P(T,x.id),cap=d.draft.cap===x.id,isNew=!ti.free&&ti.in.some(y=>y.id===x.id);
+    h+=`<div class="slot">${badge(p)}<div class="pname">${esc(p.name)} ${cap?'<span class="tag cap">×2</span>':""} ${statusTag(p)} ${isNew?'<span class="tag in">New</span>':""}
+      <small>${esc(sub(p))} · paid <span class="price">${x.paid} cr</span> · <span class="pts">${fmt(playerPoints(T,x.id))} pts</span></small></div>
+      <div class="acts"><button class="btn x2 ${cap?"on":""}" data-cap="${esc(x.id)}" ${r<0||isOut(p)?"disabled":""} aria-pressed="${cap}">×2</button>
+      <button class="btn sell" data-sell="${esc(x.id)}" ${canSell(T,d,x.id)?"":"disabled"}>${isNew?"Remove":"Sell"}</button></div></div>`;
+  });
+  if(T.players.length)for(let i=d.draft.p.length;i<5;i++)h+=`<div class="slot empty"><span class="seed">–</span><div>${!ti.free&&ti.out.length?"Replacement slot: buy a player below":"Empty slot: buy a player below"}</div><span></span></div>`;
+  $("team").innerHTML=h||`<p class="empty-state">You can pick a team once the field is added.</p>`;
+  const tn=$("teamNote");
+  if(!ti.free&&(ti.out.length||ti.in.length)){tn.hidden=false;tn.innerHTML=`Transfer: ${ti.out.map(x=>"out <b>"+esc(P(T,x.id).name)+"</b> (+"+x.paid+" cr)").join("")}${ti.in.map(x=>" → in <b>"+esc(P(T,x.id).name)+"</b> (−"+x.paid+" cr)").join("")} · <button class="link" id="undoBtn">Undo</button>`}
+  else tn.hidden=true;
+
+  const played=T.rounds.map((_,i)=>i).filter(i=>T.matches.some(m=>m.round===i&&m.status!=="scheduled"));
+  $("breakdown").innerHTML=!played.length?`<p class="empty-state">Points show up here once the first matches are played.</p>`:played.reverse().map(i=>{const rs=roundScore(T,myLu,i);return `<div class="bd"><div class="bd-top"><span>${esc(T.rounds[i].label)}</span><span class="pts">${fmt(rs.total)}</span></div>${rs.none?`<ul><li>No team counted for this round</li></ul>`:rs.rows.map(x=>`<ul><li><b style="font-family:var(--body)">${esc(P(T,x.id).name)}</b>${x.mult>1?' <span class="tag cap">×2</span>':""} ${x.state==="live"?'<span class="tag live">Live</span>':x.state==="scheduled"?'<span class="tag soft">Not played yet</span>':x.state==="out"?'<span class="tag out">Already out</span>':x.state==="none"?'<span class="tag soft">No match</span>':""}</li>${x.items.map(it=>`<li>${it.label}${it.n>1?" ×"+it.n:""} <b class="${it.pts<0?"neg":""}">${it.pts>0?"+":""}${fmt(it.pts)}</b></li>`).join("")}${x.state==="won"||x.state==="lost"?`<li>= <b>${fmt(x.pts)}</b></li>`:""}</ul>`).join("")}</div>`}).join("");
+
+  const withM=T.rounds.map((_,i)=>i).filter(i=>T.matches.some(m=>m.round===i));
+  if(matchTab===null||!withM.includes(matchTab))matchTab=withM.length?withM[withM.length-1]:null;
+  $("roundTabs").innerHTML=withM.map(i=>`<button class="chip ${i===matchTab?"on":""}" data-tab="${i}">${T.rounds[i].key}</button>`).join("");
+  const myIds=new Set(d.draft.p.map(x=>x.id));
+  $("matches").innerHTML=matchTab===null?`<p class="empty-state">Matches and odds appear here once the draw is published.</p>`:T.matches.filter(m=>m.round===matchTab).map(m=>{
+    const row=(id,isA)=>{const p=P(T,id);return `<div class="mrow ${m.winner===id?"w":""}"><span class="nm">${p.seed?`<span class="seed">${p.seed}</span>`:""}${esc(p.name)}</span><span class="sets">${(m.sets||[]).map(s=>`<span>${isA?s[0]:s[1]}</span>`).join("")}${m.status==="scheduled"&&m.odds?`<span class="muted">${Math.round((isA?m.odds.a:m.odds.b)*100)}%</span>`:""}</span></div>`};
+    const head=m.status==="live"?'<span class="tag live">Live</span>':m.status==="done"?(m.wo?"Walkover":m.ret?"Retired":"Final"):(m.start?esc(fmtDT(m.start)):"Time TBA");
+    return `<div class="match ${myIds.has(m.a)||myIds.has(m.b)?"mine":""}"><div class="mhead"><span>${head}</span><span>${m.odds?"Market "+Math.round(m.odds.a*100)+"–"+Math.round(m.odds.b*100):""}</span></div>${m.odds?`<div class="oddsbar"><i style="width:${Math.round(m.odds.a*100)}%"></i></div>`:""}${row(m.a,true)}${row(m.b,false)}</div>`;
+  }).join("");
+
+  let list=T.players.slice().sort((a,b)=>b.price-a.price||(a.rank||999)-(b.rank||999));
+  if(filter==="alive")list=list.filter(p=>!isOut(p));
+  if(filter==="afford")list=list.filter(p=>buyable(p)&&!inDraft(d,p.id)&&p.price<=budget(d));
+  $("market").innerHTML=!T.players.length?`<p class="empty-state">The field gets added a few days before the start.</p>`:list.map(p=>{const own=inDraft(d,p.id);return `<div class="mk ${isOut(p)?"dead":""} ${own?"owned":""}">${badge(p)}
+    <div class="pname">${esc(p.name)} ${statusTag(p)}<small>${esc(sub(p))}${p.tag==="WC"&&p.status!=="tbd"?" · wildcard":p.tag==="PR"?" · protected ranking":p.tag==="LL"?" · lucky loser":p.tag==="Q"&&p.status!=="tbd"?" · qualifier":""}</small></div>
+    <span class="muted">${fmt(playerPoints(T,p.id))} pts</span><span class="price">${p.price} cr</span>
+    ${own?`<button class="btn sell" data-sell="${esc(p.id)}" ${canSell(T,d,p.id)?"":"disabled"}>Sell</button>`:`<button class="btn buy" data-buy="${esc(p.id)}" ${canBuy(T,d,p.id)?"":"disabled"}>Buy</button>`}</div>`}).join("")||`<p class="empty-state">Nobody fits this filter.</p>`;
+
+  $("leagueSub").textContent=`The winner gets ${vpOf(T)} VP${T.status==="finished"?".":" when the tournament ends."}`;
+  if(!st.length)$("league").innerHTML=`<p class="empty-state">No teams yet. Save yours, then send the link to your friends.</p>`;
+  else{
+    $("league").innerHTML=`<table class="lb"><thead><tr><th>#</th><th>Team</th>${T.rounds.map(x=>`<th>${x.key}</th>`).join("")}<th>Total</th></tr></thead><tbody>${st.map((x,i)=>`<tr class="${x.id===ME?"me":""}"><td>${i+1}</td><td></td>${x.per.map(v=>`<td>${fmt(v)}</td>`).join("")}<td><b>${fmt(x.t)}</b></td></tr>`).join("")}</tbody></table>`;
+    $("league").querySelectorAll("tbody tr").forEach((tr,i)=>tr.children[1].textContent=teamLabel(st[i].id));
+  }
+
+  const v=validity(T,d);
+  $("barMsg").innerHTML=saveErr?`<b>${esc(saveErr)}</b>`:saving?"Saving…":v.msg;
+  $("saveBtn").disabled=(!v.ok&&!v.needLogin)||saving; $("saveBtn").textContent=v.saved?"Saved":v.needLogin?"Log in":"Save team";
+  $("revertBtn").hidden=!d.dirty;
+}
+
+/* ---------- Events ---------- */
+function go(id){
+  view=id&&TOURNEYS[id]?id:null; matchTab=null; filter="all"; saveErr="";
+  document.querySelectorAll("#filters .chip").forEach(c=>c.classList.toggle("on",c.dataset.f==="all"));
+  try{history.replaceState(null,"",view?"#"+view:location.pathname+location.search)}catch(e){}
+  render(); window.scrollTo(0,0);
+}
+document.addEventListener("click",async e=>{
+  const t=e.target.closest("button");if(!t)return;
+  const T=view&&TOURNEYS[view], d=T&&D(T);
+  if(t.dataset.open)go(t.dataset.open);
+  else if(t.id==="backBtn")go(null);
+  else if(t.id==="loginBtn")openAuth("login");
+  else if(t.id==="signupBtn")openAuth("signup");
+  else if(t.id==="authClose")$("authWrap").hidden=true;
+  else if(t.id==="authSwitch"){authMode=authMode==="login"?"signup":"login";$("authErr").textContent="";syncAuthForm()}
+  else if(t.id==="logoutBtn"){await sb.auth.signOut()}
+  else if(t.dataset.buy&&canBuy(T,d,t.dataset.buy)){const ti=transferInfo(T,d),back=!ti.free&&ti.out.find(x=>x.id===t.dataset.buy);d.draft.p.push(back?clone(back):{id:t.dataset.buy,paid:P(T,t.dataset.buy).price});if(!d.draft.cap&&d.draft.p.length===1)d.draft.cap=t.dataset.buy;d.dirty=true;render()}
+  else if(t.dataset.sell&&canSell(T,d,t.dataset.sell)){d.draft.p=d.draft.p.filter(x=>x.id!==t.dataset.sell);if(d.draft.cap===t.dataset.sell)d.draft.cap=null;d.dirty=true;render()}
+  else if(t.dataset.cap&&openRound(T)>=0){d.draft.cap=t.dataset.cap;d.dirty=true;render()}
+  else if(t.dataset.f){filter=t.dataset.f;document.querySelectorAll("#filters .chip").forEach(c=>c.classList.toggle("on",c===t));render()}
+  else if(t.dataset.tab){matchTab=+t.dataset.tab;render()}
+  else if(t.id==="saveBtn")save();
+  else if(t.id==="revertBtn"||t.id==="undoBtn"){resetDraft(T);render()}
+});
+$("authForm").addEventListener("submit",submitAuth);
+$("teamName").addEventListener("input",e=>{e.target.dataset.touched="1";render()});
+window.addEventListener("hashchange",()=>{const id=location.hash.slice(1);if((id||null)!==view)go(id||null)});
+
+view=null;
+render();
+loadData().then(()=>{const h=location.hash.slice(1);if(h&&TOURNEYS[h]&&view!==h)go(h)});
+setInterval(()=>{render()},30000);
+setInterval(loadData,10*60000);
+
+if(CFG.supabaseUrl&&CFG.supabaseKey&&window.supabase){
+  sb=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseKey,{auth:{persistSession:true,autoRefreshToken:true}});
+  sb.auth.onAuthStateChange((_ev,session)=>{
+    const id=session?.user?.id||null; MY_EMAIL=session?.user?.email||"";
+    if(id!==ME){ME=id;Object.keys(DRAFTS).forEach(k=>delete DRAFTS[k]);$("teamName").dataset.touched=""}
+    render();
+  });
+  loadEntries(); setInterval(loadEntries,60000);
+}else{dbState="unconfigured";render()}
+</script>
+
+</body>
+</html>
