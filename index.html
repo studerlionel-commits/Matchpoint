@@ -498,7 +498,7 @@ async function submitAuth(e){
   const email=$("authEmail").value.trim(), password=$("authPass").value;
   if(!email||password.length<6){$("authErr").textContent="Enter your email and a password of at least 6 characters.";return}
   $("authSubmit").disabled=true;$("authErr").textContent="";
-  const fn=authMode==="signup"?sb.auth.signUp({email,password}):sb.auth.signInWithPassword({email,password});
+  const fn=authMode==="signup"?sb.auth.signUp({email,password,options:{emailRedirectTo:location.origin+location.pathname}}):sb.auth.signInWithPassword({email,password});
   const {data,error}=await fn;
   $("authSubmit").disabled=false;
   if(error){$("authErr").textContent=error.message==="Invalid login credentials"?"Wrong email or password.":error.message;return}
