@@ -194,6 +194,21 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
 .meter .lbl b{color:var(--ink)}
 .barright{display:flex;gap:12px;align-items:center}
 @media (max-width:540px){.bar .wrap{flex-wrap:wrap;row-gap:4px;column-gap:12px;padding-block:10px}.barright{display:contents}#saveBtn{order:2;margin-left:auto}.budget{order:1}.bar .msg{font-size:12px;order:3;flex:1 1 0}#revertBtn{order:4;font-size:12px}.budget .cr b{font-size:17px}.play{padding:10px 14px;font-size:18px}}
+.lb tr.row{cursor:pointer}
+.lb tr.row:hover td,.lb tr.row:focus-visible td{background:var(--surface-2)}
+.lb tr.row:focus-visible{outline:2px solid var(--ball);outline-offset:-2px}
+.lb tr.row td:nth-child(2) .tname{display:inline-flex;align-items:baseline}
+.lb tr.row td:nth-child(2) .tname::before{content:"▸";display:inline-block;flex:0 0 14px;width:14px;color:var(--muted);transition:transform .15s}
+.lb tr.row.open td:nth-child(2) .tname::before{transform:rotate(90deg)}
+.lb tr.detail td{background:var(--surface-2);text-align:left;font-family:var(--body);white-space:normal;padding:4px 12px 12px}
+.lineup{display:grid;gap:10px}
+.lineup h4{margin:6px 0 2px;font-family:var(--display);text-transform:uppercase;font-size:15px;letter-spacing:.03em;display:flex;justify-content:space-between;gap:8px}
+.lineup h4 span{font-family:var(--mono);font-size:14px}
+.lineup ul{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.lineup li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;font-size:13px;align-items:center}
+.lineup li b{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.lineup .hide{font-size:13px;color:var(--muted);font-style:italic;margin:4px 0 0}
+@media (prefers-reduced-motion:reduce){.lb tr.row td:nth-child(2) .tname::before{transition:none}}
 .link{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:13px;padding:0}
 </style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2214%22 fill=%22%23c9e23c%22/%3E%3Cpath d=%22M6 8c6 4 6 12 0 16M26 8c-6 4-6 12 0 16%22 stroke=%22%23fff%22 stroke-width=%222%22 fill=%22none%22/%3E%3C/svg%3E">
@@ -366,7 +381,7 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
 const CFG=window.MATCHPOINT_CONFIG||{};
 let SEASON={name:"Season",end:"2099-01-01",rules:{}}, TOURNEYS={}, ENTRIES={}, ME=null, MY_EMAIL="", sb=null, dbState="loading", dataState="loading";
 let view=null; const DRAFTS={};
-let LEAGUES=[]; let scope="global";
+let LEAGUES=[]; let scope="global"; let OPEN_TEAM=null;
 try{scope=localStorage.getItem("mp-scope")||"global"}catch(e){}
 let filter="all", matchTab=null, saving=false, saveErr="", authMode="login";
 const BUDGET=100;
@@ -648,11 +663,11 @@ function renderHome(){
       <div class="cline">${mine}</div>
       <div class="cstate">${state}</div></button>`;
   }).join("");
-  $("seasonSub").textContent=(ss.ended?"Final standings":`${scopeName()} ranking for the whole season`)+". Tournament winners get VP as soon as a tournament ends; the most-points VP is added at the end of the season.";
+  $("seasonSub").textContent=(ss.ended?"Final standings":`${scopeName()} ranking for the whole season`)+". Tap a team to see its tournaments. Tournament winners get VP as soon as a tournament ends; the most-points VP is added at the end of the season.";
   if(!ss.list.length)$("seasonTable").innerHTML=`<p class="empty-state">Nobody has a team yet. Sign up, open a tournament and save a team, then send the link to your friends.</p>`;
   else{
-    $("seasonTable").innerHTML=`<table class="lb"><thead><tr><th>#</th><th>Team</th><th>VP</th><th>Wins</th><th>Played</th><th>Points</th></tr></thead><tbody>${ss.list.map((r,i)=>`<tr class="${r.id===ME?"me":""}"><td>${i+1}</td><td></td><td><b>${r.vp}</b></td><td>${r.wins}</td><td>${r.played}</td><td>${fmt(r.pts)}${r.ptsLeader&&!ss.ended?' <span class="tag cap" title="On track for the most-points VP">+1</span>':""}</td></tr>`).join("")}</tbody></table>`;
-    $("seasonTable").querySelectorAll("tbody tr").forEach((tr,i)=>tr.children[1].textContent=teamLabel(ss.list[i].id));
+    $("seasonTable").innerHTML=`<table class="lb"><thead><tr><th>#</th><th>Team</th><th>VP</th><th>Wins</th><th>Played</th><th>Points</th></tr></thead><tbody>${ss.list.map((r,i)=>`<tr class="row ${r.id===ME?"me":""} ${OPEN_TEAM===r.id?"open":""}" data-team="${esc(r.id)}" tabindex="0" aria-expanded="${OPEN_TEAM===r.id}"><td>${i+1}</td><td></td><td><b>${r.vp}</b></td><td>${r.wins}</td><td>${r.played}</td><td>${fmt(r.pts)}${r.ptsLeader&&!ss.ended?' <span class="tag cap" title="On track for the most-points VP">+1</span>':""}</td></tr>${OPEN_TEAM===r.id?`<tr class="detail"><td colspan="6">${seasonDetailHTML(r.id)}</td></tr>`:""}`).join("")}</tbody></table>`;
+    fillNames($("seasonTable"),ss.list);
   }
 }
 
@@ -704,11 +719,11 @@ function renderTourney(T){
     <span class="muted">${fmt(playerPoints(T,p.id))} pts</span><span class="price">${p.price} cr</span>
     ${own?`<button class="btn sell" data-sell="${esc(p.id)}" ${canSell(T,d,p.id)?"":"disabled"}>Sell</button>`:`<button class="btn buy" data-buy="${esc(p.id)}" ${canBuy(T,d,p.id)?"":"disabled"}>Buy</button>`}</div>`}).join("")||`<p class="empty-state">Nobody fits this filter.</p>`;
 
-  $("leagueSub").textContent=`${scopeName()} ranking for this tournament. The winner gets ${vpOf(T)} VP${T.status==="finished"?".":" when it ends."}`;
+  $("leagueSub").textContent=`${scopeName()} ranking for this tournament. Tap a team to see its lineups. The winner gets ${vpOf(T)} VP${T.status==="finished"?".":" when it ends."}`;
   if(!st.length)$("league").innerHTML=`<p class="empty-state">No teams yet. Save yours, then send the link to your friends.</p>`;
   else{
-    $("league").innerHTML=`<table class="lb"><thead><tr><th>#</th><th>Team</th>${T.rounds.map(x=>`<th>${x.key}</th>`).join("")}<th>Total</th></tr></thead><tbody>${st.map((x,i)=>`<tr class="${x.id===ME?"me":""}"><td>${i+1}</td><td></td>${x.per.map(v=>`<td>${fmt(v)}</td>`).join("")}<td><b>${fmt(x.t)}</b></td></tr>`).join("")}</tbody></table>`;
-    $("league").querySelectorAll("tbody tr").forEach((tr,i)=>tr.children[1].textContent=teamLabel(st[i].id));
+    $("league").innerHTML=`<table class="lb"><thead><tr><th>#</th><th>Team</th>${T.rounds.map(x=>`<th>${x.key}</th>`).join("")}<th>Total</th></tr></thead><tbody>${st.map((x,i)=>`<tr class="row ${x.id===ME?"me":""} ${OPEN_TEAM===x.id?"open":""}" data-team="${esc(x.id)}" tabindex="0" aria-expanded="${OPEN_TEAM===x.id}"><td>${i+1}</td><td></td>${x.per.map(v=>`<td>${fmt(v)}</td>`).join("")}<td><b>${fmt(x.t)}</b></td></tr>${OPEN_TEAM===x.id?`<tr class="detail"><td colspan="${T.rounds.length+3}">${lineupHTML(T,x.id)}</td></tr>`:""}`).join("")}</tbody></table>`;
+    fillNames($("league"),st);
   }
 
   const left=budget(d), n=d.draft.p.length, open=5-n, has=T.players.length&&r>=0;
@@ -726,13 +741,37 @@ function renderTourney(T){
   $("revertBtn").hidden=!d.dirty;
 }
 
+/* ---------- Other teams' lineups ---------- */
+function stateTag(x){return x.state==="live"?' <span class="tag live">Live</span>':x.state==="scheduled"?' <span class="tag soft">Not played</span>':x.state==="out"?' <span class="tag out">Out</span>':x.state==="none"?' <span class="tag soft">No match</span>':x.state==="lost"?' <span class="tag out">Lost</span>':x.state==="won"?' <span class="tag in">Won</span>':""}
+function lineupHTML(T,uid){
+  const lus=lineupsOf(T,uid), r=openRound(T), mine=uid===ME, parts=[];
+  for(let i=T.rounds.length-1;i>=0;i--){
+    const locked=r<0||i<r;
+    if(!locked&&!mine)continue;
+    const rs=roundScore(T,lus,i); if(rs.none)continue;
+    if(!locked&&i>r)continue;
+    parts.push(`<div><h4>${esc(T.rounds[i].label)}${locked?"":" (not locked yet)"}<span>${fmt(rs.total)}</span></h4><ul>${rs.rows.map(x=>`<li><span>${esc(P(T,x.id).name)}${x.mult>1?' <span class="tag cap">×2</span>':""}${stateTag(x)}</span><b>${locked&&(x.state==="won"||x.state==="lost")?fmt(x.pts):"–"}</b></li>`).join("")}</ul></div>`);
+  }
+  if(r>=0&&!mine&&T.players.length)parts.unshift(`<p class="hide">Their team for the ${esc(T.rounds[r].label)} stays hidden until it locks (${esc(fmtDT(T.rounds[r].lock))}).</p>`);
+  return `<div class="lineup">${parts.join("")||'<p class="hide">No locked lineup yet.</p>'}</div>`;
+}
+function seasonDetailHTML(uid){
+  const rows=Object.values(TOURNEYS).map(T=>{const st=tourneyStandings(T),i=st.findIndex(x=>x.id===uid);return i<0?null:{T,pts:st[i].t,pos:i+1,of:st.length}}).filter(Boolean).sort((a,b)=>b.T.start.localeCompare(a.T.start));
+  if(!rows.length)return '<div class="lineup"><p class="hide">No tournaments played yet.</p></div>';
+  return `<div class="lineup"><ul>${rows.map(x=>`<li><span>${esc(x.T.name)} · ${x.pos} of ${x.of}${leagueWinners(x.T).includes(uid)?' <span class="tag cap">Won</span>':""}</span><b>${fmt(x.pts)}</b></li>`).join("")}</ul><p class="hide">Open a tournament to see this team's lineups there.</p></div>`;
+}
+function fillNames(tableEl,list){tableEl.querySelectorAll("tr.row").forEach((tr,i)=>{const s=document.createElement("span");s.className="tname";s.textContent=teamLabel(list[i].id);const td=tr.children[1];td.textContent="";td.appendChild(s)})}
+function toggleTeam(id){OPEN_TEAM=OPEN_TEAM===id?null:id;render();const el=document.querySelector(`tr.row[data-team="${CSS.escape(id)}"]`);if(el)el.focus({preventScroll:true})}
+
 /* ---------- Events ---------- */
 function go(id){
-  view=id&&TOURNEYS[id]?id:null; matchTab=null; filter="all"; saveErr="";
+  view=id&&TOURNEYS[id]?id:null; matchTab=null; OPEN_TEAM=null; filter="all"; saveErr="";
   document.querySelectorAll("#filters .chip").forEach(c=>c.classList.toggle("on",c.dataset.f==="all"));
   try{history.replaceState(null,"",view?"#"+view:location.pathname+location.search)}catch(e){}
   render(); window.scrollTo(0,0);
 }
+document.addEventListener("click",e=>{const tr=e.target.closest("tr.row[data-team]");if(tr&&!e.target.closest("button"))toggleTeam(tr.dataset.team)});
+document.addEventListener("keydown",e=>{const tr=e.target.closest&&e.target.closest("tr.row[data-team]");if(tr&&(e.key==="Enter"||e.key===" ")){e.preventDefault();toggleTeam(tr.dataset.team)}});
 document.addEventListener("click",async e=>{
   const t=e.target.closest("button");if(!t)return;
   const T=view&&TOURNEYS[view], d=T&&D(T);
