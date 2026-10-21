@@ -326,7 +326,7 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
       <ol class="howto">
         <li>Pick 5 players with 100 credits and give one of them the <b>×2</b>. It doubles his points and can move before every round.</li>
         <li>Before each later round you get <b>one transfer</b>: sell a player (full price back) and buy one who is still in.</li>
-        <li>Each round locks when its first match starts. Players you own keep the price you paid.</li>
+        <li>The draft opens when the draw is published. Each player locks as soon as his match starts; until then you can still swap him (within your one transfer) or move the ×2, but only to players who haven't played yet. Players you own keep the price you paid.</li>
       </ol>
       <div class="rules">
         <div>
@@ -395,19 +395,51 @@ const vpOf=T=>T.category==="Grand Slam"?(SEASON.rules?.slamVP??2):(SEASON.rules?
 
 /* ---------- Tournament helpers ---------- */
 const P=(T,id)=>T.players.find(p=>p.id===id)||{id,name:id,price:0,status:"tbd"};
-const openRound=T=>T.rounds.findIndex(r=>new Date(r.lock).getTime()>now());
+const msOf=iso=>iso?Date.parse(iso):NaN;
+// The draft only opens once the draw is out (the first matches exist).
+const drawOut=T=>T.matches.length>0;
+// A match has started if the data says so, or its start time has passed.
+function matchStarted(m){return !!m&&(m.status!=="scheduled"||(!!m.start&&msOf(m.start)<=now()))}
+// Had it started by time t? A match with no start time never blocks a save.
+function startedBy(m,t){return !!m&&!!m.start&&msOf(m.start)<=t}
+const playerLocked=(T,pid,r)=>r>=0&&matchStarted(matchFor(T,pid,r));
+// The round you can edit now: the first one that still has a match not started (or not drawn yet).
+function openRound(T){
+  if(T.status==="finished")return -1;
+  for(let i=0;i<T.rounds.length;i++){const ms=T.matches.filter(m=>m.round===i);if(!ms.length||ms.some(m=>!matchStarted(m)))return i}
+  return -1;
+}
+// When the round's first match starts (or the schedule's estimate)
+function roundStart(T,i){const ts=T.matches.filter(m=>m.round===i&&m.start).map(m=>msOf(m.start));return ts.length?new Date(Math.min(...ts)).toISOString():T.rounds[i].lock}
+function nextLock(T,i){const ts=T.matches.filter(m=>m.round===i&&m.start&&!matchStarted(m)).map(m=>msOf(m.start));return ts.length?new Date(Math.min(...ts)).toISOString():null}
 const buyable=p=>p.status==="entered"||p.status==="in";
 const isOut=p=>p.status==="out"||p.status==="withdrawn";
 const lineupsOf=(T,uid)=>ENTRIES[uid]?.leagues?.[T.id]?.lineups||{};
-// A lineup only counts for round k if the server says it was saved before round k locked.
+// Every save is kept by the server (history + current, oldest first, each with the server's time).
+// We replay them and skip any save that changed a player, or the ×2, after his match had started.
+function versionsOf(lu){return (lu.history||[]).concat([lu]).filter(v=>v&&Array.isArray(v.p))}
+function validStep(T,r,prev,v){
+  const t=v.savedAt?msOf(v.savedAt):NaN; if(!isFinite(t))return true;
+  const before=new Set((prev?.p||[]).map(x=>x.id)), after=new Set(v.p.map(x=>x.id));
+  const touched=[...before].filter(id=>!after.has(id)).concat([...after].filter(id=>!before.has(id)));
+  if(touched.some(id=>startedBy(matchFor(T,id,r),t)))return false;
+  const pc=prev?.cap||null, nc=v.cap||null;
+  if(pc!==nc&&[pc,nc].some(id=>id&&startedBy(matchFor(T,id,r),t)))return false;
+  return true;
+}
 function effective(T,lineups,r){
-  for(let k=r;k>=0;k--){const lu=lineups[k];if(lu&&(!lu.savedAt||new Date(lu.savedAt)<=new Date(T.rounds[k].lock)))return lu}
-  return null;
+  if(r<0)return null;
+  const prev=r>0?effective(T,lineups,r-1):null, lu=lineups[r];
+  if(!lu)return prev;
+  let cur=prev;
+  for(const v of versionsOf(lu))if(validStep(T,r,cur,v))cur={p:v.p,cap:v.cap||null,savedAt:v.savedAt};
+  return cur;
 }
 function phase(T){
   if(T.status==="finished")return "finished";
   if(!T.players.length)return "upcoming";
-  const r=openRound(T); if(r===0)return "draft"; if(r<0)return "final-day"; return "live";
+  if(!drawOut(T))return "pre-draw";
+  const r=openRound(T); if(r===0&&!T.matches.some(matchStarted))return "draft"; if(r<0)return "final-day"; return "live";
 }
 
 /* ---------- Scoring ---------- */
@@ -489,19 +521,27 @@ function transferInfo(T,d){
   return{free:false,out:base.p.filter(x=>!c.has(x.id)),in:d.draft.p.filter(x=>!b.has(x.id))};
 }
 function canBuy(T,d,id){
-  if(openRound(T)<0||inDraft(d,id)||d.draft.p.length>=5)return false;
+  const r=openRound(T);
+  if(!drawOut(T)||r<0||inDraft(d,id)||d.draft.p.length>=5||playerLocked(T,id,r))return false;
   const ti=transferInfo(T,d);
   if(!ti.free){if(ti.out.find(x=>x.id===id))return true;if(ti.in.length>=1||ti.out.length===0)return false}
   const p=P(T,id); return buyable(p)&&p.price<=budget(d);
 }
 function canSell(T,d,id){
-  if(openRound(T)<0||!inDraft(d,id))return false;
+  const r=openRound(T);
+  if(!drawOut(T)||r<0||!inDraft(d,id)||playerLocked(T,id,r))return false;
   const ti=transferInfo(T,d); if(ti.free)return true;
   return ti.in.some(x=>x.id===id)||ti.out.length===0;
+}
+function canCap(T,d,id){
+  const r=openRound(T);
+  if(!drawOut(T)||r<0||!inDraft(d,id)||isOut(P(T,id))||playerLocked(T,id,r))return false;
+  return !d.draft.cap||d.draft.cap===id||!playerLocked(T,d.draft.cap,r);
 }
 function validity(T,d){
   const r=openRound(T);
   if(!T.players.length)return{ok:false,msg:"The field isn't out yet."};
+  if(!drawOut(T))return{ok:false,msg:"The draft opens when the draw is published."};
   if(r<0)return{ok:false,msg:"This tournament is over."};
   if(dbState==="unconfigured")return{ok:false,msg:"Saving isn't set up yet."};
   if(!ME)return{ok:false,needLogin:true,msg:"Log in to save your team. It works on any device."};
@@ -646,13 +686,14 @@ function renderHome(){
   $("lockLine").innerHTML=live.length?`<span>${live.length} tournament${live.length>1?"s":""} open now</span>`:"";
   $("stats").innerHTML=stat("Victory points",me?me.vp:0)+stat(scope==="global"?"Global rank":"League rank",pos>=0?`${pos+1}/${ss.list.length}`:"–")+stat("Season points",me?fmt(me.pts):0)+stat("Leagues won",me?me.wins:0);
   $("rounds").innerHTML="";
-  const order={draft:0,live:0,"final-day":0,upcoming:1,finished:2};
+  const order={draft:0,live:0,"final-day":0,"pre-draw":1,upcoming:2,finished:3};
   const list=Object.values(TOURNEYS).sort((a,b)=>order[phase(a)]-order[phase(b)]||(phase(a)==="finished"?b.start.localeCompare(a.start):a.start.localeCompare(b.start)));
   $("cards").innerHTML=dataState==="error"&&!list.length?`<p class="empty-state">Couldn't load the tournaments. Check your connection and reload.</p>`:!list.length?`<p class="empty-state">Loading tournaments…</p>`:list.map(T=>{
     const ph=phase(T), r=openRound(T), st=tourneyStandings(T), myPos=st.findIndex(x=>x.id===ME);
     let state="";
-    if(ph==="upcoming")state=`<span class="tag soft">Field TBA</span><span class="cline">Starts ${esc(new Date(T.start+"T12:00:00Z").toLocaleDateString(undefined,{day:"numeric",month:"short"}))}</span>`;
-    else if(ph==="draft")state=`<span class="tag in">Draft open</span><span class="cline">Locks in <b>${countdown(T.rounds[0].lock)}</b></span>`;
+    if(ph==="pre-draw")state=`<span class="tag soft">Draw pending</span><span class="cline">Draft opens when the draw is out</span>`;
+    else if(ph==="upcoming")state=`<span class="tag soft">Field TBA</span><span class="cline">Starts ${esc(new Date(T.start+"T12:00:00Z").toLocaleDateString(undefined,{day:"numeric",month:"short"}))}</span>`;
+    else if(ph==="draft")state=`<span class="tag in">Draft open</span><span class="cline">First match in <b>${countdown(roundStart(T,0))}</b></span>`;
     else if(ph==="finished"){const w=leagueWinners(T);state=`<span class="tag soft">Finished</span><span class="cline">${w.length?"Won by <b>"+esc(w.map(teamLabel).join(", "))+"</b>":"No winner"}</span>`}
     else state=`<span class="tag live">Live</span><span class="cline">${r>=0?esc(T.rounds[Math.max(0,r-1)].label):"Final"}</span>`;
     const mine=myPos>=0?`Your team: <b>${fmt(st[myPos].t)} pts</b> · ${myPos+1} of ${st.length}`:(ph==="finished"?"You didn't play":"You haven't joined yet");
@@ -676,24 +717,29 @@ function renderTourney(T){
   const d=D(T), r=openRound(T), ti=transferInfo(T,d), myLu=lineupsOf(T,ME), mine=entryTotal(T,myLu);
   const st=tourneyStandings(T), myPos=st.findIndex(x=>x.id===ME);
   $("eyebrow").textContent=`${T.name} · ${T.category} · ${T.dates} · ${vpOf(T)} VP`;
-  $("lockLine").innerHTML=!T.players.length?`<span>Field gets added a few days before the start</span>`:r>=0?`<span>${esc(T.rounds[r].label)} locks ${esc(fmtDT(T.rounds[r].lock))}</span><b>${countdown(T.rounds[r].lock)}</b>`:`<span>All rounds locked</span>`;
+  const nl=r>=0?nextLock(T,r):null;
+  $("lockLine").innerHTML=!T.players.length?`<span>Field gets added a few days before the start</span>`
+    :!drawOut(T)?`<span>Draft opens when the draw is published. First matches ${esc(fmtDT(T.rounds[0].lock))}</span>`
+    :r<0?`<span>All matches have started</span>`
+    :nl?`<span>${esc(T.rounds[r].label)} · next player locks ${esc(fmtDT(nl))}</span><b>${countdown(nl)}</b>`
+    :`<span>${esc(T.rounds[r].label)} · players lock when their match starts</span>`;
   $("stats").innerHTML=stat("Budget left",r>=0?budget(d):"–")+stat("Your points",fmt(mine.t))+stat(scope==="global"?"Global rank":"League rank",myPos>=0?`${myPos+1}/${st.length}`:"–")+stat("Transfer",r<0?"–":ti.free?(r===0?"Draft":"Free pick"):ti.in.length?"Used":ti.out.length?"Pending":"1 free");
   $("rounds").innerHTML=T.rounds.map((x,i)=>`<span class="rnd ${r<0||i<r?"done":i===r?"now":""}">${x.key}${(r<0||i<r)?" · "+fmt(mine.per[i]):""}</span>`).join("");
 
   const ban=$("statusBanner"); ban.hidden=!T.note; ban.textContent=T.note||"";
-  $("teamHint").textContent=!T.players.length?"":r<0?"Final team":r===0?"Draft: change anything until the first match.":ti.free?"Pick your 5 for this round.":`Before the ${T.rounds[r].label}: one transfer, ×2 can move.`;
+  $("teamHint").textContent=!T.players.length||!drawOut(T)?"":r<0?"Final team":ti.free?"Pick 5 players. Each one locks when his match starts.":`${T.rounds[r].label}: one transfer. Players and the ×2 lock when their match starts.`;
   const ni=$("teamName"); if(document.activeElement!==ni&&!ni.dataset.touched)ni.value=myTeamName();
 
   let h="";
   d.draft.p.slice().sort((a,b)=>P(T,b.id).price-P(T,a.id).price).forEach(x=>{
-    const p=P(T,x.id),cap=d.draft.cap===x.id,isNew=!ti.free&&ti.in.some(y=>y.id===x.id);
-    h+=`<div class="slot">${badge(p)}<div class="pname">${esc(p.name)} ${cap?'<span class="tag cap">×2</span>':""} ${statusTag(p)} ${isNew?'<span class="tag in">New</span>':""}
+    const p=P(T,x.id),cap=d.draft.cap===x.id,isNew=!ti.free&&ti.in.some(y=>y.id===x.id),lk=playerLocked(T,x.id,r);
+    h+=`<div class="slot">${badge(p)}<div class="pname">${esc(p.name)} ${cap?'<span class="tag cap">×2</span>':""} ${statusTag(p)} ${lk?'<span class="tag soft">🔒 Playing</span>':""} ${isNew?'<span class="tag in">New</span>':""}
       <small>${esc(sub(p))} · paid <span class="price">${x.paid} cr</span> · <span class="pts">${fmt(playerPoints(T,x.id))} pts</span></small></div>
-      <div class="acts"><button class="btn x2 ${cap?"on":""}" data-cap="${esc(x.id)}" ${r<0||isOut(p)?"disabled":""} aria-pressed="${cap}">×2</button>
+      <div class="acts"><button class="btn x2 ${cap?"on":""}" data-cap="${esc(x.id)}" ${canCap(T,d,x.id)||cap?"":"disabled"} ${cap&&!canCap(T,d,x.id)?"disabled":""} aria-pressed="${cap}">×2</button>
       <button class="btn sell" data-sell="${esc(x.id)}" ${canSell(T,d,x.id)?"":"disabled"}>${isNew?"Remove":"Sell"}</button></div></div>`;
   });
-  if(T.players.length)for(let i=d.draft.p.length;i<5;i++)h+=`<div class="slot empty"><span class="seed">–</span><div>${!ti.free&&ti.out.length?"Replacement slot: buy a player below":"Empty slot: buy a player below"}</div><span></span></div>`;
-  $("team").innerHTML=h||`<p class="empty-state">You can pick a team once the field is added.</p>`;
+  if(T.players.length&&drawOut(T))for(let i=d.draft.p.length;i<5;i++)h+=`<div class="slot empty"><span class="seed">–</span><div>${!ti.free&&ti.out.length?"Replacement slot: buy a player below":"Empty slot: buy a player below"}</div><span></span></div>`;
+  $("team").innerHTML=h||(T.players.length&&!drawOut(T)?`<p class="empty-state">The draft opens as soon as the draw is published, so you can see who plays whom before picking. Have a look at the field and the provisional prices below.</p>`:`<p class="empty-state">You can pick a team once the field is added.</p>`);
   const tn=$("teamNote");
   if(!ti.free&&(ti.out.length||ti.in.length)){tn.hidden=false;tn.innerHTML=`Transfer: ${ti.out.map(x=>"out <b>"+esc(P(T,x.id).name)+"</b> (+"+x.paid+" cr)").join("")}${ti.in.map(x=>" → in <b>"+esc(P(T,x.id).name)+"</b> (−"+x.paid+" cr)").join("")} · <button class="link" id="undoBtn">Undo</button>`}
   else tn.hidden=true;
@@ -715,7 +761,7 @@ function renderTourney(T){
   if(filter==="alive")list=list.filter(p=>!isOut(p));
   if(filter==="afford")list=list.filter(p=>buyable(p)&&!inDraft(d,p.id)&&p.price<=budget(d));
   $("market").innerHTML=!T.players.length?`<p class="empty-state">The field gets added a few days before the start.</p>`:list.map(p=>{const own=inDraft(d,p.id);return `<div class="mk ${isOut(p)?"dead":""} ${own?"owned":""}">${badge(p)}
-    <div class="pname">${esc(p.name)} ${statusTag(p)}<small>${esc(sub(p))}${p.tag==="WC"&&p.status!=="tbd"?" · wildcard":p.tag==="PR"?" · protected ranking":p.tag==="LL"?" · lucky loser":p.tag==="Q"&&p.status!=="tbd"?" · qualifier":""}</small></div>
+    <div class="pname">${esc(p.name)} ${statusTag(p)}${r>=0&&!isOut(p)&&playerLocked(T,p.id,r)?' <span class="tag soft">🔒 Playing</span>':""}<small>${esc(sub(p))}${p.tag==="WC"&&p.status!=="tbd"?" · wildcard":p.tag==="PR"?" · protected ranking":p.tag==="LL"?" · lucky loser":p.tag==="Q"&&p.status!=="tbd"?" · qualifier":""}</small></div>
     <span class="muted">${fmt(playerPoints(T,p.id))} pts</span><span class="price">${p.price} cr</span>
     ${own?`<button class="btn sell" data-sell="${esc(p.id)}" ${canSell(T,d,p.id)?"":"disabled"}>Sell</button>`:`<button class="btn buy" data-buy="${esc(p.id)}" ${canBuy(T,d,p.id)?"":"disabled"}>Buy</button>`}</div>`}).join("")||`<p class="empty-state">Nobody fits this filter.</p>`;
 
@@ -726,7 +772,7 @@ function renderTourney(T){
     fillNames($("league"),st);
   }
 
-  const left=budget(d), n=d.draft.p.length, open=5-n, has=T.players.length&&r>=0;
+  const left=budget(d), n=d.draft.p.length, open=5-n, has=T.players.length&&r>=0&&drawOut(T);
   $("budgetBox").hidden=!has;
   $("crLeft").className="cr"+(left<0?" over":"");
   $("crLeft").innerHTML=`<b>${left}</b><small>cr left${open>0&&left>=0?` · ~${Math.floor(left/open)}/pick`:""}</small>`;
@@ -747,12 +793,16 @@ function lineupHTML(T,uid){
   const lus=lineupsOf(T,uid), r=openRound(T), mine=uid===ME, parts=[];
   for(let i=T.rounds.length-1;i>=0;i--){
     const locked=r<0||i<r;
-    if(!locked&&!mine)continue;
-    const rs=roundScore(T,lus,i); if(rs.none)continue;
     if(!locked&&i>r)continue;
+    const rs=roundScore(T,lus,i); if(rs.none)continue;
+    if(!locked&&!mine){
+      const shown=rs.rows.filter(x=>playerLocked(T,x.id,i)), hidden=rs.rows.length-shown.length;
+      if(shown.length)parts.push(`<div><h4>${esc(T.rounds[i].label)} (in progress)<span>${fmt(rs.total)}</span></h4><ul>${shown.map(x=>`<li><span>${esc(P(T,x.id).name)}${x.mult>1?' <span class="tag cap">×2</span>':""}${stateTag(x)}</span><b>${x.state==="won"||x.state==="lost"?fmt(x.pts):"–"}</b></li>`).join("")}</ul>${hidden?`<p class="hide">${hidden} more player${hidden>1?"s":""} hidden until their matches start.</p>`:""}</div>`);
+      continue;
+    }
     parts.push(`<div><h4>${esc(T.rounds[i].label)}${locked?"":" (not locked yet)"}<span>${fmt(rs.total)}</span></h4><ul>${rs.rows.map(x=>`<li><span>${esc(P(T,x.id).name)}${x.mult>1?' <span class="tag cap">×2</span>':""}${stateTag(x)}</span><b>${locked&&(x.state==="won"||x.state==="lost")?fmt(x.pts):"–"}</b></li>`).join("")}</ul></div>`);
   }
-  if(r>=0&&!mine&&T.players.length)parts.unshift(`<p class="hide">Their team for the ${esc(T.rounds[r].label)} stays hidden until it locks (${esc(fmtDT(T.rounds[r].lock))}).</p>`);
+  if(r>=0&&!mine&&T.players.length&&!parts.length)parts.unshift(`<p class="hide">Each of their players shows up here once his match starts.</p>`);
   return `<div class="lineup">${parts.join("")||'<p class="hide">No locked lineup yet.</p>'}</div>`;
 }
 function seasonDetailHTML(uid){
@@ -784,7 +834,7 @@ document.addEventListener("click",async e=>{
   else if(t.id==="logoutBtn"){await sb.auth.signOut()}
   else if(t.dataset.buy&&canBuy(T,d,t.dataset.buy)){const ti=transferInfo(T,d),back=!ti.free&&ti.out.find(x=>x.id===t.dataset.buy);d.draft.p.push(back?clone(back):{id:t.dataset.buy,paid:P(T,t.dataset.buy).price});if(!d.draft.cap&&d.draft.p.length===1)d.draft.cap=t.dataset.buy;d.dirty=true;render()}
   else if(t.dataset.sell&&canSell(T,d,t.dataset.sell)){d.draft.p=d.draft.p.filter(x=>x.id!==t.dataset.sell);if(d.draft.cap===t.dataset.sell)d.draft.cap=null;d.dirty=true;render()}
-  else if(t.dataset.cap&&openRound(T)>=0){d.draft.cap=t.dataset.cap;d.dirty=true;render()}
+  else if(t.dataset.cap&&canCap(T,d,t.dataset.cap)){d.draft.cap=t.dataset.cap;d.dirty=true;render()}
   else if(t.dataset.f){filter=t.dataset.f;document.querySelectorAll("#filters .chip").forEach(c=>c.classList.toggle("on",c===t));render()}
   else if(t.dataset.tab){matchTab=+t.dataset.tab;render()}
   else if(t.dataset.scope)setScope(t.dataset.scope);
