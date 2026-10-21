@@ -167,6 +167,17 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
 .authform input{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:5px;padding:9px 10px}
 .autherr{color:var(--loss);font-size:13px;min-height:1em;margin:4px 0}
 .authacts{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.scopebar{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 10px}
+.leagues{display:grid;gap:0}
+.lg{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:10px 16px;border-top:1px solid var(--line)}
+.lg b{display:block}
+.lg small{color:var(--muted);font-size:12px}
+.code{font-family:var(--mono);font-weight:600;letter-spacing:.12em;background:var(--surface-2);border:1px dashed var(--line);border-radius:4px;padding:3px 8px;user-select:all}
+.lgforms{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;padding:12px 16px 16px;border-top:1px solid var(--line)}
+.lgforms form{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.lgforms label{width:100%;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+.lgforms input{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:5px;padding:7px 10px}
+.lgmsg{padding:0 16px 12px;font-size:13px;color:var(--muted);margin:0}
 .link{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:13px;padding:0}
 </style>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2214%22 fill=%22%23c9e23c%22/%3E%3Cpath d=%22M6 8c6 4 6 12 0 16M26 8c-6 4-6 12 0 16%22 stroke=%22%23fff%22 stroke-width=%222%22 fill=%22none%22/%3E%3C/svg%3E">
@@ -206,7 +217,17 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
       <div class="cards" id="cards"></div>
     </section>
     <section class="panel">
+      <div class="ph"><h2>Your leagues</h2><p>Play against just your friends. Everyone is also in the global ranking.</p></div>
+      <div class="leagues" id="leagueList"></div>
+      <div class="lgforms" id="leagueForms">
+        <form id="createLeague"><label for="newLeague">Create a league</label><input id="newLeague" maxlength="40" placeholder="e.g. Gymnasium Liestal"><button class="btn buy" type="submit">Create</button></form>
+        <form id="joinLeague"><label for="joinCode">Join with a code</label><input id="joinCode" maxlength="6" placeholder="6-letter code" autocapitalize="characters"><button class="btn" type="submit">Join</button></form>
+      </div>
+      <p class="lgmsg" id="leagueMsg" role="status"></p>
+    </section>
+    <section class="panel">
       <div class="ph"><h2>Season standings</h2><p id="seasonSub"></p></div>
+      <div class="scopebar" data-scopebar></div>
       <div class="lbwrap" id="seasonTable"></div>
     </section>
     <section class="panel">
@@ -215,8 +236,9 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
         <div>
           <h3>Victory points (VP)</h3>
           <table>
-            <tr><td>Win a Grand Slam league<small>Most fantasy points in that tournament</small></td><td>2 VP</td></tr>
-            <tr><td>Win any other league<small>Masters 1000, ATP 500, ATP Finals</small></td><td>1 VP</td></tr>
+            <tr><td>Win a Grand Slam<small>Most fantasy points in that tournament</small></td><td>2 VP</td></tr>
+            <tr><td>Win any other tournament<small>Masters 1000, ATP 500, ATP Finals</small></td><td>1 VP</td></tr>
+            <tr><td>Global or league<small>VP are counted inside each ranking: the global one (everyone) and each private league</small></td><td>–</td></tr>
             <tr><td>Most fantasy points in the season<small>Awarded when the season ends</small></td><td>1 VP</td></tr>
             <tr><td>Ties<small>Everyone tied for first gets the VP</small></td><td>–</td></tr>
           </table>
@@ -260,7 +282,8 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
       <div id="market"></div>
     </section>
     <section class="panel">
-      <div class="ph"><h2>League</h2><p id="leagueSub"></p></div>
+      <div class="ph"><h2>Standings</h2><p id="leagueSub"></p></div>
+      <div class="scopebar" data-scopebar></div>
       <div class="lbwrap" id="league"></div>
     </section>
   </div>
@@ -325,6 +348,8 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
 const CFG=window.MATCHPOINT_CONFIG||{};
 let SEASON={name:"Season",end:"2099-01-01",rules:{}}, TOURNEYS={}, ENTRIES={}, ME=null, MY_EMAIL="", sb=null, dbState="loading", dataState="loading";
 let view=null; const DRAFTS={};
+let LEAGUES=[]; let scope="global";
+try{scope=localStorage.getItem("mp-scope")||"global"}catch(e){}
 let filter="all", matchTab=null, saving=false, saveErr="", authMode="login";
 const BUDGET=100;
 
@@ -383,8 +408,14 @@ function roundScore(T,lineups,r){
 }
 function entryTotal(T,lineups){let t=0;const per=T.rounds.map((_,r)=>{const s=roundScore(T,lineups,r).total;t+=s;return s});return{t,per}}
 function playerPoints(T,pid){let t=0;T.matches.forEach(m=>{if(m.status==="done"&&(m.a===pid||m.b===pid))t+=scoreMatch(T,m,pid).total});return t}
+function scopeMembers(){
+  if(scope==="global")return null;
+  const L=LEAGUES.find(l=>l.id===scope); return L?new Set(L.members):null;
+}
+const scopeName=()=>scope==="global"?"Global":(LEAGUES.find(l=>l.id===scope)?.name||"Global");
 function tourneyStandings(T){
-  return Object.entries(ENTRIES).filter(([,e])=>e.leagues?.[T.id]).map(([id,e])=>({id,e,...entryTotal(T,e.leagues[T.id].lineups||{})})).sort((a,b)=>b.t-a.t);
+  const mem=scopeMembers();
+  return Object.entries(ENTRIES).filter(([id,e])=>e.leagues?.[T.id]&&(!mem||mem.has(id))).map(([id,e])=>({id,e,...entryTotal(T,e.leagues[T.id].lineups||{})})).sort((a,b)=>b.t-a.t);
 }
 function leagueWinners(T){
   if(T.status!=="finished")return [];
@@ -484,6 +515,46 @@ async function loadEntries(){
   if(!error){const next={};data.forEach(e=>next[e.user_id]=e);ENTRIES=next;dbState="ready";render()}
 }
 
+async function loadLeagues(){
+  if(!sb||!ME){LEAGUES=[];if(scope!=="global")scope="global";render();return}
+  const {data,error}=await sb.from("leagues").select("id,name,code,owner,league_members(user_id)").order("created_at");
+  if(error)return;
+  LEAGUES=data.map(l=>({id:l.id,name:l.name,code:l.code,owner:l.owner,members:(l.league_members||[]).map(m=>m.user_id)}));
+  if(scope!=="global"&&!LEAGUES.some(l=>l.id===scope))scope="global";
+  render();
+}
+function setScope(s){scope=s;try{localStorage.setItem("mp-scope",s)}catch(e){}render()}
+function scopeChips(){
+  const opts=[{id:"global",name:"Global"}].concat(LEAGUES);
+  return opts.map(o=>`<button class="chip ${o.id===scope?"on":""}" data-scope="${esc(o.id)}">${esc(o.name)}</button>`).join("");
+}
+function renderLeagues(){
+  document.querySelectorAll("[data-scopebar]").forEach(el=>el.innerHTML=scopeChips());
+  const list=$("leagueList"); if(!list)return;
+  $("leagueForms").hidden=!ME;
+  if(!ME){list.innerHTML=`<p class="empty-state">Log in to create a league or join one with a code.</p>`;return}
+  if(!LEAGUES.length){list.innerHTML=`<p class="empty-state">You're not in any private league yet. Create one and send the code to your friends.</p>`;return}
+  list.innerHTML=LEAGUES.map(l=>`<div class="lg"><div><b></b><small>${l.members.length} member${l.members.length===1?"":"s"} · code <span class="code">${esc(l.code)}</span></small></div>
+    <div class="acts"><button class="btn" data-copycode="${esc(l.code)}">Copy code</button>${l.owner===ME?"":`<button class="btn sell" data-leave="${esc(l.id)}">Leave</button>`}</div></div>`).join("");
+  list.querySelectorAll(".lg b").forEach((b,i)=>b.textContent=LEAGUES[i].name);
+}
+async function createLeague(e){
+  e.preventDefault(); const name=$("newLeague").value.trim(); if(!name||!sb||!ME)return;
+  const {data,error}=await sb.from("leagues").insert({name}).select().single();
+  if(error){$("leagueMsg").textContent="Couldn't create the league: "+error.message;return}
+  $("newLeague").value=""; $("leagueMsg").textContent=`League created. Share the code ${data.code} with your friends.`;
+  scope=data.id; try{localStorage.setItem("mp-scope",scope)}catch(e){}
+  loadLeagues();
+}
+async function joinLeague(e){
+  e.preventDefault(); const code=$("joinCode").value.trim(); if(!code||!sb||!ME)return;
+  const {data,error}=await sb.rpc("join_league",{p_code:code});
+  if(error){$("leagueMsg").textContent=error.message.includes("No league")?"No league with that code. Check the 6 letters and try again.":"Couldn't join: "+error.message;return}
+  $("joinCode").value=""; $("leagueMsg").textContent=`You joined ${data.name}.`;
+  scope=data.id; try{localStorage.setItem("mp-scope",scope)}catch(e){}
+  loadLeagues();
+}
+
 /* ---------- Auth ---------- */
 function openAuth(mode){authMode=mode;$("authWrap").hidden=false;$("authErr").textContent="";syncAuthForm();window.scrollTo(0,0);$("authEmail").focus()}
 function syncAuthForm(){
@@ -528,7 +599,7 @@ const teamLabel=id=>ENTRIES[id]?.team||"Unnamed team";
 
 function render(){
   $("homeView").hidden=!!view; $("tourneyView").hidden=!view; $("bar").hidden=!view; $("backBtn").hidden=!view;
-  renderAcct();
+  renderAcct(); renderLeagues();
   const T=view&&TOURNEYS[view];
   $("sources").innerHTML=`Data: <a href="https://www.atptour.com/en/scores/current" target="_blank" rel="noopener">ATP Tour</a> · <a href="https://polymarket.com/sports/tennis" target="_blank" rel="noopener">Polymarket (official ATP prediction market)</a>${T?` · last update ${esc(fmtDT(T.updatedAt))}`:""}.`;
   return view?renderTourney(T):renderHome();
@@ -540,7 +611,7 @@ function renderHome(){
   const ss=seasonStandings(), me=ss.list.find(r=>r.id===ME), pos=ss.list.findIndex(r=>r.id===ME);
   const live=Object.values(TOURNEYS).filter(t=>["draft","live","final-day"].includes(phase(t)));
   $("lockLine").innerHTML=live.length?`<span>${live.length} tournament${live.length>1?"s":""} open now</span>`:"";
-  $("stats").innerHTML=stat("Victory points",me?me.vp:0)+stat("Season rank",pos>=0?`${pos+1}/${ss.list.length}`:"–")+stat("Season points",me?fmt(me.pts):0)+stat("Leagues won",me?me.wins:0);
+  $("stats").innerHTML=stat("Victory points",me?me.vp:0)+stat(scope==="global"?"Global rank":"League rank",pos>=0?`${pos+1}/${ss.list.length}`:"–")+stat("Season points",me?fmt(me.pts):0)+stat("Leagues won",me?me.wins:0);
   $("rounds").innerHTML="";
   const order={draft:0,live:0,"final-day":0,upcoming:1,finished:2};
   const list=Object.values(TOURNEYS).sort((a,b)=>order[phase(a)]-order[phase(b)]||(phase(a)==="finished"?b.start.localeCompare(a.start):a.start.localeCompare(b.start)));
@@ -559,7 +630,7 @@ function renderHome(){
       <div class="cline">${mine}</div>
       <div class="cstate">${state}</div></button>`;
   }).join("");
-  $("seasonSub").textContent=ss.ended?"Final standings.":"Tournament winners get VP as soon as a tournament ends. The most-points VP is added at the end of the season.";
+  $("seasonSub").textContent=(ss.ended?"Final standings":`${scopeName()} ranking for the whole season`)+". Tournament winners get VP as soon as a tournament ends; the most-points VP is added at the end of the season.";
   if(!ss.list.length)$("seasonTable").innerHTML=`<p class="empty-state">Nobody has a team yet. Sign up, open a tournament and save a team, then send the link to your friends.</p>`;
   else{
     $("seasonTable").innerHTML=`<table class="lb"><thead><tr><th>#</th><th>Team</th><th>VP</th><th>Wins</th><th>Played</th><th>Points</th></tr></thead><tbody>${ss.list.map((r,i)=>`<tr class="${r.id===ME?"me":""}"><td>${i+1}</td><td></td><td><b>${r.vp}</b></td><td>${r.wins}</td><td>${r.played}</td><td>${fmt(r.pts)}${r.ptsLeader&&!ss.ended?' <span class="tag cap" title="On track for the most-points VP">+1</span>':""}</td></tr>`).join("")}</tbody></table>`;
@@ -573,7 +644,7 @@ function renderTourney(T){
   const st=tourneyStandings(T), myPos=st.findIndex(x=>x.id===ME);
   $("eyebrow").textContent=`${T.name} · ${T.category} · ${T.dates} · ${vpOf(T)} VP`;
   $("lockLine").innerHTML=!T.players.length?`<span>Field gets added a few days before the start</span>`:r>=0?`<span>${esc(T.rounds[r].label)} locks ${esc(fmtDT(T.rounds[r].lock))}</span><b>${countdown(T.rounds[r].lock)}</b>`:`<span>All rounds locked</span>`;
-  $("stats").innerHTML=stat("Budget left",r>=0?budget(d):"–")+stat("Your points",fmt(mine.t))+stat("League rank",myPos>=0?`${myPos+1}/${st.length}`:"–")+stat("Transfer",r<0?"–":ti.free?(r===0?"Draft":"Free pick"):ti.in.length?"Used":ti.out.length?"Pending":"1 free");
+  $("stats").innerHTML=stat("Budget left",r>=0?budget(d):"–")+stat("Your points",fmt(mine.t))+stat(scope==="global"?"Global rank":"League rank",myPos>=0?`${myPos+1}/${st.length}`:"–")+stat("Transfer",r<0?"–":ti.free?(r===0?"Draft":"Free pick"):ti.in.length?"Used":ti.out.length?"Pending":"1 free");
   $("rounds").innerHTML=T.rounds.map((x,i)=>`<span class="rnd ${r<0||i<r?"done":i===r?"now":""}">${x.key}${(r<0||i<r)?" · "+fmt(mine.per[i]):""}</span>`).join("");
 
   const ban=$("statusBanner"); ban.hidden=!T.note; ban.textContent=T.note||"";
@@ -615,7 +686,7 @@ function renderTourney(T){
     <span class="muted">${fmt(playerPoints(T,p.id))} pts</span><span class="price">${p.price} cr</span>
     ${own?`<button class="btn sell" data-sell="${esc(p.id)}" ${canSell(T,d,p.id)?"":"disabled"}>Sell</button>`:`<button class="btn buy" data-buy="${esc(p.id)}" ${canBuy(T,d,p.id)?"":"disabled"}>Buy</button>`}</div>`}).join("")||`<p class="empty-state">Nobody fits this filter.</p>`;
 
-  $("leagueSub").textContent=`The winner gets ${vpOf(T)} VP${T.status==="finished"?".":" when the tournament ends."}`;
+  $("leagueSub").textContent=`${scopeName()} ranking for this tournament. The winner gets ${vpOf(T)} VP${T.status==="finished"?".":" when it ends."}`;
   if(!st.length)$("league").innerHTML=`<p class="empty-state">No teams yet. Save yours, then send the link to your friends.</p>`;
   else{
     $("league").innerHTML=`<table class="lb"><thead><tr><th>#</th><th>Team</th>${T.rounds.map(x=>`<th>${x.key}</th>`).join("")}<th>Total</th></tr></thead><tbody>${st.map((x,i)=>`<tr class="${x.id===ME?"me":""}"><td>${i+1}</td><td></td>${x.per.map(v=>`<td>${fmt(v)}</td>`).join("")}<td><b>${fmt(x.t)}</b></td></tr>`).join("")}</tbody></table>`;
@@ -650,10 +721,15 @@ document.addEventListener("click",async e=>{
   else if(t.dataset.cap&&openRound(T)>=0){d.draft.cap=t.dataset.cap;d.dirty=true;render()}
   else if(t.dataset.f){filter=t.dataset.f;document.querySelectorAll("#filters .chip").forEach(c=>c.classList.toggle("on",c===t));render()}
   else if(t.dataset.tab){matchTab=+t.dataset.tab;render()}
+  else if(t.dataset.scope)setScope(t.dataset.scope);
+  else if(t.dataset.copycode){try{await navigator.clipboard.writeText(t.dataset.copycode);t.textContent="Copied"}catch(err){t.textContent=t.dataset.copycode}setTimeout(()=>{t.textContent="Copy code"},1500)}
+  else if(t.dataset.leave){if(t.dataset.confirm){await sb.from("league_members").delete().eq("league_id",t.dataset.leave).eq("user_id",ME);if(scope===t.dataset.leave)scope="global";loadLeagues()}else{t.dataset.confirm="1";t.textContent="Tap again to leave";setTimeout(()=>{delete t.dataset.confirm;t.textContent="Leave"},3000)}}
   else if(t.id==="saveBtn")save();
   else if(t.id==="revertBtn"||t.id==="undoBtn"){resetDraft(T);render()}
 });
 $("authForm").addEventListener("submit",submitAuth);
+$("createLeague").addEventListener("submit",createLeague);
+$("joinLeague").addEventListener("submit",joinLeague);
 $("teamName").addEventListener("input",e=>{e.target.dataset.touched="1";render()});
 window.addEventListener("hashchange",()=>{const id=location.hash.slice(1);if((id||null)!==view)go(id||null)});
 
@@ -667,10 +743,10 @@ if(CFG.supabaseUrl&&CFG.supabaseKey&&window.supabase){
   sb=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseKey,{auth:{persistSession:true,autoRefreshToken:true}});
   sb.auth.onAuthStateChange((_ev,session)=>{
     const id=session?.user?.id||null; MY_EMAIL=session?.user?.email||"";
-    if(id!==ME){ME=id;Object.keys(DRAFTS).forEach(k=>delete DRAFTS[k]);$("teamName").dataset.touched=""}
+    if(id!==ME){ME=id;Object.keys(DRAFTS).forEach(k=>delete DRAFTS[k]);$("teamName").dataset.touched="";loadLeagues()}
     render();
   });
-  loadEntries(); setInterval(loadEntries,60000);
+  loadEntries(); setInterval(loadEntries,60000); setInterval(loadLeagues,120000);
 }else{dbState="unconfigured";render()}
 </script>
 
