@@ -9,7 +9,7 @@
  "end": "2026-11-01",
  "dates": "26 Oct – 1 Nov 2026",
  "status": "pre-draw",
- "note": "Draw comes out Saturday 24 Oct. Seeds are provisional; prices come from ATP rankings until Polymarket lists the matches.",
+ "note": "Auger-Aliassime (knee) and Fonseca withdrew; their replacements are announced with the draw on Saturday. Wildcards: Djokovic, Stricker, Kym. Seeds are provisional.",
  "rounds": [
   {
    "key": "R32",
@@ -60,12 +60,12 @@
    "name": "Félix Auger-Aliassime",
    "cc": "CAN",
    "rank": 5,
-   "seed": 2,
+   "seed": null,
    "tag": "",
    "price": 28,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "withdrawn"
   },
   {
    "id": "fils",
@@ -74,7 +74,7 @@
    "rank": 11,
    "seed": 3,
    "tag": "",
-   "price": 22,
+   "price": 23,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -86,7 +86,7 @@
    "rank": 12,
    "seed": 4,
    "tag": "",
-   "price": 21,
+   "price": 22,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -98,7 +98,7 @@
    "rank": 13,
    "seed": 5,
    "tag": "",
-   "price": 20,
+   "price": 22,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -110,7 +110,7 @@
    "rank": 14,
    "seed": 6,
    "tag": "",
-   "price": 20,
+   "price": 21,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -122,7 +122,7 @@
    "rank": 16,
    "seed": 7,
    "tag": "",
-   "price": 19,
+   "price": 20,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -132,9 +132,9 @@
    "name": "Alexander Bublik",
    "cc": "KAZ",
    "rank": 22,
-   "seed": 8,
+   "seed": null,
    "tag": "",
-   "price": 17,
+   "price": 18,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -143,10 +143,10 @@
    "id": "djokovic",
    "name": "Novak Djokovic",
    "cc": "SRB",
-   "rank": 12,
-   "seed": null,
+   "rank": 8,
+   "seed": 2,
    "tag": "WC",
-   "price": 21,
+   "price": 25,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -156,9 +156,9 @@
    "name": "Casper Ruud",
    "cc": "NOR",
    "rank": 21,
-   "seed": null,
+   "seed": 8,
    "tag": "",
-   "price": 17,
+   "price": 18,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -170,7 +170,7 @@
    "rank": 26,
    "seed": null,
    "tag": "",
-   "price": 15,
+   "price": 17,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -185,7 +185,7 @@
    "price": 15,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "withdrawn"
   },
   {
    "id": "tabilo",
@@ -194,7 +194,7 @@
    "rank": 31,
    "seed": null,
    "tag": "",
-   "price": 14,
+   "price": 16,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -206,7 +206,7 @@
    "rank": 32,
    "seed": null,
    "tag": "",
-   "price": 14,
+   "price": 16,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -218,7 +218,7 @@
    "rank": 33,
    "seed": null,
    "tag": "",
-   "price": 14,
+   "price": 15,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -230,7 +230,7 @@
    "rank": 34,
    "seed": null,
    "tag": "",
-   "price": 14,
+   "price": 15,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -242,7 +242,7 @@
    "rank": 38,
    "seed": null,
    "tag": "",
-   "price": 13,
+   "price": 15,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -254,7 +254,7 @@
    "rank": 39,
    "seed": null,
    "tag": "",
-   "price": 13,
+   "price": 14,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -266,7 +266,7 @@
    "rank": 41,
    "seed": null,
    "tag": "",
-   "price": 12,
+   "price": 14,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -278,7 +278,7 @@
    "rank": 44,
    "seed": null,
    "tag": "",
-   "price": 12,
+   "price": 14,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -290,7 +290,7 @@
    "rank": 45,
    "seed": null,
    "tag": "",
-   "price": 12,
+   "price": 14,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -302,7 +302,7 @@
    "rank": 46,
    "seed": null,
    "tag": "",
-   "price": 12,
+   "price": 14,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -314,7 +314,7 @@
    "rank": 48,
    "seed": null,
    "tag": "",
-   "price": 11,
+   "price": 13,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -326,19 +326,7 @@
    "rank": 188,
    "seed": null,
    "tag": "PR",
-   "price": 10,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered"
-  },
-  {
-   "id": "wawrinka",
-   "name": "Stan Wawrinka",
-   "cc": "SUI",
-   "rank": null,
-   "seed": null,
-   "tag": "WC",
-   "price": 6,
+   "price": 12,
    "winProb": null,
    "priceSource": "ranking",
    "status": "entered"
@@ -350,7 +338,7 @@
    "rank": null,
    "seed": null,
    "tag": "Q",
-   "price": 7,
+   "price": 9,
    "winProb": null,
    "priceSource": "ranking",
    "status": "tbd"
@@ -362,7 +350,7 @@
    "rank": null,
    "seed": null,
    "tag": "Q",
-   "price": 7,
+   "price": 9,
    "winProb": null,
    "priceSource": "ranking",
    "status": "tbd"
@@ -374,7 +362,7 @@
    "rank": null,
    "seed": null,
    "tag": "Q",
-   "price": 7,
+   "price": 9,
    "winProb": null,
    "priceSource": "ranking",
    "status": "tbd"
@@ -386,19 +374,7 @@
    "rank": null,
    "seed": null,
    "tag": "Q",
-   "price": 7,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "tbd"
-  },
-  {
-   "id": "wc3",
-   "name": "Wildcard (TBA)",
-   "cc": "",
-   "rank": null,
-   "seed": null,
-   "tag": "WC",
-   "price": 6,
+   "price": 9,
    "winProb": null,
    "priceSource": "ranking",
    "status": "tbd"
@@ -410,7 +386,7 @@
    "rank": null,
    "seed": null,
    "tag": "ALT",
-   "price": 11,
+   "price": 13,
    "winProb": null,
    "priceSource": "ranking",
    "status": "tbd"
@@ -422,7 +398,55 @@
    "rank": null,
    "seed": null,
    "tag": "ALT",
-   "price": 11,
+   "price": 13,
+   "winProb": null,
+   "priceSource": "ranking",
+   "status": "tbd"
+  },
+  {
+   "id": "stricker",
+   "name": "Dominic Stricker",
+   "cc": "SUI",
+   "rank": 251,
+   "seed": null,
+   "tag": "WC",
+   "price": 6,
+   "winProb": null,
+   "priceSource": "ranking",
+   "status": "entered"
+  },
+  {
+   "id": "kym",
+   "name": "Jérôme Kym",
+   "cc": "SUI",
+   "rank": 223,
+   "seed": null,
+   "tag": "WC",
+   "price": 6,
+   "winProb": null,
+   "priceSource": "ranking",
+   "status": "entered"
+  },
+  {
+   "id": "alt3",
+   "name": "Entry (TBA)",
+   "cc": "",
+   "rank": null,
+   "seed": null,
+   "tag": "ALT",
+   "price": 13,
+   "winProb": null,
+   "priceSource": "ranking",
+   "status": "tbd"
+  },
+  {
+   "id": "alt4",
+   "name": "Entry (TBA)",
+   "cc": "",
+   "rank": null,
+   "seed": null,
+   "tag": "ALT",
+   "price": 13,
    "winProb": null,
    "priceSource": "ranking",
    "status": "tbd"
@@ -440,7 +464,15 @@
   {
    "label": "Polymarket (official ATP prediction market)",
    "url": "https://polymarket.com/sports/tennis"
+  },
+  {
+   "label": "blue News: Auger-Aliassime and Fonseca withdraw",
+   "url": "https://www.bluewin.ch/en/sport/auger-aliassime-will-miss-the-swiss-indoors-li.3639752"
+  },
+  {
+   "label": "blue News: Stricker and Kym get wildcards",
+   "url": "https://www.bluewin.ch/en/sport/stricker-and-kym-will-also-receive-a-wild-card-for-basel-li.3641355"
   }
  ],
- "updatedAt": "2026-10-21T11:45:00Z"
+ "updatedAt": "2026-10-22T08:40:53Z"
 }

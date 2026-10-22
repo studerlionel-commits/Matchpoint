@@ -9,7 +9,7 @@
  "end": "2026-11-01",
  "dates": "26 Oct – 1 Nov 2026",
  "status": "pre-draw",
- "note": "Draw comes out Saturday 24 Oct. Sinner withdrew injured. Prices come from ATP rankings until Polymarket lists the matches.",
+ "note": "Draw comes out Saturday 24 Oct. Sinner withdrew injured and Luca Van Assche moved in. Two wildcards still to be announced.",
  "rounds": [
   {
    "key": "R32",
@@ -442,5 +442,5 @@
    "url": "https://polymarket.com/sports/tennis"
   }
  ],
- "updatedAt": "2026-10-21T11:45:00Z"
+ "updatedAt": "2026-10-22T08:40:53Z"
 }
