@@ -715,9 +715,10 @@ function paintCourt(key){
   if(pad)for(const o of courts){g.fillStyle=rgb(S.in);g.fillRect(X(o-5.485-pad),Y(-11.885-pad*1.6),(10.97+2*pad)*s,(23.77+3.2*pad)*s)}
   if(S.stripes){g.fillStyle="rgba(255,255,235,.085)";for(let i=-30;i<30;i+=2)g.fillRect(0,Y(i*1.6),pw,1.6*s)}
   // uneven surface: soft light and dark patches
+  const ts=Math.min(s,ph/22);   // texture scale: same fine grain at any zoom
   const blobs=Math.round(260*(pw*ph)/1.3e6)+80;
-  for(let i=0;i<blobs;i++){const x=R()*pw,y=R()*ph,r=(.6+R()*3.2)*s,light=R()<.5,a=(S.blot/100)*(.25+R()*.5);
-    const rg=g.createRadialGradient(x,y,0,x,y,r);rg.addColorStop(0,light?`rgba(255,240,225,${a})`:`rgba(40,20,10,${a})`);rg.addColorStop(1,"rgba(0,0,0,0)");g.fillStyle=rg;g.fillRect(x-r,y-r,2*r,2*r)}
+  for(let i=0;i<blobs;i++){const x=R()*pw,y=R()*ph,r=(.6+R()*3.2)*ts,light=R()<.5,a=(S.blot/100)*(.25+R()*.5);
+    const rg=g.createRadialGradient(x,y,0,x,y,r);rg.addColorStop(0,light?`rgba(255,240,225,${a})`:`rgba(${S.in[0]*.55|0},${S.in[1]*.5|0},${S.in[2]*.5|0},${a})`);rg.addColorStop(1,"rgba(0,0,0,0)");g.fillStyle=rg;g.fillRect(x-r,y-r,2*r,2*r)}
   if(key==="grass")for(const o of courts)for(const y of[-11.885,11.885])for(let j=0;j<14;j++){const x=X(o+(R()-.5)*4.4),yy=Y(y+(y<0?-1:1)*(R()*1.6-.3)),r=(.5+R()*1.1)*s;
     const rg=g.createRadialGradient(x,yy,0,x,yy,r);rg.addColorStop(0,"rgba(170,145,95,.32)");rg.addColorStop(1,"rgba(170,145,95,0)");g.fillStyle=rg;g.fillRect(x-r,yy-r,2*r,2*r)}
   const poleYs=[-10.5,3.5,17.5], dividers=courts.map(o=>o-5.485-GAP), seen=d=>X(d)>-.5*s&&X(d-2.6)<pw;
@@ -734,8 +735,8 @@ function paintCourt(key){
   const base=[[-5.485,-11.885,5.485,-11.885,.1],[-5.485,11.885,5.485,11.885,.1],[-5.485,-11.885,-5.485,11.885],[5.485,-11.885,5.485,11.885],[-4.115,-11.885,-4.115,11.885],[4.115,-11.885,4.115,11.885],[-4.115,-6.4,4.115,-6.4],[-4.115,6.4,4.115,6.4],[0,-6.4,0,6.4],[0,-11.885,0,-11.735],[0,11.885,0,11.735]];
   for(const o of courts){
     g.strokeStyle=rgb(S.line,.92); base.forEach(q=>line(q[0]+o,q[1],q[2]+o,q[3],q[4]));
-    if(S.wear){g.fillStyle=rgb(S.in,.9);const n=Math.round(S.wear*5000*(23.77*10.97*s*s)/1.3e6*3);
-      for(let i=0;i<n;i++){const q=base[(R()*9)|0],t=R(),x=X(o+q[0]+(q[2]-q[0])*t)+(R()-.5)*lw*2,y=Y(q[1]+(q[3]-q[1])*t)+(R()-.5)*lw*2,r=Math.max(.6,R()*lw*.9);g.fillRect(x,y,r,r)}}
+    if(S.wear){g.fillStyle=rgb(S.in,.75);const px=Math.max(1,k),n=Math.round(S.wear*900*s/Math.max(1,ts)*(lw/px));
+      for(let i=0;i<n;i++){const q=base[(R()*9)|0],t=R(),x=X(o+q[0]+(q[2]-q[0])*t)+(R()-.5)*lw*1.6,y=Y(q[1]+(q[3]-q[1])*t)+(R()-.5)*lw*1.6,r=px*(.6+R()*1.4);g.fillRect(x,y,r,r)}}
     // net with its shadow and posts
     const sh=g.createLinearGradient(0,Y(0),0,Y(1.1));sh.addColorStop(0,"rgba(0,0,0,.22)");sh.addColorStop(1,"rgba(0,0,0,0)");g.fillStyle=sh;g.fillRect(X(o-6.4),Y(.03),12.8*s,1.1*s);
     g.strokeStyle="rgba(25,25,25,.85)"; line(o-6.4,0,o+6.4,0,.06);
@@ -767,7 +768,7 @@ function paintCourt(key){
   const img=g.getImageData(0,0,pw,ph),d=img.data,gr=S.grain;
   for(let i=0;i<d.length;i+=4){const n=(R()-.5)*gr;d[i]+=n;d[i+1]+=n*.92;d[i+2]+=n*.85}
   g.putImageData(img,0,0);
-  const vg=g.createRadialGradient(pw/2,ph/2,Math.min(pw,ph)*.35,pw/2,ph/2,Math.max(pw,ph)*.75);vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,"rgba(0,0,0,.22)");g.fillStyle=vg;g.fillRect(0,0,pw,ph);
+  const vg=g.createRadialGradient(pw/2,ph/2,Math.min(pw,ph)*.35,pw/2,ph/2,Math.max(pw,ph)*.75);vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,"rgba(0,0,0,.12)");g.fillStyle=vg;g.fillRect(0,0,pw,ph);
   return c.toDataURL("image/jpeg",.82);
 }
 function setCourt(key,force){
