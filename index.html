@@ -665,7 +665,7 @@ function renderAcct(){
 /* ---------- Court backgrounds ---------- */
 // Clay on the home page; each tournament page shows that tournament's own surface.
 const SURFACES={
-  clay:  {in:[196,104,62], out:[188,98,58], line:[242,236,226], grain:30, blot:11, band:"#1d4a37", poles:true,  wear:.55},
+  clay:  {in:[196,104,62], out:[188,98,58], line:[242,236,226], grain:30, blot:11, band:"#1d4a37", poles:true,  wear:.3},
   grass: {in:[92,142,60],  out:[80,124,52], line:[246,246,240], grain:18, blot:8, band:"#2f2650", stripes:true, wear:.25, divider:true},
   hard:  {in:[40,92,158],  out:[52,118,84], line:[248,248,248], grain:10, blot:8,  band:"#163a66", wear:.08, poles:true},
   indoor:{in:[33,78,140],  out:[22,40,70],  line:[246,246,246], grain:8,  blot:6,  band:"#13294a", wear:.05, lights:true}
@@ -689,12 +689,11 @@ function paintCourt(key){
   // Phones: zoomed in, main court pushed right. Wide screens: same scale as the phone view,
   // with the divider and floodlights placed in the free space left of the content column.
   const GAP=3.4, PITCH=10.97+2*GAP;
-  const s=land?ph/24:Math.min(pw/14,ph/22);
+  const s=land?ph/12.5:Math.min(pw/14,ph/22);   // wide screens: one court, zoomed in
   const gutter=Math.max(0,(pw-880*k)/2);
   const divX=land?Math.max(gutter*.72,pw*.08):pw*.43-GAP*s;           // screen x of the divider left of the main court
   const X=m=>divX+(m+5.485+GAP)*s, Y=m=>ph*.32+m*s;
-  const first=Math.floor((-divX/s-5.485-GAP)/PITCH)-1, last=Math.ceil((pw/s)/PITCH)+1;
-  const courts=[];for(let i=first;i<=last;i++)courts.push(i*PITCH);
+    const courts=[0];   // one court only, no neighbours
   g.fillStyle=rgb(S.out); g.fillRect(0,0,pw,ph);
   const pad=(key==="hard"||key==="indoor")?1.6:0;
   if(pad)for(const o of courts){g.fillStyle=rgb(S.in);g.fillRect(X(o-5.485-pad),Y(-11.885-pad*1.6),(10.97+2*pad)*s,(23.77+3.2*pad)*s)}
