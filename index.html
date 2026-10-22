@@ -11,6 +11,7 @@
 /* Layout: court-blue scoreboard band; home = tournament cards + season table; tournament = team, points, matches, players, league; sticky save bar */
 :root{
   --bg:#edf1f6; --surface:#ffffff; --surface-2:#f5f7fb; --ink:#0f1d33; --muted:#5a6a82; --line:#d6dde8;
+  --surfacebg:#d7e3f1; --lines:rgba(255,255,255,.95); --net:rgba(23,63,120,.35);
   --court:#1d4f91; --court-ink:#ffffff; --band:#173f78; --ball:#c9e23c; --ball-ink:#1b2a07;
   --win:#1a7a49; --loss:#b23a30; --live:#d0402f; --slam:#7a4fb8;
   --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
@@ -18,17 +19,24 @@
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --surfacebg:#0c1a30; --lines:rgba(150,185,235,.22); --net:rgba(150,185,235,.3);
   --bg:#0a1322; --surface:#111d33; --surface-2:#0e182b; --ink:#e6ecf5; --muted:#8e9cb4; --line:#223152;
   --court:#4d8be0; --court-ink:#ffffff; --band:#0f2648; --ball:#d6ef4a; --ball-ink:#1b2a07;
   --win:#4fc487; --loss:#f07a6f; --live:#ff6b5b; --slam:#b48cf0; color-scheme:dark}}
 :root[data-theme="dark"]{
+  --surfacebg:#0c1a30; --lines:rgba(150,185,235,.22); --net:rgba(150,185,235,.3);
   --bg:#0a1322; --surface:#111d33; --surface-2:#0e182b; --ink:#e6ecf5; --muted:#8e9cb4; --line:#223152;
   --court:#4d8be0; --court-ink:#ffffff; --band:#0f2648; --ball:#d6ef4a; --ball-ink:#1b2a07;
   --win:#4fc487; --loss:#f07a6f; --live:#ff6b5b; --slam:#b48cf0; color-scheme:dark}
 *{box-sizing:border-box}
+.courtbg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+.courtbg .ln{stroke:var(--lines);fill:none}
+.courtbg .net{stroke:var(--net);fill:none}
+.courtbg.land{display:none}
+@media (min-aspect-ratio:1/1){.courtbg.land{display:block}.courtbg.port{display:none}}
 [hidden]{display:none!important}
 html{padding-top:env(safe-area-inset-top,0px)}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;margin:0}
+body{background:var(--surfacebg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;margin:0}
 button,input{font:inherit}
 button{cursor:pointer}
 button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
@@ -214,6 +222,14 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2214%22 fill=%22%23c9e23c%22/%3E%3Cpath d=%22M6 8c6 4 6 12 0 16M26 8c-6 4-6 12 0 16%22 stroke=%22%23fff%22 stroke-width=%222%22 fill=%22none%22/%3E%3C/svg%3E">
 </head>
 <body>
+<svg class="courtbg port" viewBox="-160 -160 1417 2697" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <g class="ln" stroke-width="10"><rect x="0" y="0" width="1097" height="2377"/><line x1="137" y1="0" x2="137" y2="2377"/><line x1="960" y1="0" x2="960" y2="2377"/><line x1="137" y1="548" x2="960" y2="548"/><line x1="137" y1="1829" x2="960" y2="1829"/><line x1="548.5" y1="548" x2="548.5" y2="1829"/><line x1="548.5" y1="0" x2="548.5" y2="22"/><line x1="548.5" y1="2355" x2="548.5" y2="2377"/></g>
+  <line class="net" stroke-width="14" stroke-dasharray="4 10" x1="-91" y1="1188.5" x2="1188" y2="1188.5"/>
+</svg>
+<svg class="courtbg land" viewBox="-160 -160 2697 1417" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
+  <g class="ln" stroke-width="10"><rect x="0" y="0" width="2377" height="1097"/><line x1="0" y1="137" x2="2377" y2="137"/><line x1="0" y1="960" x2="2377" y2="960"/><line x1="548" y1="137" x2="548" y2="960"/><line x1="1829" y1="137" x2="1829" y2="960"/><line x1="548" y1="548.5" x2="1829" y2="548.5"/><line x1="0" y1="548.5" x2="22" y2="548.5"/><line x1="2355" y1="548.5" x2="2377" y2="548.5"/></g>
+  <line class="net" stroke-width="14" stroke-dasharray="4 10" x1="1188.5" y1="-91" x2="1188.5" y2="1188"/>
+</svg>
 <header class="band">
   <div class="wrap">
     <div class="toprow"><button class="back" id="backBtn" hidden>← All tournaments</button><div class="acct" id="acct"></div></div>
