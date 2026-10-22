@@ -588,11 +588,25 @@ async function loadData(){
   if(view&&!TOURNEYS[view])view=null;
   render();
 }
-async function loadEntries(){
+// Teams sync: one full download, then only teams changed since the last check.
+// A full refresh runs every 30 minutes as a safety net.
+let lastSync=null, lastFull=0;
+async function loadEntries(full){
   if(!sb)return;
-  const {data,error}=await sb.from("entries").select("user_id,team,leagues");
-  if(!error){const next={};data.forEach(e=>next[e.user_id]=e);ENTRIES=next;dbState="ready";render()}
+  const doFull=full||!lastSync||Date.now()-lastFull>30*60000;
+  let q=sb.from("entries").select("user_id,team,leagues,updated_at");
+  // small overlap so a save that committed slightly late is never missed
+  if(!doFull)q=q.gt("updated_at",new Date(Date.parse(lastSync)-2*60000).toISOString());
+  const {data,error}=await q;
+  if(error)return;
+  if(doFull){const next={};data.forEach(e=>next[e.user_id]=e);ENTRIES=next;lastFull=Date.now()}
+  else{if(!data.length&&dbState==="ready")return;data.forEach(e=>{ENTRIES[e.user_id]=e})}
+  data.forEach(e=>{if(!lastSync||e.updated_at>lastSync)lastSync=e.updated_at});
+  if(!lastSync)lastSync=new Date().toISOString();
+  dbState="ready";render();
 }
+// Only poll while the page is visible; catch up as soon as it's opened again.
+const whenVisible=fn=>()=>{if(!document.hidden)fn()};
 
 async function loadLeagues(){
   if(!sb||!ME){LEAGUES=[];if(scope!=="global")scope="global";render();return}
@@ -666,9 +680,9 @@ function renderAcct(){
 // Clay on the home page; each tournament page shows that tournament's own surface.
 const SURFACES={
   clay:  {in:[196,104,62], out:[188,98,58], line:[242,236,226], grain:30, blot:11, band:"#1d4a37", poles:true,  wear:.3},
-  grass: {in:[92,142,60],  out:[80,124,52], line:[246,246,240], grain:18, blot:8, band:"#2f2650", stripes:true, wear:.25, divider:true},
-  hard:  {in:[40,92,158],  out:[52,118,84], line:[248,248,248], grain:10, blot:8,  band:"#163a66", wear:.08, poles:true},
-  indoor:{in:[33,78,140],  out:[22,40,70],  line:[246,246,246], grain:8,  blot:6,  band:"#13294a", wear:.05, lights:true}
+  grass: {in:[92,142,60],  out:[80,124,52], line:[246,246,240], grain:16, blot:4, band:"#2f2650", stripes:true, wear:.2, poles:true},
+  hard:  {in:[40,92,158],  out:[52,118,84], line:[248,248,248], grain:9,  blot:2,  band:"#163a66", wear:.06, poles:true},
+  indoor:{in:[33,78,140],  out:[22,40,70],  line:[246,246,246], grain:7,  blot:2,  band:"#13294a", wear:.04, lights:true, curtain:true}
 };
 function surfaceKey(T){
   if(!T)return "clay";
@@ -697,7 +711,7 @@ function paintCourt(key){
   g.fillStyle=rgb(S.out); g.fillRect(0,0,pw,ph);
   const pad=(key==="hard"||key==="indoor")?1.6:0;
   if(pad)for(const o of courts){g.fillStyle=rgb(S.in);g.fillRect(X(o-5.485-pad),Y(-11.885-pad*1.6),(10.97+2*pad)*s,(23.77+3.2*pad)*s)}
-  if(S.stripes){g.fillStyle="rgba(255,255,240,.05)";for(let i=-30;i<30;i+=2)g.fillRect(0,Y(i*1.6),pw,1.6*s)}
+  if(S.stripes){g.fillStyle="rgba(255,255,235,.085)";for(let i=-30;i<30;i+=2)g.fillRect(0,Y(i*1.6),pw,1.6*s)}
   // uneven surface: soft light and dark patches
   const blobs=Math.round(260*(pw*ph)/1.3e6)+80;
   for(let i=0;i<blobs;i++){const x=R()*pw,y=R()*ph,r=(.6+R()*3.2)*s,light=R()<.5,a=(S.blot/100)*(.25+R()*.5);
@@ -726,7 +740,17 @@ function paintCourt(key){
     g.fillStyle="rgba(30,30,30,.9)"; for(const x of[o-6.4,o+6.4])g.fillRect(X(x)-.08*s,Y(0)-.08*s,.16*s,.16*s);
   }
   // dividers between courts, broken where the floodlights stand
-  if(S.poles||S.divider)for(const d of dividers){
+  if(S.curtain)for(const d of dividers.filter(seen)){
+    // dark netting curtain between indoor courts
+    const x0=X(d)-.35*s,w=.7*s;g.fillStyle="rgba(12,20,28,.88)";g.fillRect(x0,0,w,ph);
+    g.strokeStyle="rgba(255,255,255,.06)";g.lineWidth=1;for(let x=x0;x<x0+w;x+=Math.max(2,.08*s)){g.beginPath();g.moveTo(x,0);g.lineTo(x,ph);g.stroke()}
+    const sh=g.createLinearGradient(x0+w,0,x0+w+.8*s,0);sh.addColorStop(0,"rgba(0,0,0,.25)");sh.addColorStop(1,"rgba(0,0,0,0)");g.fillStyle=sh;g.fillRect(x0+w,0,.8*s,ph);
+    // hall lights hanging over the side area, glowing onto the floor
+    for(const py of poleYs){const lx=X(d-2.4),ly=Y(py-1.2);
+      const gl=g.createRadialGradient(lx,ly,0,lx,ly,5*s);gl.addColorStop(0,"rgba(255,250,235,.22)");gl.addColorStop(1,"rgba(255,250,235,0)");g.fillStyle=gl;g.fillRect(lx-5*s,ly-5*s,10*s,10*s);
+      g.fillStyle="#1d2128";g.fillRect(lx-.95*s,ly-.32*s,1.9*s,.64*s);g.fillStyle="#f4f1e6";g.fillRect(lx-.82*s,ly-.2*s,1.64*s,.4*s);}
+  }
+  if(S.poles)for(const d of dividers){
     g.strokeStyle=rgb([215,212,205],.75);
     let y=-40;for(const py of poleYs.concat([80])){if(py-1.2>y)line(d,y,d,py-1.2,.12);y=py+1.2}
     if(S.poles&&seen(d))for(const py of poleYs){
@@ -955,8 +979,8 @@ window.addEventListener("hashchange",()=>{const id=location.hash.slice(1);if((id
 view=null;
 render();
 loadData().then(()=>{const h=location.hash.slice(1);if(h&&TOURNEYS[h]&&view!==h)go(h)});
-setInterval(()=>{render()},30000);
-setInterval(loadData,10*60000);
+setInterval(whenVisible(render),30000);
+setInterval(whenVisible(loadData),10*60000);
 
 if(CFG.supabaseUrl&&CFG.supabaseKey&&window.supabase){
   sb=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseKey,{auth:{persistSession:true,autoRefreshToken:true}});
@@ -965,7 +989,13 @@ if(CFG.supabaseUrl&&CFG.supabaseKey&&window.supabase){
     if(id!==ME){ME=id;Object.keys(DRAFTS).forEach(k=>delete DRAFTS[k]);$("teamName").dataset.touched="";loadLeagues()}
     render();
   });
-  loadEntries(); setInterval(loadEntries,60000); setInterval(loadLeagues,120000);
+  loadEntries(true); setInterval(whenVisible(()=>loadEntries()),60000); setInterval(whenVisible(loadLeagues),5*60000);
+  let hiddenAt=0;
+  document.addEventListener("visibilitychange",()=>{
+    if(document.hidden){hiddenAt=Date.now();return}
+    if(Date.now()-hiddenAt>30000){loadEntries();loadLeagues();if(Date.now()-hiddenAt>5*60000)loadData()}
+    render();
+  });
 }else{dbState="unconfigured";render()}
 </script>
 
