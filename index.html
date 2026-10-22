@@ -703,9 +703,11 @@ function paintCourt(key){
   // Phones: zoomed in, main court pushed right. Wide screens: same scale as the phone view,
   // with the divider and floodlights placed in the free space left of the content column.
   const GAP=3.4, PITCH=10.97+2*GAP;
-  const s=land?ph/12.5:Math.min(pw/14,ph/22);   // wide screens: one court, zoomed in
+  // Wide screens: one zoomed court sized to the screen, so the divider and floodlights sit in the left margin
+  // and the court's right sideline lands in the right margin, whatever the window width.
   const gutter=Math.max(0,(pw-880*k)/2);
-  const divX=land?Math.max(gutter*.72,pw*.08):pw*.43-GAP*s;           // screen x of the divider left of the main court
+  const s=land?Math.max(ph/14,(pw-1.25*gutter)/(GAP+10.97)):Math.min(pw/14,ph/22);
+  const divX=land?gutter*.6:pw*.43-GAP*s;           // screen x of the divider left of the main court
   const X=m=>divX+(m+5.485+GAP)*s, Y=m=>ph*.32+m*s;
     const courts=[0];   // one court only, no neighbours
   g.fillStyle=rgb(S.out); g.fillRect(0,0,pw,ph);
