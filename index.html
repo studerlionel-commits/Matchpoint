@@ -665,9 +665,9 @@ function renderAcct(){
 /* ---------- Court backgrounds ---------- */
 // Clay on the home page; each tournament page shows that tournament's own surface.
 const SURFACES={
-  clay:  {in:[196,104,62], out:[188,98,58], line:[242,236,226], grain:26, blot:22, band:"#1d4a37", poles:true,  wear:.55},
-  grass: {in:[92,142,60],  out:[80,124,52], line:[246,246,240], grain:16, blot:14, band:"#2f2650", stripes:true, wear:.25},
-  hard:  {in:[40,92,158],  out:[52,118,84], line:[248,248,248], grain:10, blot:8,  band:"#163a66", wear:.08},
+  clay:  {in:[196,104,62], out:[188,98,58], line:[242,236,226], grain:30, blot:11, band:"#1d4a37", poles:true,  wear:.55},
+  grass: {in:[92,142,60],  out:[80,124,52], line:[246,246,240], grain:18, blot:8, band:"#2f2650", stripes:true, wear:.25, divider:true},
+  hard:  {in:[40,92,158],  out:[52,118,84], line:[248,248,248], grain:10, blot:8,  band:"#163a66", wear:.08, poles:true},
   indoor:{in:[33,78,140],  out:[22,40,70],  line:[246,246,246], grain:8,  blot:6,  band:"#13294a", wear:.05, lights:true}
 };
 function surfaceKey(T){
@@ -685,7 +685,7 @@ function paintCourt(key){
   const pw=Math.round((land?H:W)*k), ph=Math.round((land?W:H)*k);   // drawn upright, rotated for landscape
   const c=document.createElement("canvas"); c.width=pw; c.height=ph; const g=c.getContext("2d");
   const R=seeded(key.length*7919+pw);
-  const s=Math.min(pw/(10.97+7.5),ph/(23.77+9)), X=m=>pw/2+m*s, Y=m=>ph/2+m*s;
+  const s=Math.min(pw/14,ph/22), X=m=>pw*.43+(m+5.485)*s, Y=m=>ph*.32+m*s;  // zoomed in, court pushed right, net in the upper third
   g.fillStyle=rgb(S.out); g.fillRect(0,0,pw,ph);
   const pad=(key==="hard"||key==="indoor")?1.6:0;
   g.fillStyle=rgb(S.in); g.fillRect(X(-5.485-pad),Y(-11.885-pad*1.6),(10.97+2*pad)*s,(23.77+3.2*pad)*s);
@@ -706,7 +706,31 @@ function paintCourt(key){
   const sh=g.createLinearGradient(0,Y(0),0,Y(1.1));sh.addColorStop(0,"rgba(0,0,0,.22)");sh.addColorStop(1,"rgba(0,0,0,0)");g.fillStyle=sh;g.fillRect(X(-6.4),Y(.03),12.8*s,1.1*s);
   g.strokeStyle="rgba(25,25,25,.85)"; line(-6.4,0,6.4,0,.06);
   g.fillStyle="rgba(30,30,30,.9)"; for(const x of[-6.4,6.4])g.fillRect(X(x)-.08*s,Y(0)-.08*s,.16*s,.16*s);
-  if(S.poles){g.save();g.globalAlpha=.11;g.fillStyle="#2a1208";for(const y0 of[-15,-4,7]){g.beginPath();g.moveTo(X(-12),Y(y0));g.lineTo(X(14),Y(y0+7.5));g.lineTo(X(14),Y(y0+7.9));g.lineTo(X(-12),Y(y0+.4));g.fill()}g.restore()}
+  // neighbouring court on the left: divider line, its net, floodlight poles and their long shadows
+  if(S.poles||S.divider){
+    const dx=-5.485-3.4, poleYs=[-10.5,3.5,17.5];
+    // shadows first so the poles sit on top
+    if(S.poles)for(const py of poleYs){
+      const bx=X(dx),by=Y(py+.4),ex=bx+40*s,ey=by+12*s;
+      g.save();g.lineCap="round";
+      g.strokeStyle="rgba(0,0,0,.09)";g.lineWidth=.7*s;g.beginPath();g.moveTo(bx,by);g.lineTo(ex,ey);g.stroke();
+      g.strokeStyle="rgba(0,0,0,.28)";g.lineWidth=Math.max(1.5,.09*s);g.beginPath();g.moveTo(bx,by);g.lineTo(ex,ey);g.stroke();
+      g.restore();
+    }
+    // divider strip between the courts, broken where the poles stand
+    g.strokeStyle=rgb([215,212,205],.75);
+    let y=-30;for(const py of poleYs.concat([60])){if(py-1.2>y)line(dx,y,dx,py-1.2,.12);y=py+1.2}
+    // neighbour's net reaching in from the left edge
+    g.strokeStyle="rgba(25,25,25,.8)";g.lineWidth=Math.max(1,.05*s);g.beginPath();g.moveTo(0,Y(0));g.lineTo(X(dx-1.2),Y(0));g.stroke();
+    g.fillStyle="rgba(30,30,30,.9)";g.fillRect(X(dx-1.2)-.09*s,Y(0)-.09*s,.18*s,.18*s);
+    g.strokeStyle="rgba(25,25,25,.85)";line(dx+.6,0,-5.485-.9,0,.05);
+    if(S.poles)for(const py of poleYs){
+      const bx=X(dx),by=Y(py),lx=X(dx-2.6),ly=Y(py-1.9);
+      g.strokeStyle="rgba(20,20,20,.9)";g.lineWidth=Math.max(1.5,.11*s);g.beginPath();g.moveTo(lx,ly);g.lineTo(bx,by);g.stroke();
+      g.save();g.translate(bx,by);g.rotate(Math.atan2(by-ly,bx-lx));g.fillStyle="#2f8a4e";g.fillRect(-.55*s,-.12*s,.7*s,.24*s);g.restore();
+      g.fillStyle="#2b2e33";g.fillRect(lx-.55*s,ly-.42*s,1.1*s,.84*s);g.fillStyle="#d9dde3";g.fillRect(lx-.42*s,ly-.3*s,.84*s,.6*s);
+    }
+  }
   if(S.lights){for(const y of[-7,7]){const rg=g.createRadialGradient(X(0),Y(y),0,X(0),Y(y),14*s);rg.addColorStop(0,"rgba(255,255,255,.10)");rg.addColorStop(1,"rgba(255,255,255,0)");g.fillStyle=rg;g.fillRect(0,0,pw,ph)}}
   // fine grain
   const img=g.getImageData(0,0,pw,ph),d=img.data,gr=S.grain;
