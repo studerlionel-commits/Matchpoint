@@ -706,7 +706,7 @@ function paintCourt(key){
   // Wide screens: one zoomed court sized to the screen, so the divider and floodlights sit in the left margin
   // and the court's right sideline lands in the right margin, whatever the window width.
   const gutter=Math.max(0,(pw-880*k)/2);
-  const s=land?Math.max(ph/14,(pw-1.25*gutter)/(GAP+10.97)):Math.min(pw/14,ph/22);
+  const s=land?Math.max(ph/14,(pw-1.25*gutter)/(GAP+5.485)):Math.min(pw/14,ph/22);   // centre line lands in the right margin
   const divX=land?gutter*.6:pw*.43-GAP*s;           // screen x of the divider left of the main court
   const X=m=>divX+(m+5.485+GAP)*s, Y=m=>ph*.32+m*s;
     const courts=[0];   // one court only, no neighbours
