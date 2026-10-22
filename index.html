@@ -11,7 +11,7 @@
 /* Layout: court-blue scoreboard band; home = tournament cards + season table; tournament = team, points, matches, players, league; sticky save bar */
 :root{
   --bg:#edf1f6; --surface:#ffffff; --surface-2:#f5f7fb; --ink:#0f1d33; --muted:#5a6a82; --line:#d6dde8;
-  --surfacebg:#d7e3f1; --lines:rgba(255,255,255,.95); --net:rgba(23,63,120,.35);
+  --surfacebg:#c4693f; --court-dim:0;
   --court:#1d4f91; --court-ink:#ffffff; --band:#173f78; --ball:#c9e23c; --ball-ink:#1b2a07;
   --win:#1a7a49; --loss:#b23a30; --live:#d0402f; --slam:#7a4fb8;
   --display:"Barlow Condensed","Arial Narrow",system-ui,sans-serif;
@@ -19,31 +19,28 @@
   --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --surfacebg:#0c1a30; --lines:rgba(150,185,235,.22); --net:rgba(150,185,235,.3);
+  --court-dim:.55;
   --bg:#0a1322; --surface:#111d33; --surface-2:#0e182b; --ink:#e6ecf5; --muted:#8e9cb4; --line:#223152;
   --court:#4d8be0; --court-ink:#ffffff; --band:#0f2648; --ball:#d6ef4a; --ball-ink:#1b2a07;
   --win:#4fc487; --loss:#f07a6f; --live:#ff6b5b; --slam:#b48cf0; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --surfacebg:#0c1a30; --lines:rgba(150,185,235,.22); --net:rgba(150,185,235,.3);
+  --court-dim:.55;
   --bg:#0a1322; --surface:#111d33; --surface-2:#0e182b; --ink:#e6ecf5; --muted:#8e9cb4; --line:#223152;
   --court:#4d8be0; --court-ink:#ffffff; --band:#0f2648; --ball:#d6ef4a; --ball-ink:#1b2a07;
   --win:#4fc487; --loss:#f07a6f; --live:#ff6b5b; --slam:#b48cf0; color-scheme:dark}
 *{box-sizing:border-box}
-.courtbg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
-.courtbg .ln{stroke:var(--lines);fill:none}
-.courtbg .net{stroke:var(--net);fill:none}
-.courtbg.land{display:none}
-@media (min-aspect-ratio:1/1){.courtbg.land{display:block}.courtbg.port{display:none}}
+.courtbg{position:fixed;inset:0;z-index:-1;pointer-events:none;background-color:var(--ground,var(--surfacebg));background-size:100% 100%;background-repeat:no-repeat}
+.courtbg::after{content:"";position:absolute;inset:0;background:#050a14;opacity:var(--court-dim)}
 [hidden]{display:none!important}
 html{padding-top:env(safe-area-inset-top,0px)}
-body{background:var(--surfacebg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;margin:0}
+body{background:var(--ground,var(--surfacebg));color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.45;margin:0}
 button,input{font:inherit}
 button{cursor:pointer}
 button:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--ball);outline-offset:2px}
 .wrap{max-width:880px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 h1,h2,h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.02em;margin:0;text-wrap:balance}
 
-.band{background:var(--band);color:var(--court-ink);position:relative;overflow:hidden}
+.band{background:var(--band-s,var(--band));color:var(--court-ink);position:relative;overflow:hidden}
 .band::after{content:"";position:absolute;left:0;right:0;bottom:14px;height:2px;background:rgba(255,255,255,.55)}
 .band::before{content:"";position:absolute;top:0;bottom:14px;left:50%;width:2px;background:rgba(255,255,255,.16)}
 .band .wrap{padding-block:18px 30px;position:relative;z-index:1}
@@ -222,14 +219,7 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Ccircle cx=%2216%22 cy=%2216%22 r=%2214%22 fill=%22%23c9e23c%22/%3E%3Cpath d=%22M6 8c6 4 6 12 0 16M26 8c-6 4-6 12 0 16%22 stroke=%22%23fff%22 stroke-width=%222%22 fill=%22none%22/%3E%3C/svg%3E">
 </head>
 <body>
-<svg class="courtbg port" viewBox="-160 -160 1417 2697" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
-  <g class="ln" stroke-width="10"><rect x="0" y="0" width="1097" height="2377"/><line x1="137" y1="0" x2="137" y2="2377"/><line x1="960" y1="0" x2="960" y2="2377"/><line x1="137" y1="548" x2="960" y2="548"/><line x1="137" y1="1829" x2="960" y2="1829"/><line x1="548.5" y1="548" x2="548.5" y2="1829"/><line x1="548.5" y1="0" x2="548.5" y2="22"/><line x1="548.5" y1="2355" x2="548.5" y2="2377"/></g>
-  <line class="net" stroke-width="14" stroke-dasharray="4 10" x1="-91" y1="1188.5" x2="1188" y2="1188.5"/>
-</svg>
-<svg class="courtbg land" viewBox="-160 -160 2697 1417" preserveAspectRatio="xMidYMid meet" aria-hidden="true" focusable="false">
-  <g class="ln" stroke-width="10"><rect x="0" y="0" width="2377" height="1097"/><line x1="0" y1="137" x2="2377" y2="137"/><line x1="0" y1="960" x2="2377" y2="960"/><line x1="548" y1="137" x2="548" y2="960"/><line x1="1829" y1="137" x2="1829" y2="960"/><line x1="548" y1="548.5" x2="1829" y2="548.5"/><line x1="0" y1="548.5" x2="22" y2="548.5"/><line x1="2355" y1="548.5" x2="2377" y2="548.5"/></g>
-  <line class="net" stroke-width="14" stroke-dasharray="4 10" x1="1188.5" y1="-91" x2="1188.5" y2="1188"/>
-</svg>
+<div class="courtbg" id="courtbg" aria-hidden="true"></div>
 <header class="band">
   <div class="wrap">
     <div class="toprow"><button class="back" id="backBtn" hidden>← All tournaments</button><div class="acct" id="acct"></div></div>
@@ -672,6 +662,75 @@ function renderAcct(){
   if(ME)a.querySelector("span").textContent=myTeamName()||MY_EMAIL;
 }
 
+/* ---------- Court backgrounds ---------- */
+// Clay on the home page; each tournament page shows that tournament's own surface.
+const SURFACES={
+  clay:  {in:[196,104,62], out:[188,98,58], line:[242,236,226], grain:26, blot:22, band:"#1d4a37", poles:true,  wear:.55},
+  grass: {in:[92,142,60],  out:[80,124,52], line:[246,246,240], grain:16, blot:14, band:"#2f2650", stripes:true, wear:.25},
+  hard:  {in:[40,92,158],  out:[52,118,84], line:[248,248,248], grain:10, blot:8,  band:"#163a66", wear:.08},
+  indoor:{in:[33,78,140],  out:[22,40,70],  line:[246,246,246], grain:8,  blot:6,  band:"#13294a", wear:.05, lights:true}
+};
+function surfaceKey(T){
+  if(!T)return "clay";
+  if(T.court&&SURFACES[T.court])return T.court;
+  const s=String(T.surface||"").toLowerCase();
+  return s.includes("clay")?"clay":s.includes("grass")?"grass":s.includes("indoor")?"indoor":"hard";
+}
+let courtKey=null, courtSize="", courtTimer=null;
+const rgb=(c,a)=>`rgba(${c[0]|0},${c[1]|0},${c[2]|0},${a??1})`;
+function seeded(n){let x=n||1;return()=>{x^=x<<13;x^=x>>>17;x^=x<<5;return((x>>>0)%100000)/100000}}
+function paintCourt(key){
+  const S=SURFACES[key], W=innerWidth, H=innerHeight, land=W>H;
+  const dpr=Math.min(devicePixelRatio||1,2), k=dpr*Math.min(1,Math.sqrt(2.4e6/(W*H*dpr*dpr)));
+  const pw=Math.round((land?H:W)*k), ph=Math.round((land?W:H)*k);   // drawn upright, rotated for landscape
+  const c=document.createElement("canvas"); c.width=pw; c.height=ph; const g=c.getContext("2d");
+  const R=seeded(key.length*7919+pw);
+  const s=Math.min(pw/(10.97+7.5),ph/(23.77+9)), X=m=>pw/2+m*s, Y=m=>ph/2+m*s;
+  g.fillStyle=rgb(S.out); g.fillRect(0,0,pw,ph);
+  const pad=(key==="hard"||key==="indoor")?1.6:0;
+  g.fillStyle=rgb(S.in); g.fillRect(X(-5.485-pad),Y(-11.885-pad*1.6),(10.97+2*pad)*s,(23.77+3.2*pad)*s);
+  if(S.stripes){g.fillStyle="rgba(255,255,240,.05)";for(let i=-20;i<20;i+=2)g.fillRect(0,Y(i*1.6),pw,1.6*s)}
+  // uneven surface: many soft light and dark patches
+  const blobs=Math.round(260*(pw*ph)/1.3e6)+80;
+  for(let i=0;i<blobs;i++){const x=R()*pw,y=R()*ph,r=(.6+R()*3.2)*s,light=R()<.5,a=(S.blot/100)*(.25+R()*.5);
+    const rg=g.createRadialGradient(x,y,0,x,y,r);rg.addColorStop(0,light?`rgba(255,240,225,${a})`:`rgba(40,20,10,${a})`);rg.addColorStop(1,"rgba(0,0,0,0)");g.fillStyle=rg;g.fillRect(x-r,y-r,2*r,2*r)}
+  if(key==="grass"){for(const y of[-11.885,11.885])for(let j=0;j<14;j++){const x=X((R()-.5)*4.4),yy=Y(y+(y<0?-1:1)*(R()*1.6-.3)),r=(.5+R()*1.1)*s;
+    const rg=g.createRadialGradient(x,yy,0,x,yy,r);rg.addColorStop(0,"rgba(170,145,95,.32)");rg.addColorStop(1,"rgba(170,145,95,0)");g.fillStyle=rg;g.fillRect(x-r,yy-r,2*r,2*r)}}
+  // lines: 5 cm, baselines 10 cm
+  const lw=.05*s, line=(x1,y1,x2,y2,w)=>{g.lineWidth=Math.max(1.2,(w||.05)*s);g.beginPath();g.moveTo(X(x1),Y(y1));g.lineTo(X(x2),Y(y2));g.stroke()};
+  const segs=[[-5.485,-11.885,5.485,-11.885,.1],[-5.485,11.885,5.485,11.885,.1],[-5.485,-11.885,-5.485,11.885],[5.485,-11.885,5.485,11.885],[-4.115,-11.885,-4.115,11.885],[4.115,-11.885,4.115,11.885],[-4.115,-6.4,4.115,-6.4],[-4.115,6.4,4.115,6.4],[0,-6.4,0,6.4],[0,-11.885,0,-11.735],[0,11.885,0,11.735]];
+  g.strokeStyle=rgb(S.line,.92); segs.forEach(q=>line(...q));
+  if(S.wear){g.fillStyle=rgb(S.in,.9);const n=Math.round(S.wear*5000*(pw*ph)/1.3e6);
+    for(let i=0;i<n;i++){const q=segs[(R()*9)|0],t=R(),x=X(q[0]+(q[2]-q[0])*t)+(R()-.5)*lw*2,y=Y(q[1]+(q[3]-q[1])*t)+(R()-.5)*lw*2,r=Math.max(.6,R()*lw*.9);g.fillRect(x,y,r,r)}}
+  // net with its shadow and posts
+  const sh=g.createLinearGradient(0,Y(0),0,Y(1.1));sh.addColorStop(0,"rgba(0,0,0,.22)");sh.addColorStop(1,"rgba(0,0,0,0)");g.fillStyle=sh;g.fillRect(X(-6.4),Y(.03),12.8*s,1.1*s);
+  g.strokeStyle="rgba(25,25,25,.85)"; line(-6.4,0,6.4,0,.06);
+  g.fillStyle="rgba(30,30,30,.9)"; for(const x of[-6.4,6.4])g.fillRect(X(x)-.08*s,Y(0)-.08*s,.16*s,.16*s);
+  if(S.poles){g.save();g.globalAlpha=.11;g.fillStyle="#2a1208";for(const y0 of[-15,-4,7]){g.beginPath();g.moveTo(X(-12),Y(y0));g.lineTo(X(14),Y(y0+7.5));g.lineTo(X(14),Y(y0+7.9));g.lineTo(X(-12),Y(y0+.4));g.fill()}g.restore()}
+  if(S.lights){for(const y of[-7,7]){const rg=g.createRadialGradient(X(0),Y(y),0,X(0),Y(y),14*s);rg.addColorStop(0,"rgba(255,255,255,.10)");rg.addColorStop(1,"rgba(255,255,255,0)");g.fillStyle=rg;g.fillRect(0,0,pw,ph)}}
+  // fine grain
+  const img=g.getImageData(0,0,pw,ph),d=img.data,gr=S.grain;
+  for(let i=0;i<d.length;i+=4){const n=(R()-.5)*gr;d[i]+=n;d[i+1]+=n*.92;d[i+2]+=n*.85}
+  g.putImageData(img,0,0);
+  const vg=g.createRadialGradient(pw/2,ph/2,Math.min(pw,ph)*.35,pw/2,ph/2,Math.max(pw,ph)*.75);vg.addColorStop(0,"rgba(0,0,0,0)");vg.addColorStop(1,"rgba(0,0,0,.22)");g.fillStyle=vg;g.fillRect(0,0,pw,ph);
+  let out=c;
+  if(land){out=document.createElement("canvas");out.width=ph;out.height=pw;const o=out.getContext("2d");o.translate(ph/2,pw/2);o.rotate(-Math.PI/2);o.drawImage(c,-pw/2,-ph/2)}
+  return out.toDataURL("image/jpeg",.82);
+}
+function setCourt(key,force){
+  const size=innerWidth+"x"+innerHeight;
+  if(!force&&key===courtKey&&size===courtSize)return;
+  courtKey=key; courtSize=size;
+  const S=SURFACES[key], root=document.documentElement;
+  root.style.setProperty("--ground",rgb(S.out)); root.style.setProperty("--band-s",S.band);
+  clearTimeout(courtTimer);
+  courtTimer=setTimeout(()=>{try{$("courtbg").style.backgroundImage=`url(${paintCourt(key)})`}catch(e){}},30);
+}
+let resizeT=null;
+addEventListener("resize",()=>{clearTimeout(resizeT);resizeT=setTimeout(()=>{const p=courtSize.split("x").map(Number);
+  // ignore small height changes from mobile address bars
+  if(Math.abs(p[0]-innerWidth)>40||Math.abs(p[1]-innerHeight)>140||(p[0]>p[1])!==(innerWidth>innerHeight))setCourt(courtKey,true)},250)});
+
 /* ---------- Render ---------- */
 const fmtDT=iso=>new Date(iso).toLocaleString(undefined,{weekday:"short",day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"});
 function countdown(iso){const s=Math.max(0,(new Date(iso)-now())/1000),d=Math.floor(s/86400),h=Math.floor(s%86400/3600),m=Math.floor(s%3600/60);return d?`${d}d ${h}h`:h?`${h}h ${m}m`:`${m}m`}
@@ -690,6 +749,7 @@ function render(){
   $("homeView").hidden=!!view; $("tourneyView").hidden=!view; $("bar").hidden=!view; $("backBtn").hidden=!view;
   renderAcct(); renderLeagues();
   const T=view&&TOURNEYS[view];
+  setCourt(surfaceKey(T));
   $("sources").innerHTML=`Data: <a href="https://www.atptour.com/en/scores/current" target="_blank" rel="noopener">ATP Tour</a> · <a href="https://polymarket.com/sports/tennis" target="_blank" rel="noopener">Polymarket (official ATP prediction market)</a>${T?` · last update ${esc(fmtDT(T.updatedAt))}`:""}.`;
   return view?renderTourney(T):renderHome();
 }
