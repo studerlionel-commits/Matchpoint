@@ -59,7 +59,13 @@
    "price": 30,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 30
+    }
+   ]
   },
   {
    "id": "alcaraz",
@@ -71,7 +77,13 @@
    "price": 27,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 27
+    }
+   ]
   },
   {
    "id": "shelton",
@@ -83,7 +95,13 @@
    "price": 25,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 25
+    }
+   ]
   },
   {
    "id": "auger-aliassime",
@@ -95,7 +113,13 @@
    "price": 23,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 23
+    }
+   ]
   },
   {
    "id": "medvedev",
@@ -107,7 +131,13 @@
    "price": 22,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 22
+    }
+   ]
   },
   {
    "id": "cobolli",
@@ -119,7 +149,13 @@
    "price": 21,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 21
+    }
+   ]
   },
   {
    "id": "djokovic",
@@ -131,7 +167,13 @@
    "price": 20,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 20
+    }
+   ]
   },
   {
    "id": "de-minaur",
@@ -143,7 +185,13 @@
    "price": 19,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 19
+    }
+   ]
   },
   {
    "id": "tiafoe",
@@ -155,7 +203,13 @@
    "price": 19,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 19
+    }
+   ]
   },
   {
    "id": "fils",
@@ -167,7 +221,13 @@
    "price": 18,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 18
+    }
+   ]
   },
   {
    "id": "fritz",
@@ -179,7 +239,13 @@
    "price": 17,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 17
+    }
+   ]
   },
   {
    "id": "jodar",
@@ -191,7 +257,13 @@
    "price": 17,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 17
+    }
+   ]
   },
   {
    "id": "vacherot",
@@ -203,7 +275,13 @@
    "price": 16,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 16
+    }
+   ]
   },
   {
    "id": "rune",
@@ -215,7 +293,13 @@
    "price": 8,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 8
+    }
+   ]
   },
   {
    "id": "mensik",
@@ -227,7 +311,13 @@
    "price": 16,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 16
+    }
+   ]
   },
   {
    "id": "lehecka",
@@ -239,7 +329,13 @@
    "price": 16,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 16
+    }
+   ]
   },
   {
    "id": "tien",
@@ -251,7 +347,13 @@
    "price": 15,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 15
+    }
+   ]
   },
   {
    "id": "paul",
@@ -263,7 +365,13 @@
    "price": 15,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 15
+    }
+   ]
   },
   {
    "id": "nakashima",
@@ -275,7 +383,13 @@
    "price": 15,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 15
+    }
+   ]
   },
   {
    "id": "cerundolo",
@@ -287,7 +401,13 @@
    "price": 14,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 14
+    }
+   ]
   },
   {
    "id": "darderi",
@@ -299,7 +419,13 @@
    "price": 14,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 14
+    }
+   ]
   },
   {
    "id": "bublik",
@@ -311,7 +437,13 @@
    "price": 14,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 14
+    }
+   ]
   },
   {
    "id": "rublev",
@@ -323,7 +455,13 @@
    "price": 13,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 13
+    }
+   ]
   },
   {
    "id": "ruud",
@@ -335,7 +473,13 @@
    "price": 13,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 13
+    }
+   ]
   },
   {
    "id": "musetti",
@@ -347,7 +491,13 @@
    "price": 13,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 13
+    }
+   ]
   },
   {
    "id": "davidovich-fokina",
@@ -359,7 +509,13 @@
    "price": 13,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 13
+    }
+   ]
   },
   {
    "id": "khachanov",
@@ -371,7 +527,13 @@
    "price": 12,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 12
+    }
+   ]
   },
   {
    "id": "blockx",
@@ -383,7 +545,13 @@
    "price": 12,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 12
+    }
+   ]
   },
   {
    "id": "fonseca",
@@ -395,7 +563,13 @@
    "price": 0,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "withdrawn"
+   "status": "withdrawn",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 0
+    }
+   ]
   },
   {
    "id": "tabilo",
@@ -407,7 +581,13 @@
    "price": 12,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 12
+    }
+   ]
   },
   {
    "id": "martin-etcheverry",
@@ -419,7 +599,13 @@
    "price": 12,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 12
+    }
+   ]
   },
   {
    "id": "humbert",
@@ -431,7 +617,13 @@
    "price": 12,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 12
+    }
+   ]
   },
   {
    "id": "rinderknech",
@@ -443,7 +635,13 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 11
+    }
+   ]
   },
   {
    "id": "hurkacz",
@@ -455,7 +653,13 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 11
+    }
+   ]
   },
   {
    "id": "michelsen",
@@ -467,7 +671,13 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 11
+    }
+   ]
   },
   {
    "id": "buse",
@@ -479,7 +689,13 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 11
+    }
+   ]
   },
   {
    "id": "fery",
@@ -491,7 +707,13 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 11
+    }
+   ]
   },
   {
    "id": "arnaldi",
@@ -503,7 +725,13 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 11
+    }
+   ]
   },
   {
    "id": "bergs",
@@ -515,7 +743,13 @@
    "price": 10,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 10
+    }
+   ]
   },
   {
    "id": "norrie",
@@ -527,7 +761,13 @@
    "price": 10,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 10
+    }
+   ]
   },
   {
    "id": "van-de-zandschulp",
@@ -539,7 +779,13 @@
    "price": 10,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 10
+    }
+   ]
   },
   {
    "id": "shapovalov",
@@ -551,7 +797,13 @@
    "price": 10,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 10
+    }
+   ]
   },
   {
    "id": "tsitsipas",
@@ -563,7 +815,13 @@
    "price": 10,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 10
+    }
+   ]
   },
   {
    "id": "merida",
@@ -575,7 +833,13 @@
    "price": 10,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 10
+    }
+   ]
   },
   {
    "id": "van-assche",
@@ -587,7 +851,13 @@
    "price": 10,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 10
+    }
+   ]
   },
   {
    "id": "wc1",
@@ -599,7 +869,13 @@
    "price": 6,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 6
+    }
+   ]
   },
   {
    "id": "wc2",
@@ -611,7 +887,13 @@
    "price": 6,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 6
+    }
+   ]
   },
   {
    "id": "wc3",
@@ -623,7 +905,13 @@
    "price": 6,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 6
+    }
+   ]
   },
   {
    "id": "wc4",
@@ -635,7 +923,13 @@
    "price": 6,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 6
+    }
+   ]
   },
   {
    "id": "q1",
@@ -647,7 +941,13 @@
    "price": 7,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 7
+    }
+   ]
   },
   {
    "id": "q2",
@@ -659,7 +959,13 @@
    "price": 7,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 7
+    }
+   ]
   },
   {
    "id": "q3",
@@ -671,7 +977,13 @@
    "price": 7,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 7
+    }
+   ]
   },
   {
    "id": "q4",
@@ -683,7 +995,13 @@
    "price": 7,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 7
+    }
+   ]
   },
   {
    "id": "q5",
@@ -695,7 +1013,13 @@
    "price": 7,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 7
+    }
+   ]
   },
   {
    "id": "q6",
@@ -707,7 +1031,13 @@
    "price": 7,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 7
+    }
+   ]
   },
   {
    "id": "q7",
@@ -719,7 +1049,13 @@
    "price": 7,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 7
+    }
+   ]
   },
   {
    "id": "q8",
@@ -731,7 +1067,13 @@
    "price": 7,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-22T08:41:00Z",
+     "price": 7
+    }
+   ]
   }
  ],
  "bestOf": 3,

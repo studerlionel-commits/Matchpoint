@@ -9,36 +9,36 @@
  "end": "2026-11-22",
  "dates": "15 – 22 Nov 2026",
  "status": "upcoming",
- "note": "Top 8 of the season, two groups of four. Losing a group match doesn't knock a player out. Field gets added once all 8 are known.",
+ "note": "Top 8 of the season in two groups of four. Each player plays 3 group matches (every other day), so each 'round' is one group match per player. A group loss doesn't knock anyone out; the top 2 of each group reach the semifinals.",
  "rounds": [
   {
    "key": "RR1",
-   "label": "Round robin · day 1",
-   "lock": "2026-11-15T11:00:00Z",
+   "label": "Group match 1",
+   "lock": "2026-11-15T10:00:00Z",
    "win": 20
   },
   {
    "key": "RR2",
-   "label": "Round robin · day 2",
-   "lock": "2026-11-17T11:00:00Z",
+   "label": "Group match 2",
+   "lock": "2026-11-17T10:00:00Z",
    "win": 20
   },
   {
    "key": "RR3",
-   "label": "Round robin · day 3",
-   "lock": "2026-11-19T11:00:00Z",
+   "label": "Group match 3",
+   "lock": "2026-11-19T10:00:00Z",
    "win": 20
   },
   {
    "key": "SF",
    "label": "Semifinals",
-   "lock": "2026-11-21T13:00:00Z",
+   "lock": "2026-11-21T12:00:00Z",
    "win": 38
   },
   {
    "key": "F",
    "label": "Final",
-   "lock": "2026-11-22T17:00:00Z",
+   "lock": "2026-11-22T16:00:00Z",
    "win": 55
   }
  ],
@@ -57,5 +57,6 @@
    "url": "https://polymarket.com/sports/tennis"
   }
  ],
- "updatedAt": "2026-10-21T11:45:00Z"
+ "updatedAt": "2026-10-21T11:45:00Z",
+ "drawSize": 8
 }

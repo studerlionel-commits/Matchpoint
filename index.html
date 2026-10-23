@@ -81,6 +81,7 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
 .cline b{color:var(--ink)}
 .cstate{display:flex;justify-content:space-between;align-items:center;gap:8px;border-top:1px dashed var(--line);padding-top:8px;font-size:13px;flex-wrap:wrap}
 
+.banner.warn{border-style:solid;border-color:color-mix(in srgb,var(--loss) 45%,transparent);color:var(--ink);background:color-mix(in srgb,var(--loss) 8%,var(--surface))}
 .teamname{display:flex;gap:8px;align-items:center;padding:0 16px 12px;flex-wrap:wrap}
 .teamname label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .teamname input{flex:1;min-width:0;max-width:320px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:5px;padding:6px 10px}
@@ -170,6 +171,8 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
 .authform{display:grid;gap:6px;padding:0 16px 16px;max-width:380px}
 .authform label{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
 .authform input{border:1px solid var(--line);background:var(--surface-2);color:var(--ink);border-radius:5px;padding:9px 10px}
+.authinfo{font-size:14px;color:var(--muted);margin:0 0 6px;max-width:44ch}
+.authok{color:var(--win)!important}
 .autherr{color:var(--loss);font-size:13px;min-height:1em;margin:4px 0}
 .authacts{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .scopebar{display:flex;gap:6px;flex-wrap:wrap;padding:0 16px 10px}
@@ -236,13 +239,15 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
     <section class="panel" id="authPanel">
       <div class="ph"><h2 id="authTitle">Log in</h2><button class="link" id="authClose">Close</button></div>
       <form id="authForm" class="authform" novalidate>
-        <label for="authEmail">Email</label>
+        <p class="authinfo" id="authInfo" hidden></p>
+        <label for="authEmail" id="authEmailLbl">Email</label>
         <input id="authEmail" type="email" autocomplete="email" required>
-        <label for="authPass">Password</label>
+        <label for="authPass" id="authPassLbl">Password</label>
         <input id="authPass" type="password" autocomplete="current-password" minlength="6" required>
         <p class="autherr" id="authErr" role="alert"></p>
         <div class="authacts"><button class="play" type="submit" id="authSubmit">Log in</button>
-        <button class="link" type="button" id="authSwitch">No account yet? Sign up</button></div>
+        <button class="link" type="button" id="authSwitch">No account yet? Sign up</button>
+        <button class="link" type="button" id="authForgot">Forgot password?</button></div>
       </form>
     </section>
   </div>
@@ -295,6 +300,7 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
   <div class="wrap" id="tourneyView" hidden>
     <section class="panel">
       <div class="ph"><h2>Your team</h2><p id="teamHint"></p></div>
+      <div class="banner warn" id="staleBanner" role="status" hidden></div>
       <div class="banner" id="statusBanner" hidden></div>
       <div class="teamname"><label for="teamName">Team name</label><input id="teamName" maxlength="32" placeholder="e.g. Liestal Aces"></div>
       <div class="meter" id="meter"></div>
@@ -368,6 +374,7 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
         </div>
       </div>
       <p class="src" id="sources"></p>
+      <p class="src">Privacy: we store your email address, your team name and your lineups, only to run the game. Team names and lineups are visible to other players; your email is not. To delete your account, ask the league organiser.</p>
     </section>
   </div>
 </main>
@@ -385,6 +392,7 @@ main .wrap{display:grid;gap:20px;padding-block:20px 130px}
 <script src="config.js"></script>
 <script>
 const CFG=window.MATCHPOINT_CONFIG||{};
+let STATUS=null;
 let SEASON={name:"Season",end:"2099-01-01",rules:{}}, TOURNEYS={}, ENTRIES={}, ME=null, MY_EMAIL="", sb=null, dbState="loading", dataState="loading";
 let view=null; const DRAFTS={};
 let LEAGUES=[]; let scope="global"; let OPEN_TEAM=null;
@@ -405,19 +413,21 @@ const msOf=iso=>iso?Date.parse(iso):NaN;
 // The draft only opens once the draw is out (the first matches exist).
 const drawOut=T=>T.matches.length>0;
 // A match has started if the data says so, or its start time has passed.
-function matchStarted(m){return !!m&&(m.status!=="scheduled"||(!!m.start&&msOf(m.start)<=now()))}
+// A match without a known start time counts as starting when its round starts (never later), so it can't be used to swap late.
+const startOf=(T,m)=>m.start||T.rounds[m.round]?.lock||null;
+function matchStarted(T,m){const s=m&&startOf(T,m);return !!m&&(m.status!=="scheduled"||(!!s&&msOf(s)<=now()))}
 // Had it started by time t? A match with no start time never blocks a save.
-function startedBy(m,t){return !!m&&!!m.start&&msOf(m.start)<=t}
-const playerLocked=(T,pid,r)=>r>=0&&matchStarted(matchFor(T,pid,r));
+function startedBy(T,m,t){const s=m&&startOf(T,m);return !!m&&!!s&&msOf(s)<=t}
+const playerLocked=(T,pid,r)=>r>=0&&matchStarted(T,matchFor(T,pid,r));
 // The round you can edit now: the first one that still has a match not started (or not drawn yet).
 function openRound(T){
   if(T.status==="finished")return -1;
-  for(let i=0;i<T.rounds.length;i++){const ms=T.matches.filter(m=>m.round===i);if(!ms.length||ms.some(m=>!matchStarted(m)))return i}
+  for(let i=0;i<T.rounds.length;i++){const ms=T.matches.filter(m=>m.round===i);if(!ms.length||ms.some(m=>!matchStarted(T,m)))return i}
   return -1;
 }
 // When the round's first match starts (or the schedule's estimate)
 function roundStart(T,i){const ts=T.matches.filter(m=>m.round===i&&m.start).map(m=>msOf(m.start));return ts.length?new Date(Math.min(...ts)).toISOString():T.rounds[i].lock}
-function nextLock(T,i){const ts=T.matches.filter(m=>m.round===i&&m.start&&!matchStarted(m)).map(m=>msOf(m.start));return ts.length?new Date(Math.min(...ts)).toISOString():null}
+function nextLock(T,i){const ts=T.matches.filter(m=>m.round===i&&startOf(T,m)&&!matchStarted(T,m)).map(m=>msOf(startOf(T,m)));return ts.length?new Date(Math.min(...ts)).toISOString():null}
 const buyable=p=>p.status==="entered"||p.status==="in";
 const isOut=p=>p.status==="out"||p.status==="withdrawn";
 const lineupsOf=(T,uid)=>ENTRIES[uid]?.leagues?.[T.id]?.lineups||{};
@@ -428,9 +438,38 @@ function validStep(T,r,prev,v){
   const t=v.savedAt?msOf(v.savedAt):NaN; if(!isFinite(t))return true;
   const before=new Set((prev?.p||[]).map(x=>x.id)), after=new Set(v.p.map(x=>x.id));
   const touched=[...before].filter(id=>!after.has(id)).concat([...after].filter(id=>!before.has(id)));
-  if(touched.some(id=>startedBy(matchFor(T,id,r),t)))return false;
+  if(touched.some(id=>startedBy(T,matchFor(T,id,r),t)))return false;
   const pc=prev?.cap||null, nc=v.cap||null;
-  if(pc!==nc&&[pc,nc].some(id=>id&&startedBy(matchFor(T,id,r),t)))return false;
+  if(pc!==nc&&[pc,nc].some(id=>id&&startedBy(T,matchFor(T,id,r),t)))return false;
+  return true;
+}
+// The game's rules, checked on every saved version so a team built outside the page can't count:
+// 5 different players from this field, ×2 on one of them, at most 100 credits, each new player bought
+// at a price he really had when the team was saved, and at most one transfer per round.
+const PRICE_WINDOW=12*3600e3;   // a page loaded a while before saving may still show the previous price
+function priceOK(T,id,paid,t){
+  const p=T.players.find(x=>x.id===id); if(!p)return false;
+  const hist=(p.prices&&p.prices.length)?p.prices:[{from:"1970-01-01T00:00:00Z",price:p.price}];
+  if(!isFinite(t))return hist.some(h=>h.price===paid);
+  const lo=t-PRICE_WINDOW; let inEffect=null; const seen=new Set();
+  for(const h of hist){const f=msOf(h.from); if(f<=lo)inEffect=h.price; else if(f<=t)seen.add(h.price)}
+  if(inEffect!==null)seen.add(inEffect);
+  if(!seen.size&&hist.length)seen.add(hist[0].price);
+  return seen.has(paid);
+}
+function lineupOK(T,base,v){
+  const p=v.p; if(!Array.isArray(p)||p.length>5)return false;
+  const ids=p.map(x=>x&&x.id); if(new Set(ids).size!==ids.length)return false;
+  if(v.cap&&!ids.includes(v.cap))return false;
+  if(p.some(x=>typeof x.paid!=="number"||!T.players.some(q=>q.id===x.id)))return false;
+  if(p.reduce((s,x)=>s+x.paid,0)>BUDGET)return false;
+  const t=v.savedAt?msOf(v.savedAt):NaN, baseIds=new Map((base?.p||[]).map(x=>[x.id,x.paid]));
+  let added=0;
+  for(const x of p){
+    if(baseIds.has(x.id)){if(baseIds.get(x.id)!==x.paid)return false}
+    else{added++; if(!priceOK(T,x.id,x.paid,t))return false}
+  }
+  if(base&&base.p&&base.p.length&&added>1)return false;   // one transfer per round
   return true;
 }
 function effective(T,lineups,r){
@@ -438,14 +477,14 @@ function effective(T,lineups,r){
   const prev=r>0?effective(T,lineups,r-1):null, lu=lineups[r];
   if(!lu)return prev;
   let cur=prev;
-  for(const v of versionsOf(lu))if(validStep(T,r,cur,v))cur={p:v.p,cap:v.cap||null,savedAt:v.savedAt};
+  for(const v of versionsOf(lu))if(lineupOK(T,prev,v)&&validStep(T,r,cur,v))cur={p:v.p,cap:v.cap||null,savedAt:v.savedAt};
   return cur;
 }
 function phase(T){
   if(T.status==="finished")return "finished";
   if(!T.players.length)return "upcoming";
   if(!drawOut(T))return "pre-draw";
-  const r=openRound(T); if(r===0&&!T.matches.some(matchStarted))return "draft"; if(r<0)return "final-day"; return "live";
+  const r=openRound(T); if(r===0&&!T.matches.some(m=>matchStarted(T,m)))return "draft"; if(r<0)return "final-day"; return "live";
 }
 
 /* ---------- Scoring ---------- */
@@ -565,14 +604,20 @@ async function save(){
   if(v.needLogin){openAuth("login");return}
   if(!v.ok||saving)return;
   saving=true;saveErr="";render();
-  const r=openRound(T), cur=ENTRIES[ME]||{};
+  await loadData();
+  const T2=TOURNEYS[T.id]||T, base=openRound(T2)>0?effective(T2,lineupsOf(T2,ME),openRound(T2)-1):null, baseIds=new Set((base?.p||[]).map(x=>x.id));
+  const changed=[];
+  for(const x of d.draft.p){if(baseIds.has(x.id))continue;const now=P(T2,x.id).price;if(now!==x.paid){changed.push(`${P(T2,x.id).name} now costs ${now} cr`);x.paid=now}}
+  if(changed.length&&budget(d)<0){saveErr=`Prices changed: ${changed.join(", ")}. Your team is now over budget, so swap a player.`;saving=false;render();return}
+  if(openRound(T2)<0||d.draft.p.some(x=>playerLocked(T2,x.id,openRound(T2))&&!baseIds.has(x.id)&&!(lineupsOf(T2,ME)[openRound(T2)]?.p||[]).some(y=>y.id===x.id))){saveErr="A match started while you were picking. Check your team and save again.";saving=false;render();return}
+  const r=openRound(T2), cur=ENTRIES[ME]||{};
   const leagues=clone(cur.leagues||{}); leagues[T.id]=leagues[T.id]||{lineups:{}};
   leagues[T.id].lineups=leagues[T.id].lineups||{};
   leagues[T.id].lineups[r]={p:clone(d.draft.p),cap:d.draft.cap};
   const body={user_id:ME,team:$("teamName").value.trim().slice(0,32),leagues};
   const {data,error}=await sb.from("entries").upsert(body).select().single();
   if(error)saveErr="Couldn't save: "+(error.message||"check your connection and try again.");
-  else{ENTRIES[ME]=data;d.dirty=false;$("teamName").dataset.touched=""}
+  else{ENTRIES[ME]=data;d.dirty=false;$("teamName").dataset.touched="";if(changed.length)saveErr=`Saved. Prices had changed: ${changed.join(", ")}.`}
   saving=false;render();
 }
 
@@ -584,6 +629,7 @@ async function loadData(){
     SEASON=idx.season;
     const docs=await Promise.all(idx.tourneys.map(id=>fetch(`data/tourneys/${id}.json${bust}`,{cache:"no-store"}).then(r=>r.ok?r.json():null).catch(()=>null)));
     const next={}; docs.filter(Boolean).forEach(t=>next[t.id]=t); TOURNEYS=next; dataState="ready";
+    try{const st=await fetch("data/status.json"+bust,{cache:"no-store"});if(st.ok)STATUS=await st.json()}catch(e){}
   }catch(e){if(dataState!=="ready")dataState="error"}
   if(view&&!TOURNEYS[view])view=null;
   render();
@@ -649,18 +695,48 @@ async function joinLeague(e){
 }
 
 /* ---------- Auth ---------- */
-function openAuth(mode){authMode=mode;$("authWrap").hidden=false;$("authErr").textContent="";syncAuthForm();window.scrollTo(0,0);$("authEmail").focus()}
+function openAuth(mode){authMode=mode;$("authWrap").hidden=false;$("authErr").textContent="";syncAuthForm();window.scrollTo(0,0);(mode==="newpass"?$("authPass"):$("authEmail")).focus()}
+// Modes: login, signup, forgot (send reset email), newpass (after clicking the reset link)
 function syncAuthForm(){
-  const su=authMode==="signup";
-  $("authTitle").textContent=su?"Create account":"Log in";
-  $("authSubmit").textContent=su?"Sign up":"Log in";
-  $("authSwitch").textContent=su?"Already have an account? Log in":"No account yet? Sign up";
-  $("authPass").autocomplete=su?"new-password":"current-password";
+  const m=authMode, su=m==="signup";
+  $("authTitle").textContent={login:"Log in",signup:"Create account",forgot:"Reset password",newpass:"New password"}[m];
+  $("authSubmit").textContent={login:"Log in",signup:"Sign up",forgot:"Send reset link",newpass:"Save password"}[m];
+  const showEmail=m!=="newpass", showPass=m!=="forgot";
+  for(const id of["authEmail","authEmailLbl"])$(id).hidden=!showEmail;
+  for(const id of["authPass","authPassLbl"])$(id).hidden=!showPass;
+  $("authPassLbl").textContent=m==="newpass"?"New password":"Password";
+  $("authSwitch").hidden=m==="newpass";
+  $("authSwitch").textContent=su?"Already have an account? Log in":m==="forgot"?"Back to log in":"No account yet? Sign up";
+  $("authForgot").hidden=m!=="login";
+  const info={forgot:"Enter your email and we'll send you a link to choose a new password.",newpass:"Pick a new password with at least 6 characters."}[m];
+  $("authInfo").hidden=!info; $("authInfo").textContent=info||"";
+  $("authPass").autocomplete=(su||m==="newpass")?"new-password":"current-password";
+  $("authErr").className="autherr";
 }
 async function submitAuth(e){
   e.preventDefault(); if(!sb)return;
-  const email=$("authEmail").value.trim(), password=$("authPass").value;
-  if(!email||password.length<6){$("authErr").textContent="Enter your email and a password of at least 6 characters.";return}
+  const email=$("authEmail").value.trim(), password=$("authPass").value, err=$("authErr");
+  const here=location.origin+location.pathname;
+  if(authMode==="forgot"){
+    if(!email){err.textContent="Enter your email.";return}
+    $("authSubmit").disabled=true;
+    const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:here});
+    $("authSubmit").disabled=false;
+    if(error){err.textContent=error.message;return}
+    err.className="autherr authok"; err.textContent="If that email has an account, a reset link is on its way. Check your inbox (and spam).";
+    return;
+  }
+  if(authMode==="newpass"){
+    if(password.length<6){err.textContent="Use at least 6 characters.";return}
+    $("authSubmit").disabled=true;
+    const {error}=await sb.auth.updateUser({password});
+    $("authSubmit").disabled=false;
+    if(error){err.textContent=error.message;return}
+    $("authPass").value=""; authMode="login"; $("authWrap").hidden=true;
+    try{history.replaceState(null,"",location.pathname)}catch(e){}
+    return;
+  }
+  if(!email||password.length<6){err.textContent="Enter your email and a password of at least 6 characters.";return}
   $("authSubmit").disabled=true;$("authErr").textContent="";
   const fn=authMode==="signup"?sb.auth.signUp({email,password,options:{emailRedirectTo:location.origin+location.pathname}}):sb.auth.signInWithPassword({email,password});
   const {data,error}=await fn;
@@ -856,6 +932,11 @@ function renderTourney(T){
   $("rounds").innerHTML=T.rounds.map((x,i)=>`<span class="rnd ${r<0||i<r?"done":i===r?"now":""}">${x.key}${(r<0||i<r)?" · "+fmt(mine.per[i]):""}</span>`).join("");
 
   const ban=$("statusBanner"); ban.hidden=!T.note; ban.textContent=T.note||"";
+  // Warn when results might be behind during a live tournament
+  const lastCheck=Math.max(STATUS?.lastRun?msOf(STATUS.lastRun):0, msOf(T.updatedAt)||0), age=now()-lastCheck;
+  const liveNow=drawOut(T)&&T.status!=="finished"&&T.matches.some(m=>matchStarted(T,m));
+  const sb2=$("staleBanner"); sb2.hidden=!(liveNow&&age>6*3600e3);
+  if(!sb2.hidden)sb2.textContent=`Results may be behind: the data was last checked ${Math.round(age/3600e3)} hours ago. Points for recent matches will appear once it updates.`;
   $("teamHint").textContent=!T.players.length||!drawOut(T)?"":r<0?"Final team":ti.free?"Pick 5 players. Each one locks when his match starts.":`${T.rounds[r].label}: one transfer. Players and the ×2 lock when their match starts.`;
   const ni=$("teamName"); if(document.activeElement!==ni&&!ni.dataset.touched)ni.value=myTeamName();
 
@@ -960,6 +1041,7 @@ document.addEventListener("click",async e=>{
   else if(t.id==="signupBtn")openAuth("signup");
   else if(t.id==="authClose")$("authWrap").hidden=true;
   else if(t.id==="authSwitch"){authMode=authMode==="login"?"signup":"login";$("authErr").textContent="";syncAuthForm()}
+  else if(t.id==="authForgot"){authMode="forgot";$("authErr").textContent="";syncAuthForm();$("authEmail").focus()}
   else if(t.id==="logoutBtn"){await sb.auth.signOut()}
   else if(t.dataset.buy&&canBuy(T,d,t.dataset.buy)){const ti=transferInfo(T,d),back=!ti.free&&ti.out.find(x=>x.id===t.dataset.buy);d.draft.p.push(back?clone(back):{id:t.dataset.buy,paid:P(T,t.dataset.buy).price});if(!d.draft.cap&&d.draft.p.length===1)d.draft.cap=t.dataset.buy;d.dirty=true;render()}
   else if(t.dataset.sell&&canSell(T,d,t.dataset.sell)){d.draft.p=d.draft.p.filter(x=>x.id!==t.dataset.sell);if(d.draft.cap===t.dataset.sell)d.draft.cap=null;d.dirty=true;render()}
@@ -987,6 +1069,7 @@ setInterval(whenVisible(loadData),10*60000);
 if(CFG.supabaseUrl&&CFG.supabaseKey&&window.supabase){
   sb=window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseKey,{auth:{persistSession:true,autoRefreshToken:true}});
   sb.auth.onAuthStateChange((_ev,session)=>{
+    if(_ev==="PASSWORD_RECOVERY")setTimeout(()=>openAuth("newpass"),0);
     const id=session?.user?.id||null; MY_EMAIL=session?.user?.email||"";
     if(id!==ME){ME=id;Object.keys(DRAFTS).forEach(k=>delete DRAFTS[k]);$("teamName").dataset.touched="";loadLeagues()}
     render();

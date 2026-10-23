@@ -53,7 +53,13 @@
    "price": 30,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 30
+    }
+   ]
   },
   {
    "id": "alcaraz",
@@ -65,7 +71,13 @@
    "price": 27,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 27
+    }
+   ]
   },
   {
    "id": "medvedev",
@@ -77,7 +89,13 @@
    "price": 24,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 24
+    }
+   ]
   },
   {
    "id": "cobolli",
@@ -89,7 +107,13 @@
    "price": 22,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 22
+    }
+   ]
   },
   {
    "id": "de-minaur",
@@ -101,7 +125,13 @@
    "price": 21,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 21
+    }
+   ]
   },
   {
    "id": "tiafoe",
@@ -113,7 +143,13 @@
    "price": 20,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 20
+    }
+   ]
   },
   {
    "id": "paul",
@@ -125,7 +161,13 @@
    "price": 17,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 17
+    }
+   ]
   },
   {
    "id": "mensik",
@@ -137,7 +179,13 @@
    "price": 16,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 16
+    }
+   ]
   },
   {
    "id": "tien",
@@ -149,7 +197,13 @@
    "price": 17,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 17
+    }
+   ]
   },
   {
    "id": "nakashima",
@@ -161,7 +215,13 @@
    "price": 16,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 16
+    }
+   ]
   },
   {
    "id": "darderi",
@@ -173,7 +233,13 @@
    "price": 15,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 15
+    }
+   ]
   },
   {
    "id": "cerundolo",
@@ -185,7 +251,13 @@
    "price": 14,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 14
+    }
+   ]
   },
   {
    "id": "rublev",
@@ -197,7 +269,13 @@
    "price": 14,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 14
+    }
+   ]
   },
   {
    "id": "musetti",
@@ -209,7 +287,13 @@
    "price": 14,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 14
+    }
+   ]
   },
   {
    "id": "khachanov",
@@ -221,7 +305,13 @@
    "price": 13,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 13
+    }
+   ]
   },
   {
    "id": "blockx",
@@ -233,7 +323,13 @@
    "price": 13,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 13
+    }
+   ]
   },
   {
    "id": "martin-etcheverry",
@@ -245,7 +341,13 @@
    "price": 13,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 13
+    }
+   ]
   },
   {
    "id": "buse",
@@ -257,7 +359,13 @@
    "price": 12,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 12
+    }
+   ]
   },
   {
    "id": "fery",
@@ -269,7 +377,13 @@
    "price": 12,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 12
+    }
+   ]
   },
   {
    "id": "arnaldi",
@@ -281,7 +395,13 @@
    "price": 12,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 12
+    }
+   ]
   },
   {
    "id": "norrie",
@@ -293,7 +413,13 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 11
+    }
+   ]
   },
   {
    "id": "merida",
@@ -305,7 +431,13 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 11
+    }
+   ]
   },
   {
    "id": "van-assche",
@@ -317,7 +449,13 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 11
+    }
+   ]
   },
   {
    "id": "griekspoor",
@@ -329,7 +467,13 @@
    "price": 10,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "entered",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 10
+    }
+   ]
   },
   {
    "id": "q1",
@@ -341,7 +485,13 @@
    "price": 7,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 7
+    }
+   ]
   },
   {
    "id": "q2",
@@ -353,7 +503,13 @@
    "price": 7,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 7
+    }
+   ]
   },
   {
    "id": "q3",
@@ -365,7 +521,13 @@
    "price": 7,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 7
+    }
+   ]
   },
   {
    "id": "q4",
@@ -377,7 +539,13 @@
    "price": 7,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 7
+    }
+   ]
   },
   {
    "id": "wc2",
@@ -389,7 +557,13 @@
    "price": 6,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 6
+    }
+   ]
   },
   {
    "id": "wc3",
@@ -401,7 +575,13 @@
    "price": 6,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 6
+    }
+   ]
   },
   {
    "id": "alt1",
@@ -413,7 +593,13 @@
    "price": 10,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 10
+    }
+   ]
   },
   {
    "id": "alt2",
@@ -425,7 +611,13 @@
    "price": 10,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "tbd",
+   "prices": [
+    {
+     "from": "2026-10-21T12:00:00Z",
+     "price": 10
+    }
+   ]
   }
  ],
  "bestOf": 3,
