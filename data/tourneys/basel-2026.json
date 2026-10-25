@@ -9,7 +9,7 @@
  "end": "2026-11-01",
  "dates": "26 Oct – 1 Nov 2026",
  "status": "live",
- "note": "Draw is out. Five spots go to qualifiers and lucky losers, decided on Sunday. Prices follow ATP rankings until Polymarket opens markets.",
+ "note": "Draw is out. Bertola (Q) and Brunold (LL) are placed. Bublik, Davidovich Fokina and Tsitsipas withdrew: Ruud now plays Stricker, Hurkacz plays Bergs, and Shelton, Fils and Fritz get a qualifier or lucky loser. The remaining qualifier and lucky loser slots are filled once the official draw lists them. Prices follow ATP rankings until Polymarket opens markets.",
  "rounds": [
   {
    "key": "R32",
@@ -66,7 +66,7 @@
    "name": "Casper Ruud",
    "cc": "NOR",
    "rank": 21,
-   "seed": null,
+   "seed": 9,
    "tag": "",
    "price": 18,
    "winProb": null,
@@ -284,22 +284,22 @@
    "seed": null
   },
   {
-   "id": "q4",
-   "name": "Qualifier / LL",
-   "cc": "",
-   "rank": null,
+   "id": "brunold",
+   "name": "Mika Brunold",
+   "cc": "SUI",
+   "rank": 195,
    "seed": null,
-   "tag": "Q",
-   "price": 9,
+   "tag": "LL",
+   "price": 6,
    "prices": [
     {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 9
+     "from": "2026-10-25T21:37:44Z",
+     "price": 6
     }
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "entered"
   },
   {
    "id": "borges",
@@ -347,7 +347,7 @@
    "price": 17,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "withdrawn",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -373,7 +373,7 @@
    "price": 16,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "withdrawn",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -591,7 +591,7 @@
    "price": 13,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "withdrawn",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -608,22 +608,22 @@
    ]
   },
   {
-   "id": "q5",
-   "name": "Qualifier / LL",
-   "cc": "",
-   "rank": null,
+   "id": "bertola",
+   "name": "Rémy Bertola",
+   "cc": "SUI",
+   "rank": 219,
    "seed": null,
    "tag": "Q",
-   "price": 9,
+   "price": 6,
    "prices": [
     {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 9
+     "from": "2026-10-25T21:37:44Z",
+     "price": 6
     }
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "entered"
   },
   {
    "id": "shapovalov",
@@ -804,6 +804,60 @@
      "price": 13
     }
    ]
+  },
+  {
+   "id": "q6",
+   "name": "Qualifier / LL",
+   "cc": "",
+   "rank": null,
+   "seed": null,
+   "tag": "LL",
+   "price": 9,
+   "prices": [
+    {
+     "from": "2026-10-25T21:37:44Z",
+     "price": 9
+    }
+   ],
+   "winProb": null,
+   "priceSource": "ranking",
+   "status": "tbd"
+  },
+  {
+   "id": "q7",
+   "name": "Qualifier / LL",
+   "cc": "",
+   "rank": null,
+   "seed": null,
+   "tag": "LL",
+   "price": 9,
+   "prices": [
+    {
+     "from": "2026-10-25T21:37:44Z",
+     "price": 9
+    }
+   ],
+   "winProb": null,
+   "priceSource": "ranking",
+   "status": "tbd"
+  },
+  {
+   "id": "q8",
+   "name": "Qualifier / LL",
+   "cc": "",
+   "rank": null,
+   "seed": null,
+   "tag": "LL",
+   "price": 9,
+   "prices": [
+    {
+     "from": "2026-10-25T21:38:05Z",
+     "price": 9
+    }
+   ],
+   "winProb": null,
+   "priceSource": "ranking",
+   "status": "tbd"
   }
  ],
  "bestOf": 3,
@@ -814,7 +868,7 @@
    "id": "R32-1",
    "round": 0,
    "a": "shelton",
-   "b": "ruud",
+   "b": "q6",
    "status": "scheduled",
    "start": null,
    "winner": null,
@@ -897,7 +951,7 @@
   {
    "id": "R32-7",
    "round": 0,
-   "a": "q4",
+   "a": "brunold",
    "b": "borges",
    "status": "scheduled",
    "start": null,
@@ -912,7 +966,7 @@
    "id": "R32-8",
    "round": 0,
    "a": "stricker",
-   "b": "bublik",
+   "b": "ruud",
    "status": "scheduled",
    "start": null,
    "winner": null,
@@ -925,7 +979,7 @@
   {
    "id": "R32-9",
    "round": 0,
-   "a": "davidovich-fokina",
+   "a": "hurkacz",
    "b": "bergs",
    "status": "scheduled",
    "start": null,
@@ -982,7 +1036,7 @@
    "id": "R32-13",
    "round": 0,
    "a": "fritz",
-   "b": "tsitsipas",
+   "b": "q8",
    "status": "scheduled",
    "start": null,
    "winner": null,
@@ -995,7 +1049,7 @@
   {
    "id": "R32-14",
    "round": 0,
-   "a": "q5",
+   "a": "bertola",
    "b": "shapovalov",
    "status": "scheduled",
    "start": null,
@@ -1023,7 +1077,7 @@
   {
    "id": "R32-16",
    "round": 0,
-   "a": "hurkacz",
+   "a": "q7",
    "b": "fils",
    "status": "scheduled",
    "start": null,
@@ -1061,6 +1115,6 @@
    "url": "https://www.atptour.com/en/news/djokovic-basel-2026-draw-preview"
   }
  ],
- "updatedAt": "2026-10-24T14:32:11Z",
+ "updatedAt": "2026-10-25T21:38:05Z",
  "drawSize": 32
 }
