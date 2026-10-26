@@ -321,7 +321,7 @@
    "cc": "CZE",
    "rank": 72,
    "seed": null,
-   "tag": "",
+   "tag": "Q",
    "price": 8,
    "prices": [
     {
@@ -774,7 +774,7 @@
    "a": "machac",
    "b": "de-minaur",
    "status": "scheduled",
-   "start": null,
+   "start": "2026-10-26T14:00:00Z",
    "winner": null,
    "sets": [],
    "ret": false,
@@ -858,7 +858,7 @@
    "a": "darderi",
    "b": "arnaldi",
    "status": "scheduled",
-   "start": null,
+   "start": "2026-10-26T18:00:00Z",
    "winner": null,
    "sets": [],
    "ret": false,
@@ -913,6 +913,6 @@
    "url": "https://www.tennisnet.com/news/erste-bank-open-alcaraz-startet-gegen-zverev-muss-gegen"
   }
  ],
- "updatedAt": "2026-10-26T12:41:41Z",
+ "updatedAt": "2026-10-26T14:38:11Z",
  "drawSize": 32
 }
