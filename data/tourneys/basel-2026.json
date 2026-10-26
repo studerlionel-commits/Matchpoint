@@ -299,7 +299,7 @@
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "out"
   },
   {
    "id": "borges",
@@ -316,7 +316,7 @@
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "in",
    "seed": null
   },
   {
@@ -953,10 +953,19 @@
    "round": 0,
    "a": "brunold",
    "b": "borges",
-   "status": "scheduled",
+   "status": "done",
    "start": "2026-10-26T12:30:00Z",
-   "winner": null,
-   "sets": [],
+   "winner": "borges",
+   "sets": [
+    [
+     3,
+     6
+    ],
+    [
+     1,
+     6
+    ]
+   ],
    "ret": false,
    "wo": false,
    "odds": null,
@@ -1115,6 +1124,6 @@
    "url": "https://www.atptour.com/en/news/djokovic-basel-2026-draw-preview"
   }
  ],
- "updatedAt": "2026-10-26T06:42:43Z",
+ "updatedAt": "2026-10-26T16:37:14Z",
  "drawSize": 32
 }
