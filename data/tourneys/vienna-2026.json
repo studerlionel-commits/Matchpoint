@@ -745,7 +745,7 @@
    "round": 0,
    "a": "berrettini",
    "b": "martin-etcheverry",
-   "status": "scheduled",
+   "status": "live",
    "start": "2026-10-26T12:30:00Z",
    "winner": null,
    "sets": [],
@@ -913,6 +913,6 @@
    "url": "https://www.tennisnet.com/news/erste-bank-open-alcaraz-startet-gegen-zverev-muss-gegen"
   }
  ],
- "updatedAt": "2026-10-26T06:48:34Z",
+ "updatedAt": "2026-10-26T12:41:41Z",
  "drawSize": 32
 }
