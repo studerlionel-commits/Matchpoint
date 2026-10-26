@@ -139,7 +139,7 @@
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "in"
   },
   {
    "id": "cerundolo",
@@ -157,7 +157,7 @@
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "out"
   },
   {
    "id": "wawrinka",
@@ -425,7 +425,7 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "in",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -456,7 +456,7 @@
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "out",
    "seed": null
   },
   {
@@ -469,7 +469,7 @@
    "price": 21,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "in",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -491,7 +491,7 @@
    "price": 13,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "out",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -897,10 +897,23 @@
    "round": 0,
    "a": "altmaier",
    "b": "cerundolo",
-   "status": "scheduled",
+   "status": "done",
    "start": "2026-10-26T14:00:00Z",
-   "winner": null,
-   "sets": [],
+   "winner": "altmaier",
+   "sets": [
+    [
+     6,
+     7
+    ],
+    [
+     7,
+     6
+    ],
+    [
+     6,
+     4
+    ]
+   ],
    "ret": false,
    "wo": false,
    "odds": null,
@@ -1004,10 +1017,23 @@
    "round": 0,
    "a": "rune",
    "b": "halys",
-   "status": "scheduled",
+   "status": "done",
    "start": "2026-10-26T14:00:00Z",
-   "winner": null,
-   "sets": [],
+   "winner": "rune",
+   "sets": [
+    [
+     6,
+     4
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     7,
+     6
+    ]
+   ],
    "ret": false,
    "wo": false,
    "odds": null,
@@ -1018,10 +1044,19 @@
    "round": 0,
    "a": "vacherot",
    "b": "navone",
-   "status": "scheduled",
+   "status": "done",
    "start": "2026-10-26T12:30:00Z",
-   "winner": null,
-   "sets": [],
+   "winner": "vacherot",
+   "sets": [
+    [
+     6,
+     3
+    ],
+    [
+     7,
+     6
+    ]
+   ],
    "ret": false,
    "wo": false,
    "odds": null,
@@ -1124,6 +1159,6 @@
    "url": "https://www.atptour.com/en/news/djokovic-basel-2026-draw-preview"
   }
  ],
- "updatedAt": "2026-10-26T16:37:14Z",
+ "updatedAt": "2026-10-26T18:37:26Z",
  "drawSize": 32
 }

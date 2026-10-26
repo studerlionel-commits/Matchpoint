@@ -250,7 +250,7 @@
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "in",
    "seed": null
   },
   {
@@ -263,7 +263,7 @@
    "price": 12,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "out",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -331,7 +331,7 @@
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "out"
   },
   {
    "id": "de-minaur",
@@ -343,7 +343,7 @@
    "price": 20,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "in",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -745,10 +745,19 @@
    "round": 0,
    "a": "berrettini",
    "b": "martin-etcheverry",
-   "status": "live",
+   "status": "done",
    "start": "2026-10-26T12:30:00Z",
-   "winner": null,
-   "sets": [],
+   "winner": "berrettini",
+   "sets": [
+    [
+     6,
+     3
+    ],
+    [
+     6,
+     4
+    ]
+   ],
    "ret": false,
    "wo": false,
    "odds": null,
@@ -773,10 +782,23 @@
    "round": 0,
    "a": "machac",
    "b": "de-minaur",
-   "status": "scheduled",
+   "status": "done",
    "start": "2026-10-26T14:00:00Z",
-   "winner": null,
-   "sets": [],
+   "winner": "de-minaur",
+   "sets": [
+    [
+     6,
+     1
+    ],
+    [
+     4,
+     6
+    ],
+    [
+     3,
+     6
+    ]
+   ],
    "ret": false,
    "wo": false,
    "odds": null,
@@ -913,6 +935,6 @@
    "url": "https://www.tennisnet.com/news/erste-bank-open-alcaraz-startet-gegen-zverev-muss-gegen"
   }
  ],
- "updatedAt": "2026-10-26T14:38:11Z",
+ "updatedAt": "2026-10-26T18:37:26Z",
  "drawSize": 32
 }
