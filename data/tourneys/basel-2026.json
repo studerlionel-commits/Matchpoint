@@ -9,7 +9,7 @@
  "end": "2026-11-01",
  "dates": "26 Oct – 1 Nov 2026",
  "status": "live",
- "note": "Draw is out. Bertola (Q) and Brunold (LL) are placed. Bublik, Davidovich Fokina and Tsitsipas withdrew: Ruud now plays Stricker, Hurkacz plays Bergs, and Shelton, Fils and Fritz get a qualifier or lucky loser. The remaining qualifier and lucky loser slots are filled once the official draw lists them. Prices follow ATP rankings until Polymarket opens markets.",
+ "note": "Draw is complete. Monday: Vacherot v Navone, Rune v Halys, Stricker v Ruud (not before 20:00 local), Brunold v Borges, Altmaier v Cerundolo. Rankings of the qualifiers and lucky losers are not yet in the data, so their prices are estimates. Prices follow ATP rankings until Polymarket opens markets.",
  "rounds": [
   {
    "key": "R32",
@@ -124,40 +124,40 @@
    ]
   },
   {
-   "id": "q1",
-   "name": "Qualifier / LL",
-   "cc": "",
+   "id": "altmaier",
+   "name": "Daniel Altmaier",
+   "cc": "GER",
    "rank": null,
    "seed": null,
-   "tag": "Q",
-   "price": 9,
+   "tag": "LL",
+   "price": 8,
    "prices": [
     {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 9
+     "from": "2026-10-26T06:42:43Z",
+     "price": 8
     }
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "entered"
   },
   {
-   "id": "q2",
-   "name": "Qualifier / LL",
-   "cc": "",
+   "id": "cerundolo",
+   "name": "Juan Manuel Cerúndolo",
+   "cc": "ARG",
    "rank": null,
    "seed": null,
    "tag": "Q",
-   "price": 9,
+   "price": 8,
    "prices": [
     {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 9
+     "from": "2026-10-26T06:42:43Z",
+     "price": 8
     }
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "entered"
   },
   {
    "id": "wawrinka",
@@ -248,22 +248,22 @@
    ]
   },
   {
-   "id": "q3",
-   "name": "Qualifier / LL",
-   "cc": "",
+   "id": "hanfmann",
+   "name": "Yannick Hanfmann",
+   "cc": "GER",
    "rank": null,
    "seed": null,
    "tag": "Q",
-   "price": 9,
+   "price": 8,
    "prices": [
     {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 9
+     "from": "2026-10-26T06:42:43Z",
+     "price": 8
     }
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "entered"
   },
   {
    "id": "struff",
@@ -806,58 +806,58 @@
    ]
   },
   {
-   "id": "q6",
-   "name": "Qualifier / LL",
-   "cc": "",
+   "id": "kovacevic",
+   "name": "Aleksandar Kovacevic",
+   "cc": "USA",
    "rank": null,
    "seed": null,
    "tag": "LL",
-   "price": 9,
+   "price": 8,
    "prices": [
     {
-     "from": "2026-10-25T21:37:44Z",
-     "price": 9
+     "from": "2026-10-26T06:42:43Z",
+     "price": 8
     }
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "entered"
   },
   {
-   "id": "q7",
-   "name": "Qualifier / LL",
-   "cc": "",
+   "id": "mpetshi-perricard",
+   "name": "Giovanni Mpetshi Perricard",
+   "cc": "FRA",
    "rank": null,
    "seed": null,
-   "tag": "LL",
+   "tag": "Q",
    "price": 9,
    "prices": [
     {
-     "from": "2026-10-25T21:37:44Z",
+     "from": "2026-10-26T06:42:43Z",
      "price": 9
     }
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "entered"
   },
   {
-   "id": "q8",
-   "name": "Qualifier / LL",
-   "cc": "",
+   "id": "hijikata",
+   "name": "Rinky Hijikata",
+   "cc": "AUS",
    "rank": null,
    "seed": null,
    "tag": "LL",
-   "price": 9,
+   "price": 8,
    "prices": [
     {
-     "from": "2026-10-25T21:38:05Z",
-     "price": 9
+     "from": "2026-10-26T06:42:43Z",
+     "price": 8
     }
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "entered"
   }
  ],
  "bestOf": 3,
@@ -868,7 +868,7 @@
    "id": "R32-1",
    "round": 0,
    "a": "shelton",
-   "b": "q6",
+   "b": "kovacevic",
    "status": "scheduled",
    "start": null,
    "winner": null,
@@ -895,10 +895,10 @@
   {
    "id": "R32-3",
    "round": 0,
-   "a": "q1",
-   "b": "q2",
+   "a": "altmaier",
+   "b": "cerundolo",
    "status": "scheduled",
-   "start": null,
+   "start": "2026-10-26T14:00:00Z",
    "winner": null,
    "sets": [],
    "ret": false,
@@ -937,7 +937,7 @@
   {
    "id": "R32-6",
    "round": 0,
-   "a": "q3",
+   "a": "hanfmann",
    "b": "struff",
    "status": "scheduled",
    "start": null,
@@ -954,7 +954,7 @@
    "a": "brunold",
    "b": "borges",
    "status": "scheduled",
-   "start": null,
+   "start": "2026-10-26T12:30:00Z",
    "winner": null,
    "sets": [],
    "ret": false,
@@ -968,7 +968,7 @@
    "a": "stricker",
    "b": "ruud",
    "status": "scheduled",
-   "start": null,
+   "start": "2026-10-26T19:00:00Z",
    "winner": null,
    "sets": [],
    "ret": false,
@@ -996,7 +996,7 @@
    "a": "rune",
    "b": "halys",
    "status": "scheduled",
-   "start": null,
+   "start": "2026-10-26T14:00:00Z",
    "winner": null,
    "sets": [],
    "ret": false,
@@ -1010,7 +1010,7 @@
    "a": "vacherot",
    "b": "navone",
    "status": "scheduled",
-   "start": null,
+   "start": "2026-10-26T12:30:00Z",
    "winner": null,
    "sets": [],
    "ret": false,
@@ -1036,7 +1036,7 @@
    "id": "R32-13",
    "round": 0,
    "a": "fritz",
-   "b": "q8",
+   "b": "hijikata",
    "status": "scheduled",
    "start": null,
    "winner": null,
@@ -1077,7 +1077,7 @@
   {
    "id": "R32-16",
    "round": 0,
-   "a": "q7",
+   "a": "mpetshi-perricard",
    "b": "fils",
    "status": "scheduled",
    "start": null,
@@ -1115,6 +1115,6 @@
    "url": "https://www.atptour.com/en/news/djokovic-basel-2026-draw-preview"
   }
  ],
- "updatedAt": "2026-10-25T21:38:05Z",
+ "updatedAt": "2026-10-26T06:42:43Z",
  "drawSize": 32
 }

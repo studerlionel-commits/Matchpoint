@@ -9,7 +9,7 @@
  "end": "2026-11-01",
  "dates": "26 Oct – 1 Nov 2026",
  "status": "live",
- "note": "Draw is out. Four spots go to qualifiers, decided on Sunday. Blockx is not in the draw. Prices follow ATP rankings until Polymarket opens markets.",
+ "note": "Draw is complete. Monday: Berrettini v Etcheverry, Fery v Fearnley, Mensik v Neumayer, Van Assche v Tien. Blockx is not in the draw. Prices follow ATP rankings until Polymarket opens markets.",
  "rounds": [
   {
    "key": "R32",
@@ -142,22 +142,22 @@
    ]
   },
   {
-   "id": "q1",
-   "name": "Qualifier / LL",
-   "cc": "",
-   "rank": null,
+   "id": "fearnley",
+   "name": "Jacob Fearnley",
+   "cc": "GBR",
+   "rank": 87,
    "seed": null,
    "tag": "Q",
    "price": 7,
    "prices": [
     {
-     "from": "2026-10-24T14:32:11Z",
+     "from": "2026-10-26T06:48:34Z",
      "price": 7
     }
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "entered"
   },
   {
    "id": "musetti",
@@ -316,22 +316,22 @@
    ]
   },
   {
-   "id": "q2",
-   "name": "Qualifier / LL",
-   "cc": "",
-   "rank": null,
+   "id": "machac",
+   "name": "Tomáš Macháč",
+   "cc": "CZE",
+   "rank": 72,
    "seed": null,
-   "tag": "Q",
-   "price": 7,
+   "tag": "",
+   "price": 8,
    "prices": [
     {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 7
+     "from": "2026-10-26T06:48:34Z",
+     "price": 8
     }
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "entered"
   },
   {
    "id": "de-minaur",
@@ -374,40 +374,40 @@
    ]
   },
   {
-   "id": "q3",
-   "name": "Qualifier / LL",
-   "cc": "",
-   "rank": null,
+   "id": "neumayer",
+   "name": "Lukas Neumayer",
+   "cc": "AUT",
+   "rank": 168,
    "seed": null,
    "tag": "Q",
-   "price": 7,
+   "price": 6,
    "prices": [
     {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 7
+     "from": "2026-10-26T06:48:34Z",
+     "price": 6
     }
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "entered"
   },
   {
-   "id": "q4",
-   "name": "Qualifier / LL",
-   "cc": "",
-   "rank": null,
+   "id": "mannarino",
+   "name": "Adrian Mannarino",
+   "cc": "FRA",
+   "rank": 79,
    "seed": null,
-   "tag": "Q",
-   "price": 7,
+   "tag": "",
+   "price": 8,
    "prices": [
     {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 7
+     "from": "2026-10-26T06:48:34Z",
+     "price": 8
     }
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "tbd"
+   "status": "entered"
   },
   {
    "id": "buse",
@@ -702,9 +702,9 @@
    "id": "R32-3",
    "round": 0,
    "a": "fery",
-   "b": "q1",
+   "b": "fearnley",
    "status": "scheduled",
-   "start": null,
+   "start": "2026-10-26T16:30:00Z",
    "winner": null,
    "sets": [],
    "ret": false,
@@ -746,7 +746,7 @@
    "a": "berrettini",
    "b": "martin-etcheverry",
    "status": "scheduled",
-   "start": null,
+   "start": "2026-10-26T12:30:00Z",
    "winner": null,
    "sets": [],
    "ret": false,
@@ -760,7 +760,7 @@
    "a": "van-assche",
    "b": "tien",
    "status": "scheduled",
-   "start": null,
+   "start": "2026-10-26T19:00:00Z",
    "winner": null,
    "sets": [],
    "ret": false,
@@ -771,7 +771,7 @@
   {
    "id": "R32-8",
    "round": 0,
-   "a": "q2",
+   "a": "machac",
    "b": "de-minaur",
    "status": "scheduled",
    "start": null,
@@ -786,9 +786,9 @@
    "id": "R32-9",
    "round": 0,
    "a": "mensik",
-   "b": "q3",
+   "b": "neumayer",
    "status": "scheduled",
-   "start": null,
+   "start": "2026-10-26T16:30:00Z",
    "winner": null,
    "sets": [],
    "ret": false,
@@ -799,7 +799,7 @@
   {
    "id": "R32-10",
    "round": 0,
-   "a": "q4",
+   "a": "mannarino",
    "b": "buse",
    "status": "scheduled",
    "start": null,
@@ -913,6 +913,6 @@
    "url": "https://www.tennisnet.com/news/erste-bank-open-alcaraz-startet-gegen-zverev-muss-gegen"
   }
  ],
- "updatedAt": "2026-10-24T14:32:11Z",
+ "updatedAt": "2026-10-26T06:48:34Z",
  "drawSize": 32
 }
