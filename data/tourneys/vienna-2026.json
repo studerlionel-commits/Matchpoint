@@ -129,7 +129,7 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "in",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -157,7 +157,7 @@
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "out"
   },
   {
    "id": "musetti",
@@ -365,7 +365,7 @@
    "price": 16,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "in",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -389,7 +389,7 @@
    ],
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered"
+   "status": "out"
   },
   {
    "id": "mannarino",
@@ -703,11 +703,16 @@
    "round": 0,
    "a": "fery",
    "b": "fearnley",
-   "status": "scheduled",
+   "status": "done",
    "start": "2026-10-26T16:30:00Z",
-   "winner": null,
-   "sets": [],
-   "ret": false,
+   "winner": "fery",
+   "sets": [
+    [
+     5,
+     1
+    ]
+   ],
+   "ret": true,
    "wo": false,
    "odds": null,
    "stats": null
@@ -809,10 +814,19 @@
    "round": 0,
    "a": "mensik",
    "b": "neumayer",
-   "status": "scheduled",
+   "status": "done",
    "start": "2026-10-26T16:30:00Z",
-   "winner": null,
-   "sets": [],
+   "winner": "mensik",
+   "sets": [
+    [
+     6,
+     2
+    ],
+    [
+     6,
+     2
+    ]
+   ],
    "ret": false,
    "wo": false,
    "odds": null,
@@ -935,6 +949,6 @@
    "url": "https://www.tennisnet.com/news/erste-bank-open-alcaraz-startet-gegen-zverev-muss-gegen"
   }
  ],
- "updatedAt": "2026-10-26T18:37:26Z",
+ "updatedAt": "2026-10-26T22:37:05Z",
  "drawSize": 32
 }

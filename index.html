@@ -495,7 +495,7 @@ function scoreMatch(T,m,pid){
   const add=(label,n,each)=>{if(n)items.push({label,n,pts:n*each})};
   if(won)add(R.key.startsWith("RR")?"Group win":`${R.key} win`,1,R.win);
   if(!m.wo){
-    const sets=m.sets||[], my=s=>isA?s[0]:s[1], th=s=>isA?s[1]:s[0];
+    const sets=m.ret?(m.sets||[]).slice(0,-1):(m.sets||[]), my=s=>isA?s[0]:s[1], th=s=>isA?s[1]:s[0]; // after a retirement the last listed set was never finished
     const sw=sets.filter(s=>my(s)>th(s)).length, sl=sets.filter(s=>my(s)<th(s)).length;
     add("Sets won",sw,4);
     const oppGames=sets.reduce((t,s)=>t+th(s),0);
