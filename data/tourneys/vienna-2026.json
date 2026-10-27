@@ -53,7 +53,7 @@
       "price": 30,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "in",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -76,7 +76,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "out",
       "seed": null
     },
     {
@@ -675,10 +675,23 @@
       "round": 0,
       "a": "zverev",
       "b": "landaluce",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-27T16:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "zverev",
+      "sets": [
+        [
+          7,
+          5
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          6
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,

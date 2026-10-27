@@ -1,1191 +1,1286 @@
 {
- "id": "basel-2026",
- "name": "Swiss Indoors Basel",
- "city": "Basel",
- "category": "ATP 500",
- "vp": 1,
- "surface": "Indoor hard",
- "start": "2026-10-26",
- "end": "2026-11-01",
- "dates": "26 Oct – 1 Nov 2026",
- "status": "live",
- "note": "Draw is complete. Monday: Vacherot v Navone, Rune v Halys, Stricker v Ruud (not before 20:00 local), Brunold v Borges, Altmaier v Cerundolo. Rankings of the qualifiers and lucky losers are not yet in the data, so their prices are estimates. Prices follow ATP rankings until Polymarket opens markets.",
- "rounds": [
-  {
-   "key": "R32",
-   "label": "Round of 32",
-   "lock": "2026-10-26T10:00:00Z",
-   "win": 15
-  },
-  {
-   "key": "R16",
-   "label": "Round of 16",
-   "lock": "2026-10-28T10:00:00Z",
-   "win": 21
-  },
-  {
-   "key": "QF",
-   "label": "Quarterfinals",
-   "lock": "2026-10-30T11:00:00Z",
-   "win": 28
-  },
-  {
-   "key": "SF",
-   "label": "Semifinals",
-   "lock": "2026-10-31T12:00:00Z",
-   "win": 38
-  },
-  {
-   "key": "F",
-   "label": "Final",
-   "lock": "2026-11-01T12:30:00Z",
-   "win": 55
-  }
- ],
- "players": [
-  {
-   "id": "shelton",
-   "name": "Ben Shelton",
-   "cc": "USA",
-   "rank": 4,
-   "seed": 1,
-   "tag": "",
-   "price": 30,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
+  "id": "basel-2026",
+  "name": "Swiss Indoors Basel",
+  "city": "Basel",
+  "category": "ATP 500",
+  "vp": 1,
+  "surface": "Indoor hard",
+  "start": "2026-10-26",
+  "end": "2026-11-01",
+  "dates": "26 Oct – 1 Nov 2026",
+  "status": "live",
+  "note": "Draw is complete. Monday: Vacherot v Navone, Rune v Halys, Stricker v Ruud (not before 20:00 local), Brunold v Borges, Altmaier v Cerundolo. Rankings of the qualifiers and lucky losers are not yet in the data, so their prices are estimates. Prices follow ATP rankings until Polymarket opens markets.",
+  "rounds": [
     {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 30
-    }
-   ]
-  },
-  {
-   "id": "ruud",
-   "name": "Casper Ruud",
-   "cc": "NOR",
-   "rank": 21,
-   "seed": 9,
-   "tag": "",
-   "price": 18,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "in",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 17
+      "key": "R32",
+      "label": "Round of 32",
+      "lock": "2026-10-26T10:00:00Z",
+      "win": 15
     },
     {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 18
-    }
-   ]
-  },
-  {
-   "id": "kym",
-   "name": "Jérôme Kym",
-   "cc": "SUI",
-   "rank": 223,
-   "seed": null,
-   "tag": "WC",
-   "price": 6,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 6
-    }
-   ]
-  },
-  {
-   "id": "rinderknech",
-   "name": "Arthur Rinderknech",
-   "cc": "FRA",
-   "rank": 33,
-   "seed": null,
-   "tag": "",
-   "price": 15,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 14
+      "key": "R16",
+      "label": "Round of 16",
+      "lock": "2026-10-28T10:00:00Z",
+      "win": 21
     },
     {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 15
-    }
-   ]
-  },
-  {
-   "id": "altmaier",
-   "name": "Daniel Altmaier",
-   "cc": "GER",
-   "rank": null,
-   "seed": null,
-   "tag": "LL",
-   "price": 8,
-   "prices": [
-    {
-     "from": "2026-10-26T06:42:43Z",
-     "price": 8
-    }
-   ],
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "in"
-  },
-  {
-   "id": "cerundolo",
-   "name": "Juan Manuel Cerúndolo",
-   "cc": "ARG",
-   "rank": null,
-   "seed": null,
-   "tag": "Q",
-   "price": 8,
-   "prices": [
-    {
-     "from": "2026-10-26T06:42:43Z",
-     "price": 8
-    }
-   ],
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "out"
-  },
-  {
-   "id": "wawrinka",
-   "name": "Stan Wawrinka",
-   "cc": "SUI",
-   "rank": null,
-   "tag": "WC",
-   "price": 7,
-   "prices": [
-    {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 7
-    }
-   ],
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "seed": null
-  },
-  {
-   "id": "lehecka",
-   "name": "Jiří Lehečka",
-   "cc": "CZE",
-   "rank": 16,
-   "seed": 8,
-   "tag": "",
-   "price": 20,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 19
+      "key": "QF",
+      "label": "Quarterfinals",
+      "lock": "2026-10-30T11:00:00Z",
+      "win": 28
     },
     {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 20
-    }
-   ]
-  },
-  {
-   "id": "djokovic",
-   "name": "Novak Djokovic",
-   "cc": "SRB",
-   "rank": 8,
-   "seed": 4,
-   "tag": "WC",
-   "price": 25,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 21
+      "key": "SF",
+      "label": "Semifinals",
+      "lock": "2026-10-31T12:00:00Z",
+      "win": 38
     },
     {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 25
+      "key": "F",
+      "label": "Final",
+      "lock": "2026-11-01T12:30:00Z",
+      "win": 55
     }
-   ]
-  },
-  {
-   "id": "humbert",
-   "name": "Ugo Humbert",
-   "cc": "FRA",
-   "rank": 32,
-   "seed": null,
-   "tag": "",
-   "price": 15,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
+  ],
+  "players": [
     {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 14
+      "id": "shelton",
+      "name": "Ben Shelton",
+      "cc": "USA",
+      "rank": 4,
+      "seed": 1,
+      "tag": "",
+      "price": 30,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "in",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 30
+        }
+      ]
     },
     {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 16
+      "id": "ruud",
+      "name": "Casper Ruud",
+      "cc": "NOR",
+      "rank": 21,
+      "seed": 9,
+      "tag": "",
+      "price": 18,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "in",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 17
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 18
+        }
+      ]
     },
     {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 15
-    }
-   ]
-  },
-  {
-   "id": "hanfmann",
-   "name": "Yannick Hanfmann",
-   "cc": "GER",
-   "rank": null,
-   "seed": null,
-   "tag": "Q",
-   "price": 8,
-   "prices": [
-    {
-     "from": "2026-10-26T06:42:43Z",
-     "price": 8
-    }
-   ],
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered"
-  },
-  {
-   "id": "struff",
-   "name": "Jan-Lennard Struff",
-   "cc": "GER",
-   "rank": 59,
-   "tag": "SE",
-   "price": 11,
-   "prices": [
-    {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 11
-    }
-   ],
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "seed": null
-  },
-  {
-   "id": "brunold",
-   "name": "Mika Brunold",
-   "cc": "SUI",
-   "rank": 195,
-   "seed": null,
-   "tag": "LL",
-   "price": 6,
-   "prices": [
-    {
-     "from": "2026-10-25T21:37:44Z",
-     "price": 6
-    }
-   ],
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "out"
-  },
-  {
-   "id": "borges",
-   "name": "Nuno Borges",
-   "cc": "POR",
-   "rank": 49,
-   "tag": "",
-   "price": 12,
-   "prices": [
-    {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 12
-    }
-   ],
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "in",
-   "seed": null
-  },
-  {
-   "id": "stricker",
-   "name": "Dominic Stricker",
-   "cc": "SUI",
-   "rank": 251,
-   "seed": null,
-   "tag": "WC",
-   "price": 6,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "out",
-   "prices": [
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 6
-    }
-   ]
-  },
-  {
-   "id": "bublik",
-   "name": "Alexander Bublik",
-   "cc": "KAZ",
-   "rank": 22,
-   "seed": 7,
-   "tag": "",
-   "price": 17,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "withdrawn",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 17
+      "id": "kym",
+      "name": "Jérôme Kym",
+      "cc": "SUI",
+      "rank": 223,
+      "seed": null,
+      "tag": "WC",
+      "price": 6,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "in",
+      "prices": [
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 6
+        }
+      ]
     },
     {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 18
+      "id": "rinderknech",
+      "name": "Arthur Rinderknech",
+      "cc": "FRA",
+      "rank": 33,
+      "seed": null,
+      "tag": "",
+      "price": 15,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "out",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 14
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 15
+        }
+      ]
     },
     {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 17
+      "id": "altmaier",
+      "name": "Daniel Altmaier",
+      "cc": "GER",
+      "rank": null,
+      "seed": null,
+      "tag": "LL",
+      "price": 8,
+      "prices": [
+        {
+          "from": "2026-10-26T06:42:43Z",
+          "price": 8
+        }
+      ],
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "in"
+    },
+    {
+      "id": "cerundolo",
+      "name": "Juan Manuel Cerúndolo",
+      "cc": "ARG",
+      "rank": null,
+      "seed": null,
+      "tag": "Q",
+      "price": 8,
+      "prices": [
+        {
+          "from": "2026-10-26T06:42:43Z",
+          "price": 8
+        }
+      ],
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "out"
+    },
+    {
+      "id": "wawrinka",
+      "name": "Stan Wawrinka",
+      "cc": "SUI",
+      "rank": null,
+      "tag": "WC",
+      "price": 7,
+      "prices": [
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 7
+        }
+      ],
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "entered",
+      "seed": null
+    },
+    {
+      "id": "lehecka",
+      "name": "Jiří Lehečka",
+      "cc": "CZE",
+      "rank": 16,
+      "seed": 8,
+      "tag": "",
+      "price": 20,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "entered",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 19
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 20
+        }
+      ]
+    },
+    {
+      "id": "djokovic",
+      "name": "Novak Djokovic",
+      "cc": "SRB",
+      "rank": 8,
+      "seed": 4,
+      "tag": "WC",
+      "price": 25,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "entered",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 21
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 25
+        }
+      ]
+    },
+    {
+      "id": "humbert",
+      "name": "Ugo Humbert",
+      "cc": "FRA",
+      "rank": 32,
+      "seed": null,
+      "tag": "",
+      "price": 15,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "entered",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 14
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 16
+        },
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "id": "hanfmann",
+      "name": "Yannick Hanfmann",
+      "cc": "GER",
+      "rank": null,
+      "seed": null,
+      "tag": "Q",
+      "price": 8,
+      "prices": [
+        {
+          "from": "2026-10-26T06:42:43Z",
+          "price": 8
+        }
+      ],
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "entered"
+    },
+    {
+      "id": "struff",
+      "name": "Jan-Lennard Struff",
+      "cc": "GER",
+      "rank": 59,
+      "tag": "SE",
+      "price": 11,
+      "prices": [
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 11
+        }
+      ],
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "entered",
+      "seed": null
+    },
+    {
+      "id": "brunold",
+      "name": "Mika Brunold",
+      "cc": "SUI",
+      "rank": 195,
+      "seed": null,
+      "tag": "LL",
+      "price": 6,
+      "prices": [
+        {
+          "from": "2026-10-25T21:37:44Z",
+          "price": 6
+        }
+      ],
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "out"
+    },
+    {
+      "id": "borges",
+      "name": "Nuno Borges",
+      "cc": "POR",
+      "rank": 49,
+      "tag": "",
+      "price": 12,
+      "prices": [
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 12
+        }
+      ],
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "in",
+      "seed": null
+    },
+    {
+      "id": "stricker",
+      "name": "Dominic Stricker",
+      "cc": "SUI",
+      "rank": 251,
+      "seed": null,
+      "tag": "WC",
+      "price": 6,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "out",
+      "prices": [
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 6
+        }
+      ]
+    },
+    {
+      "id": "bublik",
+      "name": "Alexander Bublik",
+      "cc": "KAZ",
+      "rank": 22,
+      "seed": 7,
+      "tag": "",
+      "price": 17,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "withdrawn",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 17
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 18
+        },
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 17
+        }
+      ]
+    },
+    {
+      "id": "davidovich-fokina",
+      "name": "Alejandro Davidovich Fokina",
+      "cc": "ESP",
+      "rank": 26,
+      "seed": 5,
+      "tag": "",
+      "price": 16,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "withdrawn",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 15
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 17
+        },
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 16
+        }
+      ]
+    },
+    {
+      "id": "bergs",
+      "name": "Zizou Bergs",
+      "cc": "BEL",
+      "rank": 38,
+      "seed": null,
+      "tag": "",
+      "price": 14,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "out",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 13
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 15
+        },
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 14
+        }
+      ]
+    },
+    {
+      "id": "rune",
+      "name": "Holger Rune",
+      "cc": "DEN",
+      "rank": 188,
+      "seed": null,
+      "tag": "PR",
+      "price": 11,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "in",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 10
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 12
+        },
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 11
+        }
+      ]
+    },
+    {
+      "id": "halys",
+      "name": "Quentin Halys",
+      "cc": "FRA",
+      "rank": 50,
+      "tag": "",
+      "price": 12,
+      "prices": [
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 12
+        }
+      ],
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "out",
+      "seed": null
+    },
+    {
+      "id": "vacherot",
+      "name": "Valentin Vacherot",
+      "cc": "MON",
+      "rank": 14,
+      "seed": null,
+      "tag": "",
+      "price": 21,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "in",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 20
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 21
+        }
+      ]
+    },
+    {
+      "id": "navone",
+      "name": "Mariano Navone",
+      "cc": "ARG",
+      "rank": 45,
+      "seed": null,
+      "tag": "",
+      "price": 13,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "out",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 12
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 14
+        },
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 13
+        }
+      ]
+    },
+    {
+      "id": "tabilo",
+      "name": "Alejandro Tabilo",
+      "cc": "CHI",
+      "rank": 31,
+      "seed": null,
+      "tag": "",
+      "price": 15,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "out",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 14
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 16
+        },
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "id": "jodar",
+      "name": "Rafael Jódar",
+      "cc": "ESP",
+      "rank": 13,
+      "seed": 3,
+      "tag": "",
+      "price": 21,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "in",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 20
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 22
+        },
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 21
+        }
+      ]
+    },
+    {
+      "id": "fritz",
+      "name": "Taylor Fritz",
+      "cc": "USA",
+      "rank": 12,
+      "seed": 6,
+      "tag": "",
+      "price": 22,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "entered",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 21
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 22
+        }
+      ]
+    },
+    {
+      "id": "tsitsipas",
+      "name": "Stefanos Tsitsipas",
+      "cc": "GRE",
+      "rank": 44,
+      "seed": null,
+      "tag": "",
+      "price": 13,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "withdrawn",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 12
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 14
+        },
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 13
+        }
+      ]
+    },
+    {
+      "id": "bertola",
+      "name": "Rémy Bertola",
+      "cc": "SUI",
+      "rank": 219,
+      "seed": null,
+      "tag": "Q",
+      "price": 6,
+      "prices": [
+        {
+          "from": "2026-10-25T21:37:44Z",
+          "price": 6
+        }
+      ],
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "entered"
+    },
+    {
+      "id": "shapovalov",
+      "name": "Denis Shapovalov",
+      "cc": "CAN",
+      "rank": 46,
+      "seed": null,
+      "tag": "",
+      "price": 13,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "entered",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 12
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 14
+        },
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 13
+        }
+      ]
+    },
+    {
+      "id": "michelsen",
+      "name": "Alex Michelsen",
+      "cc": "USA",
+      "rank": 34,
+      "seed": null,
+      "tag": "",
+      "price": 15,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "entered",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 14
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "id": "van-de-zandschulp",
+      "name": "Botic van de Zandschulp",
+      "cc": "NED",
+      "rank": 41,
+      "seed": null,
+      "tag": "",
+      "price": 13,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "entered",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 12
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 14
+        },
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 13
+        }
+      ]
+    },
+    {
+      "id": "hurkacz",
+      "name": "Hubert Hurkacz",
+      "cc": "POL",
+      "rank": 39,
+      "seed": null,
+      "tag": "",
+      "price": 14,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "in",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 13
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 14
+        }
+      ]
+    },
+    {
+      "id": "fils",
+      "name": "Arthur Fils",
+      "cc": "FRA",
+      "rank": 11,
+      "seed": 2,
+      "tag": "",
+      "price": 22,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "in",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 22
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 23
+        },
+        {
+          "from": "2026-10-24T14:32:11Z",
+          "price": 22
+        }
+      ]
+    },
+    {
+      "id": "auger-aliassime",
+      "name": "Félix Auger-Aliassime",
+      "cc": "CAN",
+      "rank": 5,
+      "seed": null,
+      "tag": "",
+      "price": 28,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "withdrawn",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 28
+        }
+      ]
+    },
+    {
+      "id": "fonseca",
+      "name": "João Fonseca",
+      "cc": "BRA",
+      "rank": 29,
+      "seed": null,
+      "tag": "",
+      "price": 15,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "withdrawn",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 15
+        }
+      ]
+    },
+    {
+      "id": "collignon",
+      "name": "Raphaël Collignon",
+      "cc": "BEL",
+      "rank": 48,
+      "seed": null,
+      "tag": "",
+      "price": 13,
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "withdrawn",
+      "prices": [
+        {
+          "from": "2026-10-21T12:00:00Z",
+          "price": 11
+        },
+        {
+          "from": "2026-10-22T08:41:00Z",
+          "price": 13
+        }
+      ]
+    },
+    {
+      "id": "kovacevic",
+      "name": "Aleksandar Kovacevic",
+      "cc": "USA",
+      "rank": null,
+      "seed": null,
+      "tag": "LL",
+      "price": 8,
+      "prices": [
+        {
+          "from": "2026-10-26T06:42:43Z",
+          "price": 8
+        }
+      ],
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "out"
+    },
+    {
+      "id": "mpetshi-perricard",
+      "name": "Giovanni Mpetshi Perricard",
+      "cc": "FRA",
+      "rank": null,
+      "seed": null,
+      "tag": "Q",
+      "price": 9,
+      "prices": [
+        {
+          "from": "2026-10-26T06:42:43Z",
+          "price": 9
+        }
+      ],
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "out"
+    },
+    {
+      "id": "hijikata",
+      "name": "Rinky Hijikata",
+      "cc": "AUS",
+      "rank": null,
+      "seed": null,
+      "tag": "LL",
+      "price": 8,
+      "prices": [
+        {
+          "from": "2026-10-26T06:42:43Z",
+          "price": 8
+        }
+      ],
+      "winProb": null,
+      "priceSource": "ranking",
+      "status": "entered"
     }
-   ]
-  },
-  {
-   "id": "davidovich-fokina",
-   "name": "Alejandro Davidovich Fokina",
-   "cc": "ESP",
-   "rank": 26,
-   "seed": 5,
-   "tag": "",
-   "price": 16,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "withdrawn",
-   "prices": [
+  ],
+  "bestOf": 3,
+  "tracksUE": false,
+  "format": "knockout",
+  "matches": [
     {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 15
+      "id": "R32-1",
+      "round": 0,
+      "a": "shelton",
+      "b": "kovacevic",
+      "status": "done",
+      "start": "2026-10-27T17:00:00Z",
+      "winner": "shelton",
+      "sets": [
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
     },
     {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 17
+      "id": "R32-2",
+      "round": 0,
+      "a": "kym",
+      "b": "rinderknech",
+      "status": "done",
+      "start": "2026-10-27T12:30:00Z",
+      "winner": "kym",
+      "sets": [
+        [
+          7,
+          6
+        ],
+        [
+          6,
+          4
+        ]
+      ],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
     },
     {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 16
+      "id": "R32-3",
+      "round": 0,
+      "a": "altmaier",
+      "b": "cerundolo",
+      "status": "done",
+      "start": "2026-10-26T14:00:00Z",
+      "winner": "altmaier",
+      "sets": [
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          6,
+          4
+        ]
+      ],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-4",
+      "round": 0,
+      "a": "wawrinka",
+      "b": "lehecka",
+      "status": "scheduled",
+      "start": "2026-10-27T18:30:00Z",
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-5",
+      "round": 0,
+      "a": "djokovic",
+      "b": "humbert",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-6",
+      "round": 0,
+      "a": "hanfmann",
+      "b": "struff",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-7",
+      "round": 0,
+      "a": "brunold",
+      "b": "borges",
+      "status": "done",
+      "start": "2026-10-26T12:30:00Z",
+      "winner": "borges",
+      "sets": [
+        [
+          3,
+          6
+        ],
+        [
+          1,
+          6
+        ]
+      ],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-8",
+      "round": 0,
+      "a": "stricker",
+      "b": "ruud",
+      "status": "done",
+      "start": "2026-10-26T19:00:00Z",
+      "winner": "ruud",
+      "sets": [
+        [
+          6,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          3,
+          6
+        ]
+      ],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-9",
+      "round": 0,
+      "a": "hurkacz",
+      "b": "bergs",
+      "status": "done",
+      "start": "2026-10-27T11:00:00Z",
+      "winner": "hurkacz",
+      "sets": [
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          4
+        ]
+      ],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-10",
+      "round": 0,
+      "a": "rune",
+      "b": "halys",
+      "status": "done",
+      "start": "2026-10-26T14:00:00Z",
+      "winner": "rune",
+      "sets": [
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          7
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-11",
+      "round": 0,
+      "a": "vacherot",
+      "b": "navone",
+      "status": "done",
+      "start": "2026-10-26T12:30:00Z",
+      "winner": "vacherot",
+      "sets": [
+        [
+          6,
+          3
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-12",
+      "round": 0,
+      "a": "tabilo",
+      "b": "jodar",
+      "status": "done",
+      "start": "2026-10-27T13:00:00Z",
+      "winner": "jodar",
+      "sets": [
+        [
+          4,
+          6
+        ],
+        [
+          2,
+          6
+        ]
+      ],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-13",
+      "round": 0,
+      "a": "fritz",
+      "b": "hijikata",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-14",
+      "round": 0,
+      "a": "bertola",
+      "b": "shapovalov",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-15",
+      "round": 0,
+      "a": "michelsen",
+      "b": "van-de-zandschulp",
+      "status": "scheduled",
+      "start": "2026-10-27T14:00:00Z",
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R32-16",
+      "round": 0,
+      "a": "mpetshi-perricard",
+      "b": "fils",
+      "status": "done",
+      "start": "2026-10-27T14:30:00Z",
+      "winner": "fils",
+      "sets": [
+        [
+          6,
+          7
+        ],
+        [
+          5,
+          7
+        ]
+      ],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R16-4",
+      "round": 1,
+      "a": "borges",
+      "b": "ruud",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R16-1",
+      "round": 1,
+      "a": "shelton",
+      "b": "kym",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R16-5",
+      "round": 1,
+      "a": "hurkacz",
+      "b": "rune",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R16-6",
+      "round": 1,
+      "a": "vacherot",
+      "b": "jodar",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
     }
-   ]
-  },
-  {
-   "id": "bergs",
-   "name": "Zizou Bergs",
-   "cc": "BEL",
-   "rank": 38,
-   "seed": null,
-   "tag": "",
-   "price": 14,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
+  ],
+  "sources": [
     {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 13
+      "label": "ATP Tour",
+      "url": "https://www.atptour.com/en/scores/current"
     },
     {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 15
+      "label": "Polymarket (official ATP prediction market)",
+      "url": "https://polymarket.com/sports/tennis"
     },
     {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 14
+      "label": "blue News: Auger-Aliassime and Fonseca withdraw",
+      "url": "https://www.bluewin.ch/en/sport/auger-aliassime-will-miss-the-swiss-indoors-li.3639752"
+    },
+    {
+      "label": "blue News: Stricker and Kym get wildcards",
+      "url": "https://www.bluewin.ch/en/sport/stricker-and-kym-will-also-receive-a-wild-card-for-basel-li.3641355"
+    },
+    {
+      "label": "Spazio Tennis: Basel draw",
+      "url": "https://www.spaziotennis.com/news/tabellone-atp-500-basilea-2026-tutti-accoppiamenti-djokovic-fils-caccia-finals/145358"
+    },
+    {
+      "label": "ATP Tour: Basel draw preview",
+      "url": "https://www.atptour.com/en/news/djokovic-basel-2026-draw-preview"
     }
-   ]
-  },
-  {
-   "id": "rune",
-   "name": "Holger Rune",
-   "cc": "DEN",
-   "rank": 188,
-   "seed": null,
-   "tag": "PR",
-   "price": 11,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "in",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 10
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 12
-    },
-    {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 11
-    }
-   ]
-  },
-  {
-   "id": "halys",
-   "name": "Quentin Halys",
-   "cc": "FRA",
-   "rank": 50,
-   "tag": "",
-   "price": 12,
-   "prices": [
-    {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 12
-    }
-   ],
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "out",
-   "seed": null
-  },
-  {
-   "id": "vacherot",
-   "name": "Valentin Vacherot",
-   "cc": "MON",
-   "rank": 14,
-   "seed": null,
-   "tag": "",
-   "price": 21,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "in",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 20
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 21
-    }
-   ]
-  },
-  {
-   "id": "navone",
-   "name": "Mariano Navone",
-   "cc": "ARG",
-   "rank": 45,
-   "seed": null,
-   "tag": "",
-   "price": 13,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "out",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 12
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 14
-    },
-    {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 13
-    }
-   ]
-  },
-  {
-   "id": "tabilo",
-   "name": "Alejandro Tabilo",
-   "cc": "CHI",
-   "rank": 31,
-   "seed": null,
-   "tag": "",
-   "price": 15,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 14
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 16
-    },
-    {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 15
-    }
-   ]
-  },
-  {
-   "id": "jodar",
-   "name": "Rafael Jódar",
-   "cc": "ESP",
-   "rank": 13,
-   "seed": 3,
-   "tag": "",
-   "price": 21,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 20
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 22
-    },
-    {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 21
-    }
-   ]
-  },
-  {
-   "id": "fritz",
-   "name": "Taylor Fritz",
-   "cc": "USA",
-   "rank": 12,
-   "seed": 6,
-   "tag": "",
-   "price": 22,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 21
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 22
-    }
-   ]
-  },
-  {
-   "id": "tsitsipas",
-   "name": "Stefanos Tsitsipas",
-   "cc": "GRE",
-   "rank": 44,
-   "seed": null,
-   "tag": "",
-   "price": 13,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "withdrawn",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 12
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 14
-    },
-    {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 13
-    }
-   ]
-  },
-  {
-   "id": "bertola",
-   "name": "Rémy Bertola",
-   "cc": "SUI",
-   "rank": 219,
-   "seed": null,
-   "tag": "Q",
-   "price": 6,
-   "prices": [
-    {
-     "from": "2026-10-25T21:37:44Z",
-     "price": 6
-    }
-   ],
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered"
-  },
-  {
-   "id": "shapovalov",
-   "name": "Denis Shapovalov",
-   "cc": "CAN",
-   "rank": 46,
-   "seed": null,
-   "tag": "",
-   "price": 13,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 12
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 14
-    },
-    {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 13
-    }
-   ]
-  },
-  {
-   "id": "michelsen",
-   "name": "Alex Michelsen",
-   "cc": "USA",
-   "rank": 34,
-   "seed": null,
-   "tag": "",
-   "price": 15,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 14
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 15
-    }
-   ]
-  },
-  {
-   "id": "van-de-zandschulp",
-   "name": "Botic van de Zandschulp",
-   "cc": "NED",
-   "rank": 41,
-   "seed": null,
-   "tag": "",
-   "price": 13,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 12
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 14
-    },
-    {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 13
-    }
-   ]
-  },
-  {
-   "id": "hurkacz",
-   "name": "Hubert Hurkacz",
-   "cc": "POL",
-   "rank": 39,
-   "seed": null,
-   "tag": "",
-   "price": 14,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 13
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 14
-    }
-   ]
-  },
-  {
-   "id": "fils",
-   "name": "Arthur Fils",
-   "cc": "FRA",
-   "rank": 11,
-   "seed": 2,
-   "tag": "",
-   "price": 22,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 22
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 23
-    },
-    {
-     "from": "2026-10-24T14:32:11Z",
-     "price": 22
-    }
-   ]
-  },
-  {
-   "id": "auger-aliassime",
-   "name": "Félix Auger-Aliassime",
-   "cc": "CAN",
-   "rank": 5,
-   "seed": null,
-   "tag": "",
-   "price": 28,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "withdrawn",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 28
-    }
-   ]
-  },
-  {
-   "id": "fonseca",
-   "name": "João Fonseca",
-   "cc": "BRA",
-   "rank": 29,
-   "seed": null,
-   "tag": "",
-   "price": 15,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "withdrawn",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 15
-    }
-   ]
-  },
-  {
-   "id": "collignon",
-   "name": "Raphaël Collignon",
-   "cc": "BEL",
-   "rank": 48,
-   "seed": null,
-   "tag": "",
-   "price": 13,
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "withdrawn",
-   "prices": [
-    {
-     "from": "2026-10-21T12:00:00Z",
-     "price": 11
-    },
-    {
-     "from": "2026-10-22T08:41:00Z",
-     "price": 13
-    }
-   ]
-  },
-  {
-   "id": "kovacevic",
-   "name": "Aleksandar Kovacevic",
-   "cc": "USA",
-   "rank": null,
-   "seed": null,
-   "tag": "LL",
-   "price": 8,
-   "prices": [
-    {
-     "from": "2026-10-26T06:42:43Z",
-     "price": 8
-    }
-   ],
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered"
-  },
-  {
-   "id": "mpetshi-perricard",
-   "name": "Giovanni Mpetshi Perricard",
-   "cc": "FRA",
-   "rank": null,
-   "seed": null,
-   "tag": "Q",
-   "price": 9,
-   "prices": [
-    {
-     "from": "2026-10-26T06:42:43Z",
-     "price": 9
-    }
-   ],
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered"
-  },
-  {
-   "id": "hijikata",
-   "name": "Rinky Hijikata",
-   "cc": "AUS",
-   "rank": null,
-   "seed": null,
-   "tag": "LL",
-   "price": 8,
-   "prices": [
-    {
-     "from": "2026-10-26T06:42:43Z",
-     "price": 8
-    }
-   ],
-   "winProb": null,
-   "priceSource": "ranking",
-   "status": "entered"
-  }
- ],
- "bestOf": 3,
- "tracksUE": false,
- "format": "knockout",
- "matches": [
-  {
-   "id": "R32-1",
-   "round": 0,
-   "a": "shelton",
-   "b": "kovacevic",
-   "status": "scheduled",
-   "start": "2026-10-27T17:00:00Z",
-   "winner": null,
-   "sets": [],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-2",
-   "round": 0,
-   "a": "kym",
-   "b": "rinderknech",
-   "status": "scheduled",
-   "start": "2026-10-27T12:30:00Z",
-   "winner": null,
-   "sets": [],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-3",
-   "round": 0,
-   "a": "altmaier",
-   "b": "cerundolo",
-   "status": "done",
-   "start": "2026-10-26T14:00:00Z",
-   "winner": "altmaier",
-   "sets": [
-    [
-     6,
-     7
-    ],
-    [
-     7,
-     6
-    ],
-    [
-     6,
-     4
-    ]
-   ],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-4",
-   "round": 0,
-   "a": "wawrinka",
-   "b": "lehecka",
-   "status": "scheduled",
-   "start": "2026-10-27T18:30:00Z",
-   "winner": null,
-   "sets": [],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-5",
-   "round": 0,
-   "a": "djokovic",
-   "b": "humbert",
-   "status": "scheduled",
-   "start": null,
-   "winner": null,
-   "sets": [],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-6",
-   "round": 0,
-   "a": "hanfmann",
-   "b": "struff",
-   "status": "scheduled",
-   "start": null,
-   "winner": null,
-   "sets": [],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-7",
-   "round": 0,
-   "a": "brunold",
-   "b": "borges",
-   "status": "done",
-   "start": "2026-10-26T12:30:00Z",
-   "winner": "borges",
-   "sets": [
-    [
-     3,
-     6
-    ],
-    [
-     1,
-     6
-    ]
-   ],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-8",
-   "round": 0,
-   "a": "stricker",
-   "b": "ruud",
-   "status": "done",
-   "start": "2026-10-26T19:00:00Z",
-   "winner": "ruud",
-   "sets": [
-    [
-     6,
-     4
-    ],
-    [
-     5,
-     7
-    ],
-    [
-     3,
-     6
-    ]
-   ],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-9",
-   "round": 0,
-   "a": "hurkacz",
-   "b": "bergs",
-   "status": "scheduled",
-   "start": "2026-10-27T11:00:00Z",
-   "winner": null,
-   "sets": [],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-10",
-   "round": 0,
-   "a": "rune",
-   "b": "halys",
-   "status": "done",
-   "start": "2026-10-26T14:00:00Z",
-   "winner": "rune",
-   "sets": [
-    [
-     6,
-     4
-    ],
-    [
-     6,
-     7
-    ],
-    [
-     7,
-     6
-    ]
-   ],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-11",
-   "round": 0,
-   "a": "vacherot",
-   "b": "navone",
-   "status": "done",
-   "start": "2026-10-26T12:30:00Z",
-   "winner": "vacherot",
-   "sets": [
-    [
-     6,
-     3
-    ],
-    [
-     7,
-     6
-    ]
-   ],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-12",
-   "round": 0,
-   "a": "tabilo",
-   "b": "jodar",
-   "status": "scheduled",
-   "start": "2026-10-27T13:00:00Z",
-   "winner": null,
-   "sets": [],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-13",
-   "round": 0,
-   "a": "fritz",
-   "b": "hijikata",
-   "status": "scheduled",
-   "start": null,
-   "winner": null,
-   "sets": [],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-14",
-   "round": 0,
-   "a": "bertola",
-   "b": "shapovalov",
-   "status": "scheduled",
-   "start": null,
-   "winner": null,
-   "sets": [],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-15",
-   "round": 0,
-   "a": "michelsen",
-   "b": "van-de-zandschulp",
-   "status": "scheduled",
-   "start": "2026-10-27T14:00:00Z",
-   "winner": null,
-   "sets": [],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R32-16",
-   "round": 0,
-   "a": "mpetshi-perricard",
-   "b": "fils",
-   "status": "scheduled",
-   "start": "2026-10-27T14:30:00Z",
-   "winner": null,
-   "sets": [],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  },
-  {
-   "id": "R16-4",
-   "round": 1,
-   "a": "borges",
-   "b": "ruud",
-   "status": "scheduled",
-   "start": null,
-   "winner": null,
-   "sets": [],
-   "ret": false,
-   "wo": false,
-   "odds": null,
-   "stats": null
-  }
- ],
- "sources": [
-  {
-   "label": "ATP Tour",
-   "url": "https://www.atptour.com/en/scores/current"
-  },
-  {
-   "label": "Polymarket (official ATP prediction market)",
-   "url": "https://polymarket.com/sports/tennis"
-  },
-  {
-   "label": "blue News: Auger-Aliassime and Fonseca withdraw",
-   "url": "https://www.bluewin.ch/en/sport/auger-aliassime-will-miss-the-swiss-indoors-li.3639752"
-  },
-  {
-   "label": "blue News: Stricker and Kym get wildcards",
-   "url": "https://www.bluewin.ch/en/sport/stricker-and-kym-will-also-receive-a-wild-card-for-basel-li.3641355"
-  },
-  {
-   "label": "Spazio Tennis: Basel draw",
-   "url": "https://www.spaziotennis.com/news/tabellone-atp-500-basilea-2026-tutti-accoppiamenti-djokovic-fils-caccia-finals/145358"
-  },
-  {
-   "label": "ATP Tour: Basel draw preview",
-   "url": "https://www.atptour.com/en/news/djokovic-basel-2026-draw-preview"
-  }
- ],
- "updatedAt": "2026-10-27T07:37:18Z",
- "drawSize": 32
+  ],
+  "updatedAt": "2026-10-27T07:37:18Z",
+  "drawSize": 32
 }
