@@ -71,7 +71,7 @@
    "price": 18,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "in",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -329,7 +329,7 @@
    "price": 6,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "out",
    "prices": [
     {
      "from": "2026-10-22T08:41:00Z",
@@ -989,10 +989,23 @@
    "round": 0,
    "a": "stricker",
    "b": "ruud",
-   "status": "scheduled",
+   "status": "done",
    "start": "2026-10-26T19:00:00Z",
-   "winner": null,
-   "sets": [],
+   "winner": "ruud",
+   "sets": [
+    [
+     6,
+     4
+    ],
+    [
+     5,
+     7
+    ],
+    [
+     3,
+     6
+    ]
+   ],
    "ret": false,
    "wo": false,
    "odds": null,
@@ -1131,6 +1144,20 @@
    "wo": false,
    "odds": null,
    "stats": null
+  },
+  {
+   "id": "R16-4",
+   "round": 1,
+   "a": "borges",
+   "b": "ruud",
+   "status": "scheduled",
+   "start": null,
+   "winner": null,
+   "sets": [],
+   "ret": false,
+   "wo": false,
+   "odds": null,
+   "stats": null
   }
  ],
  "sources": [
@@ -1159,6 +1186,6 @@
    "url": "https://www.atptour.com/en/news/djokovic-basel-2026-draw-preview"
   }
  ],
- "updatedAt": "2026-10-27T07:36:57Z",
+ "updatedAt": "2026-10-27T07:37:18Z",
  "drawSize": 32
 }
