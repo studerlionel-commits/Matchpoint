@@ -285,7 +285,7 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "out",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -303,7 +303,7 @@
    "price": 16,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "in",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -545,7 +545,7 @@
    "price": 15,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "in",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -563,7 +563,7 @@
    "price": 11,
    "winProb": null,
    "priceSource": "ranking",
-   "status": "entered",
+   "status": "out",
    "prices": [
     {
      "from": "2026-10-21T12:00:00Z",
@@ -773,10 +773,19 @@
    "round": 0,
    "a": "van-assche",
    "b": "tien",
-   "status": "scheduled",
+   "status": "done",
    "start": "2026-10-26T19:00:00Z",
-   "winner": null,
-   "sets": [],
+   "winner": "tien",
+   "sets": [
+    [
+     3,
+     6
+    ],
+    [
+     1,
+     6
+    ]
+   ],
    "ret": false,
    "wo": false,
    "odds": null,
@@ -893,10 +902,19 @@
    "round": 0,
    "a": "darderi",
    "b": "arnaldi",
-   "status": "scheduled",
+   "status": "done",
    "start": "2026-10-26T18:00:00Z",
-   "winner": null,
-   "sets": [],
+   "winner": "darderi",
+   "sets": [
+    [
+     7,
+     5
+    ],
+    [
+     6,
+     2
+    ]
+   ],
    "ret": false,
    "wo": false,
    "odds": null,
@@ -929,6 +947,20 @@
    "wo": false,
    "odds": null,
    "stats": null
+  },
+  {
+   "id": "R16-4",
+   "round": 1,
+   "a": "tien",
+   "b": "de-minaur",
+   "status": "scheduled",
+   "start": null,
+   "winner": null,
+   "sets": [],
+   "ret": false,
+   "wo": false,
+   "odds": null,
+   "stats": null
   }
  ],
  "sources": [
@@ -949,6 +981,6 @@
    "url": "https://www.tennisnet.com/news/erste-bank-open-alcaraz-startet-gegen-zverev-muss-gegen"
   }
  ],
- "updatedAt": "2026-10-27T07:36:57Z",
+ "updatedAt": "2026-10-27T09:41:56Z",
  "drawSize": 32
 }
