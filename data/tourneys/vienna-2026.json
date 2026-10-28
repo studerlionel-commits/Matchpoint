@@ -303,7 +303,7 @@
       "price": 16,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -365,7 +365,7 @@
       "price": 16,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1059,10 +1059,19 @@
       "round": 1,
       "a": "tien",
       "b": "de-minaur",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-28T19:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "de-minaur",
+      "sets": [
+        [
+          4,
+          6
+        ],
+        [
+          2,
+          6
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1101,10 +1110,19 @@
       "round": 1,
       "a": "mensik",
       "b": "mannarino",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-28T13:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "mannarino",
+      "sets": [
+        [
+          4,
+          6
+        ],
+        [
+          5,
+          7
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
