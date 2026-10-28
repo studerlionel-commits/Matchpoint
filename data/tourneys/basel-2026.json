@@ -661,7 +661,7 @@
       "price": 15,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "in",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -683,7 +683,7 @@
       "price": 13,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1175,10 +1175,23 @@
       "round": 0,
       "a": "michelsen",
       "b": "van-de-zandschulp",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-27T14:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "michelsen",
+      "sets": [
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          3
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1268,6 +1281,20 @@
       "round": 1,
       "a": "altmaier",
       "b": "lehecka",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R16-8",
+      "round": 1,
+      "a": "michelsen",
+      "b": "fils",
       "status": "scheduled",
       "start": null,
       "winner": null,
