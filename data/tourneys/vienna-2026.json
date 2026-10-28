@@ -590,7 +590,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "out",
       "seed": null
     },
     {
@@ -608,7 +608,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "in",
       "seed": null
     },
     {
@@ -1013,10 +1013,19 @@
       "round": 0,
       "a": "rodionov",
       "b": "basilashvili",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-28T16:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "basilashvili",
+      "sets": [
+        [
+          6,
+          7
+        ],
+        [
+          1,
+          6
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1134,6 +1143,20 @@
       "round": 1,
       "a": "norrie",
       "b": "medvedev",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R16-8",
+      "round": 1,
+      "a": "alcaraz",
+      "b": "basilashvili",
       "status": "scheduled",
       "start": null,
       "winner": null,
