@@ -71,7 +71,7 @@
       "price": 18,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -209,7 +209,7 @@
       "price": 25,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "in",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -231,7 +231,7 @@
       "price": 15,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -263,7 +263,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered"
+      "status": "out"
     },
     {
       "id": "struff",
@@ -280,7 +280,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "in",
       "seed": null
     },
     {
@@ -623,7 +623,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered"
+      "status": "out"
     },
     {
       "id": "shapovalov",
@@ -635,7 +635,7 @@
       "price": 13,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "in",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -969,10 +969,23 @@
       "round": 0,
       "a": "djokovic",
       "b": "humbert",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-28T14:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "djokovic",
+      "sets": [
+        [
+          4,
+          6
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          4
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -983,10 +996,19 @@
       "round": 0,
       "a": "hanfmann",
       "b": "struff",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-28T10:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "struff",
+      "sets": [
+        [
+          4,
+          6
+        ],
+        [
+          3,
+          6
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1161,10 +1183,19 @@
       "round": 0,
       "a": "bertola",
       "b": "shapovalov",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-28T11:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "shapovalov",
+      "sets": [
+        [
+          4,
+          6
+        ],
+        [
+          2,
+          6
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1225,10 +1256,23 @@
       "round": 1,
       "a": "borges",
       "b": "ruud",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-28T13:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "borges",
+      "sets": [
+        [
+          1,
+          6
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          6,
+          4
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1295,6 +1339,20 @@
       "round": 1,
       "a": "michelsen",
       "b": "fils",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R16-3",
+      "round": 1,
+      "a": "djokovic",
+      "b": "struff",
       "status": "scheduled",
       "start": null,
       "winner": null,
