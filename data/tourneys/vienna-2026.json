@@ -209,7 +209,7 @@
       "price": 22,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "in",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -232,7 +232,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "out",
       "seed": null
     },
     {
@@ -407,7 +407,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered"
+      "status": "in"
     },
     {
       "id": "buse",
@@ -419,7 +419,7 @@
       "price": 12,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -437,7 +437,7 @@
       "price": 11,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "in",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -455,7 +455,7 @@
       "price": 14,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -703,7 +703,7 @@
       "a": "griekspoor",
       "b": "nakashima",
       "status": "scheduled",
-      "start": null,
+      "start": "2026-10-28T12:30:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
@@ -736,7 +736,7 @@
       "a": "musetti",
       "b": "tiafoe",
       "status": "scheduled",
-      "start": null,
+      "start": "2026-10-28T14:00:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
@@ -749,10 +749,23 @@
       "round": 0,
       "a": "cobolli",
       "b": "dimitrov",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-27T19:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "cobolli",
+      "sets": [
+        [
+          6,
+          4
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          3
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -859,10 +872,23 @@
       "round": 0,
       "a": "mannarino",
       "b": "buse",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-27T14:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "mannarino",
+      "sets": [
+        [
+          0,
+          6
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          6,
+          4
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -873,10 +899,19 @@
       "round": 0,
       "a": "norrie",
       "b": "cerundolo",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-27T15:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "norrie",
+      "sets": [
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          1
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -888,7 +923,7 @@
       "a": "merida",
       "b": "medvedev",
       "status": "scheduled",
-      "start": null,
+      "start": "2026-10-28T12:30:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
@@ -904,7 +939,16 @@
       "status": "done",
       "start": "2026-10-27T12:30:00Z",
       "winner": "paul",
-      "sets": [],
+      "sets": [
+        [
+          7,
+          5
+        ],
+        [
+          6,
+          2
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -939,7 +983,7 @@
       "a": "rodionov",
       "b": "basilashvili",
       "status": "scheduled",
-      "start": null,
+      "start": "2026-10-28T16:30:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
@@ -976,7 +1020,7 @@
       "a": "tien",
       "b": "de-minaur",
       "status": "scheduled",
-      "start": null,
+      "start": "2026-10-28T19:00:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
@@ -991,6 +1035,34 @@
       "b": "darderi",
       "status": "scheduled",
       "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R16-3",
+      "round": 1,
+      "a": "cobolli",
+      "b": "berrettini",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R16-5",
+      "round": 1,
+      "a": "mensik",
+      "b": "mannarino",
+      "status": "scheduled",
+      "start": "2026-10-28T13:30:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
