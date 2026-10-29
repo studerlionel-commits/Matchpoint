@@ -209,7 +209,7 @@
       "price": 25,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1410,10 +1410,23 @@
       "round": 1,
       "a": "djokovic",
       "b": "struff",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-29T13:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "struff",
+      "sets": [
+        [
+          7,
+          6
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          7
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1461,6 +1474,20 @@
       "round": 2,
       "a": "fritz",
       "b": "fils",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "QF-2",
+      "round": 2,
+      "a": "struff",
+      "b": "borges",
       "status": "scheduled",
       "start": null,
       "winner": null,
