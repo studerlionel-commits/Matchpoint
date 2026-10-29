@@ -89,7 +89,7 @@
       "price": 9,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -169,7 +169,7 @@
       "price": 13,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -437,7 +437,7 @@
       "price": 11,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -608,7 +608,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "seed": null
     },
     {
@@ -1142,10 +1142,19 @@
       "round": 1,
       "a": "zverev",
       "b": "griekspoor",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-29T16:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "zverev",
+      "sets": [
+        [
+          6,
+          4
+        ],
+        [
+          7,
+          5
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1156,10 +1165,23 @@
       "round": 1,
       "a": "fery",
       "b": "musetti",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-29T16:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "fery",
+      "sets": [
+        [
+          6,
+          4
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          6,
+          4
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1170,10 +1192,23 @@
       "round": 1,
       "a": "norrie",
       "b": "medvedev",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-29T12:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "medvedev",
+      "sets": [
+        [
+          6,
+          4
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          7
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1184,8 +1219,59 @@
       "round": 1,
       "a": "alcaraz",
       "b": "basilashvili",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-29T14:00:00Z",
+      "winner": "alcaraz",
+      "sets": [
+        [
+          6,
+          1
+        ],
+        [
+          7,
+          6
+        ]
+      ],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "QF-1",
+      "round": 2,
+      "a": "zverev",
+      "b": "fery",
+      "status": "scheduled",
+      "start": "2026-10-30T16:30:00Z",
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "QF-3",
+      "round": 2,
+      "a": "mannarino",
+      "b": "medvedev",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "QF-4",
+      "round": 2,
+      "a": "paul",
+      "b": "alcaraz",
+      "status": "scheduled",
+      "start": null,
       "winner": null,
       "sets": [],
       "ret": false,

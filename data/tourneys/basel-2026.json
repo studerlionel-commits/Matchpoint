@@ -139,7 +139,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in"
+      "status": "out"
     },
     {
       "id": "cerundolo",
@@ -635,7 +635,7 @@
       "price": 13,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1360,10 +1360,19 @@
       "round": 1,
       "a": "altmaier",
       "b": "lehecka",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-29T10:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "lehecka",
+      "sets": [
+        [
+          5,
+          7
+        ],
+        [
+          4,
+          6
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1415,10 +1424,19 @@
       "round": 1,
       "a": "fritz",
       "b": "shapovalov",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-29T13:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "fritz",
+      "sets": [
+        [
+          6,
+          4
+        ],
+        [
+          6,
+          3
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1429,6 +1447,20 @@
       "round": 2,
       "a": "rune",
       "b": "vacherot",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "QF-4",
+      "round": 2,
+      "a": "fritz",
+      "b": "fils",
       "status": "scheduled",
       "start": null,
       "winner": null,
