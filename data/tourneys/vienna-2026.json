@@ -545,7 +545,7 @@
       "price": 15,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1082,10 +1082,19 @@
       "round": 1,
       "a": "paul",
       "b": "darderi",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-29T12:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "paul",
+      "sets": [
+        [
+          6,
+          1
+        ],
+        [
+          6,
+          1
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
