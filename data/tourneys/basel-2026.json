@@ -569,7 +569,7 @@
       "price": 22,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered",
+      "status": "in",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -709,7 +709,7 @@
       "price": 14,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -857,7 +857,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "entered"
+      "status": "out"
     }
   ],
   "bestOf": 3,
@@ -1169,10 +1169,19 @@
       "round": 0,
       "a": "fritz",
       "b": "hijikata",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-28T17:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "fritz",
+      "sets": [
+        [
+          6,
+          4
+        ],
+        [
+          7,
+          6
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1284,7 +1293,7 @@
       "a": "shelton",
       "b": "kym",
       "status": "scheduled",
-      "start": null,
+      "start": "2026-10-29T13:00:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
@@ -1297,10 +1306,23 @@
       "round": 1,
       "a": "hurkacz",
       "b": "rune",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-28T18:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "rune",
+      "sets": [
+        [
+          6,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          7
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1312,7 +1334,7 @@
       "a": "vacherot",
       "b": "jodar",
       "status": "scheduled",
-      "start": null,
+      "start": "2026-10-29T13:00:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
@@ -1326,7 +1348,7 @@
       "a": "altmaier",
       "b": "lehecka",
       "status": "scheduled",
-      "start": null,
+      "start": "2026-10-29T10:00:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
@@ -1340,7 +1362,7 @@
       "a": "michelsen",
       "b": "fils",
       "status": "scheduled",
-      "start": null,
+      "start": "2026-10-29T10:00:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
@@ -1354,7 +1376,21 @@
       "a": "djokovic",
       "b": "struff",
       "status": "scheduled",
-      "start": null,
+      "start": "2026-10-29T13:00:00Z",
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "R16-7",
+      "round": 1,
+      "a": "fritz",
+      "b": "shapovalov",
+      "status": "scheduled",
+      "start": "2026-10-29T13:00:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
