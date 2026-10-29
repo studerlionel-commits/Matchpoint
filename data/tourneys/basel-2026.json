@@ -661,7 +661,7 @@
       "price": 15,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1374,10 +1374,23 @@
       "round": 1,
       "a": "michelsen",
       "b": "fils",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-29T10:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "fils",
+      "sets": [
+        [
+          6,
+          4
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          7
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
