@@ -129,7 +129,7 @@
       "price": 11,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1247,10 +1247,19 @@
       "round": 2,
       "a": "zverev",
       "b": "fery",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-30T16:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "zverev",
+      "sets": [
+        [
+          6,
+          0
+        ],
+        [
+          6,
+          2
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
