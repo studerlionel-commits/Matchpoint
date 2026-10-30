@@ -316,7 +316,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "seed": null
     },
     {
@@ -1523,10 +1523,19 @@
       "round": 2,
       "a": "struff",
       "b": "borges",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-30T17:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "struff",
+      "sets": [
+        [
+          6,
+          2
+        ],
+        [
+          6,
+          3
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1560,6 +1569,20 @@
       "round": 3,
       "a": "vacherot",
       "b": "fritz",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "SF-1",
+      "round": 3,
+      "a": "lehecka",
+      "b": "struff",
       "status": "scheduled",
       "start": null,
       "winner": null,
