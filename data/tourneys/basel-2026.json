@@ -731,7 +731,7 @@
       "price": 22,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1500,11 +1500,20 @@
       "round": 2,
       "a": "fritz",
       "b": "fils",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-30T15:00:00Z",
-      "winner": null,
-      "sets": [],
-      "ret": false,
+      "winner": "fritz",
+      "sets": [
+        [
+          6,
+          2
+        ],
+        [
+          2,
+          0
+        ]
+      ],
+      "ret": true,
       "wo": false,
       "odds": null,
       "stats": null
@@ -1530,6 +1539,20 @@
       "b": "lehecka",
       "status": "scheduled",
       "start": "2026-10-30T19:00:00Z",
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "SF-2",
+      "round": 3,
+      "a": "vacherot",
+      "b": "fritz",
+      "status": "scheduled",
+      "start": null,
       "winner": null,
       "sets": [],
       "ret": false,

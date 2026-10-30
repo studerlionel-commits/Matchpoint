@@ -509,7 +509,7 @@
       "price": 17,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1284,10 +1284,19 @@
       "round": 2,
       "a": "paul",
       "b": "alcaraz",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-30T14:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "alcaraz",
+      "sets": [
+        [
+          4,
+          6
+        ],
+        [
+          6,
+          7
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1300,6 +1309,20 @@
       "b": "de-minaur",
       "status": "scheduled",
       "start": "2026-10-30T19:00:00Z",
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "SF-2",
+      "round": 3,
+      "a": "medvedev",
+      "b": "alcaraz",
+      "status": "scheduled",
+      "start": null,
       "winner": null,
       "sets": [],
       "ret": false,
