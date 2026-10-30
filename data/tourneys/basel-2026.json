@@ -425,7 +425,7 @@
       "price": 11,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1473,10 +1473,23 @@
       "round": 2,
       "a": "rune",
       "b": "vacherot",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-30T13:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "vacherot",
+      "sets": [
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          3
+        ],
+        [
+          3,
+          6
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,

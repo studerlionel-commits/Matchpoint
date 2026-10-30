@@ -407,7 +407,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in"
+      "status": "out"
     },
     {
       "id": "buse",
@@ -1261,10 +1261,19 @@
       "round": 2,
       "a": "mannarino",
       "b": "medvedev",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-30T12:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "medvedev",
+      "sets": [
+        [
+          2,
+          6
+        ],
+        [
+          3,
+          6
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
