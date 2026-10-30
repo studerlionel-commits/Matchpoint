@@ -53,7 +53,7 @@
       "price": 30,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1292,10 +1292,23 @@
       "round": 1,
       "a": "shelton",
       "b": "kym",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-29T13:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "kym",
+      "sets": [
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          6
+        ],
+        [
+          6,
+          7
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1490,6 +1503,20 @@
       "b": "borges",
       "status": "scheduled",
       "start": "2026-10-30T17:00:00Z",
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "QF-1",
+      "round": 2,
+      "a": "kym",
+      "b": "lehecka",
+      "status": "scheduled",
+      "start": "2026-10-30T19:00:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
