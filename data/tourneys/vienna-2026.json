@@ -250,7 +250,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "seed": null
     },
     {
@@ -1316,10 +1316,19 @@
       "round": 2,
       "a": "berrettini",
       "b": "de-minaur",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-10-30T19:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "de-minaur",
+      "sets": [
+        [
+          6,
+          7
+        ],
+        [
+          2,
+          6
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1330,6 +1339,20 @@
       "round": 3,
       "a": "medvedev",
       "b": "alcaraz",
+      "status": "scheduled",
+      "start": null,
+      "winner": null,
+      "sets": [],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "SF-1",
+      "round": 3,
+      "a": "zverev",
+      "b": "de-minaur",
       "status": "scheduled",
       "start": null,
       "winner": null,
