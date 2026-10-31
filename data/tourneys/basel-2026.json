@@ -280,7 +280,7 @@
       ],
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "seed": null
     },
     {
@@ -569,7 +569,7 @@
       "price": 22,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1569,10 +1569,19 @@
       "round": 3,
       "a": "vacherot",
       "b": "fritz",
-      "status": "scheduled",
+      "status": "done",
       "start": null,
-      "winner": null,
-      "sets": [],
+      "winner": "vacherot",
+      "sets": [
+        [
+          7,
+          6
+        ],
+        [
+          6,
+          3
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
@@ -1583,8 +1592,35 @@
       "round": 3,
       "a": "lehecka",
       "b": "struff",
-      "status": "scheduled",
+      "status": "done",
       "start": null,
+      "winner": "lehecka",
+      "sets": [
+        [
+          3,
+          6
+        ],
+        [
+          7,
+          5
+        ],
+        [
+          6,
+          4
+        ]
+      ],
+      "ret": false,
+      "wo": false,
+      "odds": null,
+      "stats": null
+    },
+    {
+      "id": "F",
+      "round": 4,
+      "a": "lehecka",
+      "b": "vacherot",
+      "status": "scheduled",
+      "start": "2026-11-01T14:30:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
