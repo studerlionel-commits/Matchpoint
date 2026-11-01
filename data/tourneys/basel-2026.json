@@ -8,7 +8,7 @@
   "start": "2026-10-26",
   "end": "2026-11-01",
   "dates": "26 Oct – 1 Nov 2026",
-  "status": "live",
+  "status": "finished",
   "note": "Draw is complete. Monday: Vacherot v Navone, Rune v Halys, Stricker v Ruud (not before 20:00 local), Brunold v Borges, Altmaier v Cerundolo. Rankings of the qualifiers and lucky losers are not yet in the data, so their prices are estimates. Prices follow ATP rankings until Polymarket opens markets.",
   "rounds": [
     {
@@ -187,7 +187,7 @@
       "price": 20,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1619,10 +1619,23 @@
       "round": 4,
       "a": "lehecka",
       "b": "vacherot",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-11-01T14:30:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "vacherot",
+      "sets": [
+        [
+          6,
+          2
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          3,
+          6
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,

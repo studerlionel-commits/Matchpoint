@@ -8,7 +8,7 @@
   "start": "2026-10-26",
   "end": "2026-11-01",
   "dates": "26 Oct – 1 Nov 2026",
-  "status": "live",
+  "status": "finished",
   "note": "Draw is complete. Monday: Berrettini v Etcheverry, Fery v Fearnley, Mensik v Neumayer, Van Assche v Tien. Blockx is not in the draw. Prices follow ATP rankings until Polymarket opens markets.",
   "rounds": [
     {
@@ -343,7 +343,7 @@
       "price": 20,
       "winProb": null,
       "priceSource": "ranking",
-      "status": "in",
+      "status": "out",
       "prices": [
         {
           "from": "2026-10-21T12:00:00Z",
@@ -1389,10 +1389,19 @@
       "round": 4,
       "a": "de-minaur",
       "b": "alcaraz",
-      "status": "scheduled",
+      "status": "done",
       "start": "2026-11-01T13:00:00Z",
-      "winner": null,
-      "sets": [],
+      "winner": "alcaraz",
+      "sets": [
+        [
+          1,
+          6
+        ],
+        [
+          4,
+          6
+        ]
+      ],
       "ret": false,
       "wo": false,
       "odds": null,
