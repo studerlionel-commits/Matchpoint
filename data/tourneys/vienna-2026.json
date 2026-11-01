@@ -1390,7 +1390,7 @@
       "a": "de-minaur",
       "b": "alcaraz",
       "status": "scheduled",
-      "start": null,
+      "start": "2026-11-01T13:00:00Z",
       "winner": null,
       "sets": [],
       "ret": false,
